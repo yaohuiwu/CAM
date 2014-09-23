@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.cbam</groupId>
+	<artifactId>cbam-aggregator</artifactId>
+	<version>1.0b</version>
+
+	<packaging>pom</packaging>
+
+    <modules>
+        <module>cbam-core</module>
+    </modules>
+
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- dependencies versions -->
+        <version.slf4j>1.7.5</version.slf4j>
+
+        <version.c3p0>6.1.14</version.c3p0>
+
+        <jdbc.groupId>mysql</jdbc.groupId>
+        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+        <version.jdbc>5.1.27</version.jdbc>
+
+        <version.commons.dbcp>1.4</version.commons.dbcp>
+        <version.commons.lang>2.6</version.commons.lang>
+
+        <version.guava>17.0</version.guava>
+
+        <version.junit>4.11</version.junit>
+        <version.mockito>1.9.5</version.mockito>
+
+        <!-- plugin versions -->
+        <version.maven-enforcer-plugin>1.0.1</version.maven-enforcer-plugin>
+
+        <!-- globals-->
+        <version.min.maven>3.2.1</version.min.maven>
+        <version.min.java>1.7</version.min.java>
+	</properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- slf4j log config dependencies -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${jdbc.groupId}</groupId>
+                <artifactId>${jdbc.artifactId}</artifactId>
+                <version>${version.jdbc}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.3.2</version>
+			</dependency>
+            <!-- google -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${version.guava}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${version.mockito}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${version.maven-enforcer-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${version.min.java}</source>
+                        <target>${version.min.java}</target>
+                        <encoding>UTF8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>${version.min.maven}</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${version.min.java}</version>
+                                </requireJavaVersion>
+                                <!--<requireOS>-->
+                                    <!--<family>unix</family>-->
+                                <!--</requireOS>-->
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
