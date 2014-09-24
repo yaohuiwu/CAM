@@ -1,5 +1,7 @@
 package org.cbam.proxy.hibernate.handler;
 
+import org.cbam.core.CoreFactory;
+import org.cbam.core.parser.PermissionEvaluator;
 import org.cbam.proxy.hibernate.QueryFilter;
 import org.cbam.proxy.hibernate.QueryFilterImpl;
 import org.cbam.proxy.hibernate.QueryWrapper;
@@ -27,9 +29,13 @@ public class SessionInvocationHandler implements InvocationHandler{
     private QueryFilter queryFilter;
     private QueryFilter sqlQueryFilter;
 
+    private PermissionEvaluator evaluator ;
+
+
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
         sqlQueryFilter = new SQLQueryFilterImpl();
+        evaluator = CoreFactory.createPermissionEvaluator();
     }
 
     /**
