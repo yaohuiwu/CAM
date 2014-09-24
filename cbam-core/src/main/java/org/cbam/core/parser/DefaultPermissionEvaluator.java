@@ -4,6 +4,8 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cbam.core.Action;
+import org.cbam.core.Executable;
+import org.cbam.core.meta.domain.Permission;
 import org.cbam.core.parser.antlr.PermissionLexer;
 import org.cbam.core.parser.antlr.PermissionParser;
 
@@ -30,12 +32,14 @@ public class DefaultPermissionEvaluator implements PermissionEvaluator {
     }
 
     @Override
-    public boolean isPermit(Action action, String permission) {
+    public boolean isPermit(Executable executable, Permission permission) {
+        //TODO to be implemented.
         return false;
     }
 
     @Override
-    public boolean isAnyPermit(Action action, List<String> permissions) {
+    public boolean isAnyPermit(Executable executable, List<Permission> permissions) {
+        //TODO to be implemented.
         return false;
     }
 }

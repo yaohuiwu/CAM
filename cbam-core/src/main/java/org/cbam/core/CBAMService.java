@@ -9,29 +9,17 @@ public interface CBAMService {
 
     /**
      * Is an AuthorizationEntity is allowed.
-     * <p>
-     *      Perl style pseudo code.
-     *     <pre><code>
      *
-     *      my @user_roles = ();
-     *
-     *      for my permission (permissions) {
-     *
-     *      }
-     *      </code>
-     *      </pre>
-     * </p>
-     *
-     * @param entity
+     * @param userBehavior
      * @return
      */
-    public boolean isAllowed(UserBehavior entity);
+    public boolean isAllowed(UserBehavior userBehavior);
 
     /**
      * Is an AuthorizationEntity is not allowed.
      *
-     * @param entity
+     * @param userBehavior
      * @return
      */
-    public boolean isNotAllowed(UserBehavior entity);
+    public boolean isNotAllowed(UserBehavior userBehavior);
 }
