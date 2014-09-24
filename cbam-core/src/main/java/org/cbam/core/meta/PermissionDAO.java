@@ -1,6 +1,7 @@
 package org.cbam.core.meta;
 
 import org.cbam.core.meta.domain.Permission;
+import org.cbam.core.meta.domain.Role;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ import java.util.List;
 public interface PermissionDAO {
 
     List<Permission> getAllPermission();
+
+    List<Permission> getPermissionsOf(Role role);
 }

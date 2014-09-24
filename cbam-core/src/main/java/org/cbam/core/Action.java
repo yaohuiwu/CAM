@@ -3,7 +3,7 @@ package org.cbam.core;
 public class Action implements Executable{
 
     private final String name;
-    private final Object[] objects;
+    private Object[] objects;
 
     public Action(String name, Object[] objects) {
         this.name = name;

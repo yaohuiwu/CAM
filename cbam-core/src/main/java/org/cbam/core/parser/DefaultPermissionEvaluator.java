@@ -3,6 +3,7 @@ package org.cbam.core.parser;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.cbam.core.Action;
 import org.cbam.core.parser.antlr.PermissionLexer;
 import org.cbam.core.parser.antlr.PermissionParser;
 
@@ -29,30 +30,12 @@ public class DefaultPermissionEvaluator implements PermissionEvaluator {
     }
 
     @Override
-    public boolean isPermit(List<Object> objects, String permission) {
-        boolean allPermit = true;
-        if(objects!=null){
-            for(Object o : objects){
-                if(!isPermit(o,permission)){
-                    allPermit = false;
-                    break;
-                }
-            }
-        }
-        return allPermit;
+    public boolean isPermit(Action action, String permission) {
+        return false;
     }
 
     @Override
-    public boolean isPermit(Object object, List<String> permissions) {
-        boolean anyPermit = false;
-        if(permissions!=null){
-            for(String permission : permissions){
-                if(isPermit(object,permission)){
-                    anyPermit = true;
-                    break;
-                }
-            }
-        }
-        return anyPermit;
+    public boolean isAnyPermit(Action action, List<String> permissions) {
+        return false;
     }
 }

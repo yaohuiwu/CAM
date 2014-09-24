@@ -1,6 +1,9 @@
 package org.cbam.core.parser;
 
+import org.cbam.core.Action;
+import org.cbam.core.Executable;
 import org.cbam.core.meta.domain.Authorization;
+import org.cbam.core.meta.domain.Permission;
 
 import java.util.List;
 
@@ -23,21 +26,21 @@ public interface PermissionEvaluator {
     public boolean isPermit(Object object, String permission);
 
     /**
-     * Deal permission check for a list of object.
+     * Is given executable permit by given permission.
      *
-     * @param objects
+     * @param executable
      * @param permission
-     * @return true if all objects is permit , otherwise false
+     * @return true if it is permit , otherwise false
      */
-    public boolean isPermit(List<Object> objects, String permission);
+    public boolean isPermit(Executable executable, Permission permission);
 
     /**
-     * Decide if given object is permit by any of given permissions.
+     * Decide if given executable is permit by any of given permissions.
      *
-     * @param object
+     * @param executable
      * @param permissions
      * @return
      */
-    public boolean isPermit(Object object,List<String> permissions);
+    public boolean isAnyPermit(Executable executable,List<Permission> permissions);
 
 }

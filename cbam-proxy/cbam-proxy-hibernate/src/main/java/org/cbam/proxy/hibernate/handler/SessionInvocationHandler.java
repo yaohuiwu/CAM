@@ -5,6 +5,7 @@ import org.cbam.core.CBAMService;
 import org.cbam.core.CoreFactory;
 import org.cbam.core.UserBehavior;
 import org.cbam.core.exception.ActionNotAllowedException;
+import org.cbam.core.meta.domain.UserImpl;
 import org.cbam.core.parser.PermissionEvaluator;
 import org.cbam.proxy.hibernate.QueryFilter;
 import org.cbam.proxy.hibernate.QueryFilterImpl;
@@ -21,9 +22,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-/**
- * Created by yaohui on 14-9-23.
- */
+
 public class SessionInvocationHandler implements InvocationHandler{
 
     private static final Logger LOG = LoggerFactory.getLogger(SessionInvocationHandler.class);
@@ -61,20 +60,21 @@ public class SessionInvocationHandler implements InvocationHandler{
 
         Object result=null;
         final String methodName = method.getName();
-        //TODO Session related method like save,delete,update must be check before invoked.
-        LOG.debug("Session方法 {} start, args {}",method.getName(),args);
-        LOG.debug("Doing authorization checking...");
 
-        //Session method to CBAM action
-        Action action = new Action(methodName,args);
-        UserBehavior userBehavior = new UserBehavior("user1",action);
+        UserBehavior userBehavior = CoreFactory.createUserBehavior(methodName,args);
+        if(LOG.isTraceEnabled()){
+            LOG.trace("Checking behavior {}...", userBehavior);
+        }
 
         if(cbamService.isNotAllowed(userBehavior)){
             throw new ActionNotAllowedException("Action is not allowed",userBehavior);
         }
         //执行方法
         result=method.invoke(session, args);
-        LOG.debug("Session方法 {} end",method.getName());
+
+        if(LOG.isTraceEnabled()){
+            LOG.trace("Clear .{}",userBehavior);
+        }
 
         if("createCriteria".equals(methodName)){
             if(args.length < 1){
