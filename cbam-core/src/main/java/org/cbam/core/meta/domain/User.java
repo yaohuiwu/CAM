@@ -1,7 +1,6 @@
-package org.cbam.core.db.model;
+package org.cbam.core.meta.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Authorization entity.

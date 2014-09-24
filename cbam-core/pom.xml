@@ -7,9 +7,25 @@
     <parent>
         <groupId>org.cbam</groupId>
         <artifactId>cbam-aggregator</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0b</version>
 		<relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>cbam-core</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-runtime</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+        </dependency>
+    </dependencies>
 </project>

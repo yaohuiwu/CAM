@@ -1,4 +1,4 @@
-package org.cbam.core.db.model;
+package org.cbam.core.meta.domain;
 
 /**
  * Created by wuyaohui on 14-9-23.
