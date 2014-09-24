@@ -1,6 +1,6 @@
 package org.cbam.core.meta.impl;
 
-import org.cbam.core.DAO;
+import org.cbam.core.CoreDAO;
 import org.cbam.core.meta.domain.Authorization;
 import org.cbam.core.meta.domain.Permission;
 import org.cbam.core.meta.domain.Role;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by wuyaohui on 14-9-24.
  */
-public class JdbcDAOImpl implements DAO {
+public class JdbcDAOImpl implements CoreDAO {
 
     @Override
     public List<Authorization> getAllAuthorization() {

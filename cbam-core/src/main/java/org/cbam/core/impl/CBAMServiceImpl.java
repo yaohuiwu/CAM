@@ -1,7 +1,6 @@
 package org.cbam.core.impl;
 
-import org.cbam.core.CoreFactory;
-import org.cbam.core.DAO;
+import org.cbam.core.CoreDAO;
 import org.cbam.core.UserBehavior;
 import org.cbam.core.CBAMService;
 import org.cbam.core.meta.domain.Permission;
@@ -16,9 +15,9 @@ import java.util.List;
 public class CBAMServiceImpl implements CBAMService {
 
     private PermissionEvaluator evaluator;
-    private DAO dao;
+    private CoreDAO dao;
 
-    public CBAMServiceImpl(PermissionEvaluator evaluator,DAO dao){
+    public CBAMServiceImpl(PermissionEvaluator evaluator,CoreDAO dao){
         this.evaluator = evaluator;
         this.dao = dao;
     }

@@ -19,12 +19,12 @@ public class CoreFactory {
         return new DefaultPermissionEvaluator();
     }
 
-    public static DAO createDAO(){
-        return createDAO(DAO.JDBC);
+    public static CoreDAO createDAO(){
+        return createDAO(CoreDAO.JDBC);
     }
 
-    public static DAO createDAO(String type){
-        if(DAO.JDBC.equals(type)){
+    public static CoreDAO createDAO(String type){
+        if(CoreDAO.JDBC.equals(type)){
             return new JdbcDAOImpl();
         }
         return null;

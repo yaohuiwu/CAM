@@ -7,7 +7,7 @@ import org.cbam.core.meta.RoleDAO;
 /**
  * Authorization meta access interface using by CBAM system.
  */
-public interface DAO extends RoleDAO,PermissionDAO,AuthorizationDAO {
+public interface CoreDAO extends RoleDAO,PermissionDAO,AuthorizationDAO {
 
     public static final String JDBC = "jdbc";
     public static final String HIBERNATE = "hibernate";
