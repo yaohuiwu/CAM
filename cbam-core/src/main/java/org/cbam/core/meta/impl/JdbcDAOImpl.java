@@ -1,6 +1,6 @@
 package org.cbam.core.meta.impl;
 
-import org.cbam.core.meta.DAO;
+import org.cbam.core.DAO;
 import org.cbam.core.meta.domain.Authorization;
 import org.cbam.core.meta.domain.Permission;
 import org.cbam.core.meta.domain.Role;

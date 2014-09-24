@@ -2,17 +2,17 @@ package org.cbam.core.exception;
 
 import org.cbam.core.CBAMException;
 
-public class OperationNotPermitException extends CBAMException {
+public class ActionNotAllowedException extends CBAMException {
 
     private String userId;
     private String operation;
     private Object object;
 
-    public OperationNotPermitException(String message){
+    public ActionNotAllowedException(String message){
         this(message,null,null,null);
     }
 
-    public OperationNotPermitException(String message, String userId, String operation, Object object) {
+    public ActionNotAllowedException(String message, String userId, String operation, Object object) {
         super(message);
         this.userId = userId;
         this.operation = operation;

@@ -1,5 +1,6 @@
 package org.cbam.proxy.hibernate.handler;
 
+import org.cbam.core.CBAMService;
 import org.cbam.core.CoreFactory;
 import org.cbam.core.parser.PermissionEvaluator;
 import org.cbam.proxy.hibernate.QueryFilter;
@@ -29,13 +30,15 @@ public class SessionInvocationHandler implements InvocationHandler{
     private QueryFilter queryFilter;
     private QueryFilter sqlQueryFilter;
 
-    private PermissionEvaluator evaluator ;
+//    private PermissionEvaluator evaluator ;
+    private CBAMService cbamService;
 
 
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
         sqlQueryFilter = new SQLQueryFilterImpl();
-        evaluator = CoreFactory.createPermissionEvaluator();
+//        evaluator = CoreFactory.createPermissionEvaluator();
+        cbamService = CoreFactory.createCBAMService();
     }
 
     /**
@@ -57,11 +60,14 @@ public class SessionInvocationHandler implements InvocationHandler{
         final String methodName = method.getName();
         //TODO Session related method like save,delete,update must be check before invoked.
         LOG.debug("Session方法 {} start, args {}",method.getName(),args);
+        LOG.debug("Doing authorization checking...");
+
+        //Session method to CBAM action
+
         //执行方法
         result=method.invoke(session, args);
         LOG.debug("Session方法 {} end",method.getName());
 
-        //TODO Criteria based query (CBQ) and Query based query (QBQ) must be check after invoked.
         if("createCriteria".equals(methodName)){
             if(args.length < 1){
                 throw new IllegalStateException("Bad argument length of createCriteria -- at least one. " +

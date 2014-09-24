@@ -1,6 +1,6 @@
 package org.cbam.core.meta.impl;
 
-import org.cbam.core.meta.DAO;
+import org.cbam.core.DAO;
 
 /**
  *  Abstract DAO implementation dealing with cache.

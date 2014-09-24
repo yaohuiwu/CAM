@@ -1,6 +1,6 @@
 package org.cbam.core;
 
-import org.cbam.core.meta.DAO;
+import org.cbam.core.impl.CBAMServiceImpl;
 import org.cbam.core.meta.impl.JdbcDAOImpl;
 import org.cbam.core.parser.DefaultPermissionEvaluator;
 import org.cbam.core.parser.PermissionEvaluator;
@@ -23,5 +23,9 @@ public class CoreFactory {
             return new JdbcDAOImpl();
         }
         return null;
+    }
+
+    public static CBAMService createCBAMService(){
+        return new CBAMServiceImpl();
     }
 }

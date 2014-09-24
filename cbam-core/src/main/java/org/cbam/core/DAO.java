@@ -1,4 +1,8 @@
-package org.cbam.core.meta;
+package org.cbam.core;
+
+import org.cbam.core.meta.AuthorizationDAO;
+import org.cbam.core.meta.PermissionDAO;
+import org.cbam.core.meta.RoleDAO;
 
 /**
  * Authorization meta access interface using by CBAM system.
