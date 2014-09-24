@@ -1,6 +1,8 @@
 package org.cbam.core.exception;
 
-public class OperationNotPermitException extends RuntimeException{
+import org.cbam.core.CBAMException;
+
+public class OperationNotPermitException extends CBAMException {
 
     private String userId;
     private String operation;
