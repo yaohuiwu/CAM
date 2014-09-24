@@ -1,8 +1,10 @@
 package org.cbam.proxy.hibernate;
 
+import org.cbam.proxy.hibernate.exception.ConfigurationNotRegisterException;
 import org.cbam.proxy.hibernate.handler.SessionInvocationHandler;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  * Helper help to create proxied and normal session.
@@ -11,7 +13,9 @@ import org.hibernate.SessionFactory;
  *     Using static or dynamic proxy in a jdk manner.
  * </p>
  */
-public class SessionHelper {
+public class HibernateHelper {
+
+    private static Configuration configuration ;
 
     /**
      * Create normal session.
@@ -44,6 +48,17 @@ public class SessionHelper {
         }else{
             return session;
         }
+    }
+
+    public static void registerConfiguration(Configuration configuration){
+        configuration = configuration;
+    }
+
+    public static Configuration getConfiguration(){
+        if(configuration==null){
+            throw new ConfigurationNotRegisterException();
+        }
+        return configuration;
     }
 
 }
