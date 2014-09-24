@@ -25,7 +25,7 @@ public interface CBAMService {
      * @param entity
      * @return
      */
-    public boolean isAllowed(AuthorizationEntity entity);
+    public boolean isAllowed(UserBehavior entity);
 
     /**
      * Is an AuthorizationEntity is not allowed.
@@ -33,5 +33,5 @@ public interface CBAMService {
      * @param entity
      * @return
      */
-    public boolean isNotAllowed(AuthorizationEntity entity);
+    public boolean isNotAllowed(UserBehavior entity);
 }

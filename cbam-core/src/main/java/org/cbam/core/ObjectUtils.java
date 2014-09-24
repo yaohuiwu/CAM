@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class ObjectUtils {
 
+    public static final Object[] EMPTY_OBJECTS =  new Object[0];
 
 //    static Perl5Compiler compiler = new Perl5Compiler();
 //    static PatternMatcher pm = new Perl5Matcher();

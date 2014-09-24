@@ -1,7 +1,10 @@
 package org.cbam.proxy.hibernate.handler;
 
+import org.cbam.core.Action;
 import org.cbam.core.CBAMService;
 import org.cbam.core.CoreFactory;
+import org.cbam.core.UserBehavior;
+import org.cbam.core.exception.ActionNotAllowedException;
 import org.cbam.core.parser.PermissionEvaluator;
 import org.cbam.proxy.hibernate.QueryFilter;
 import org.cbam.proxy.hibernate.QueryFilterImpl;
@@ -63,7 +66,12 @@ public class SessionInvocationHandler implements InvocationHandler{
         LOG.debug("Doing authorization checking...");
 
         //Session method to CBAM action
+        Action action = new Action(methodName,args);
+        UserBehavior userBehavior = new UserBehavior("user1",action);
 
+        if(cbamService.isNotAllowed(userBehavior)){
+            throw new ActionNotAllowedException("Action is not allowed",userBehavior);
+        }
         //执行方法
         result=method.invoke(session, args);
         LOG.debug("Session方法 {} end",method.getName());
