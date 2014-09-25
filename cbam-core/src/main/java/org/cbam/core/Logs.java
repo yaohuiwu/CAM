@@ -18,4 +18,10 @@ public class Logs {
             logger.debug(message,objects);
         }
     }
+
+    public static void warnIfEnabled(Logger logger,String message,Object... objects){
+        if(logger.isWarnEnabled()){
+            logger.warn(message,objects);
+        }
+    }
 }

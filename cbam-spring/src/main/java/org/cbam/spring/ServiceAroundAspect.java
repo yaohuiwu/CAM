@@ -3,6 +3,7 @@ package org.cbam.spring;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.cbam.core.FlowHandler;
 import org.cbam.core.Invokable;
+import org.cbam.core.Logs;
 import org.cbam.core.exception.UserBehaviorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +22,14 @@ public class ServiceAroundAspect {
         Object result = null;
         Invokable invokable = new AspectjInvokable(joinPoint);
 
-        if(LOG.isDebugEnabled()){
-            LOG.debug("Flow Control is handing over from Spring to CBAM system (FlowHandler).");
-        }
+        Logs.debugIfEnabled(LOG,"Flow Control is handing over from Spring to CBAM system (FlowHandler).");
         try{
             result = flowHandler.handleFlow(invokable);
         }catch (UserBehaviorException e){
-            if(LOG.isWarnEnabled()){
-                LOG.warn("UserBehaviorException occurs. {}",e.getUserBehavior());
-            }
+            Logs.warnIfEnabled(LOG,"UserBehaviorException occurs. {}",e.getUserBehavior());
             return result;
         }
-        if(LOG.isDebugEnabled()){
-            LOG.debug("Flow Control return back to Spring. Everything is ok!");
-        }
+        Logs.debugIfEnabled(LOG,"Flow Control return back to Spring. Everything is ok!");
         return result;
     }
 }
