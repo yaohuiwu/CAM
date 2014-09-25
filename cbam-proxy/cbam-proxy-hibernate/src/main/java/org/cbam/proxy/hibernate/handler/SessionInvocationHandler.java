@@ -29,12 +29,9 @@ public class SessionInvocationHandler implements InvocationHandler{
     private QueryFilter queryFilter;
     private QueryFilter sqlQueryFilter;
 
-    private FlowHandler flowHandler;
-
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
         sqlQueryFilter = new SQLQueryFilterImpl();
-        flowHandler = CoreFactory.getFlowHandler();
     }
 
     /**
@@ -55,7 +52,7 @@ public class SessionInvocationHandler implements InvocationHandler{
         Object result=null;
         Invokable invokable = new JdkProxyInvokable(method,session,args);
         try{
-            result = flowHandler.handleFlow(invokable);
+            result = CoreFactory.getFlowHandler().handleFlow(invokable);
         }catch (UserBehaviorException e){
             return result;
         }

@@ -3,6 +3,7 @@ package org.cbam.core.impl;
 import org.cbam.core.Invokable;
 import org.cbam.core.exception.ActionNotAllowedException;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -14,9 +15,6 @@ public class JdkProxyInvokable implements Invokable{
     private Object target;
     private Object[] arguments;
 
-    public JdkProxyInvokable() {
-    }
-
     public JdkProxyInvokable(Method method, Object target, Object[] arguments) {
         this.method = method;
         this.target = target;
@@ -24,22 +22,32 @@ public class JdkProxyInvokable implements Invokable{
     }
 
     @Override
-    public Object invoke() throws ActionNotAllowedException {
-        return null;
+    public Object invoke(){
+        Object value = null;
+        try{
+            value = method.invoke(target,arguments);
+        }catch (IllegalAccessException e0) {
+            e0.printStackTrace();
+            return value;
+        }catch (InvocationTargetException e1){
+            e1.printStackTrace();
+            return value;
+        }
+        return value;
     }
 
     @Override
     public Method getMethod() {
-        return null;
+        return this.method;
     }
 
     @Override
     public Object getTarget() {
-        return null;
+        return this.target;
     }
 
     @Override
     public Object[] getArguments() {
-        return new Object[0];
+        return this.arguments;
     }
 }

@@ -15,8 +15,11 @@ public class CenterFlowHandler implements FlowHandler{
 
     private CBAMService cbamService;
 
-    public CenterFlowHandler(CBAMService cbamService){
+    public CenterFlowHandler(CBAMService cbamService,UserContextProvider userContextProvider){
         this.cbamService = cbamService;
+
+        CoreFactory.registerUserContextProvider(userContextProvider);
+        CoreFactory.registerFlowHandler(this);
     }
 
     @Override
@@ -45,6 +48,7 @@ public class CenterFlowHandler implements FlowHandler{
             value = invokable.invoke();
         }catch (Throwable throwable){
             //Convert to a RuntimeException
+            throwable.printStackTrace();
             throw new RuntimeException(throwable.getCause());
         }
         return after(value);

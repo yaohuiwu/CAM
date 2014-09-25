@@ -14,48 +14,54 @@ import org.cbam.core.parser.PermissionEvaluator;
  */
 public class CoreFactory {
 
-    private static UserContextProvider userContextProvider;
-
-    public static CoreDAO createDAO(){
-        return createDAO(CoreDAO.JDBC);
-    }
-
-    public static CoreDAO createDAO(String type){
-        if(CoreDAO.JDBC.equals(type)){
-            return new JdbcDAOImpl();
-        }
-        return null;
-    }
-
-    public static CBAMService createCBAMService(){
-        return new CBAMServiceImpl(getPermissionEvaluator(),createDAO());
-    }
+    private static UserContextProvider _userContextProvider;
+    private static FlowHandler _flowHandler;
 
     public static void registerUserContextProvider(UserContextProvider provider){
-        userContextProvider = provider;
+        _userContextProvider = provider;
+    }
+
+    public static void registerFlowHandler(FlowHandler flowHandler){
+        _flowHandler = flowHandler;
     }
 
     public static UserContextProvider getUserContextProvider(){
-        return userContextProvider;
+        if(_userContextProvider==null){
+            throw new CBAMException("UserContextProvider not initialized.");
+        }
+        return _userContextProvider;
+    }
+    public static FlowHandler getFlowHandler(){
+        if(_flowHandler==null){
+            throw new CBAMException("FlowHandler not initialized.");
+        }
+        return _flowHandler;
     }
 
     public static User getCurrentUser(){
-        if(userContextProvider!=null){
-            return userContextProvider.getCurrentUser();
-        }else{
-            throw new UserContextNotRegisteredException();
-        }
+        return getUserContextProvider().getCurrentUser();
     }
 
     public static UserBehavior createUserBehavior(String actionName,Object[] objects){
         return new UserBehavior(getCurrentUser(),createAction(actionName,objects));
     }
 
-    public static FlowHandler getFlowHandler(){
-        return new CenterFlowHandler(createCBAMService());
+    //-------private methods--------//
+
+    private static CoreDAO createDAO(){
+        return createDAO(CoreDAO.JDBC);
     }
 
-    //-------private methods--------//
+    private static CoreDAO createDAO(String type){
+        if(CoreDAO.JDBC.equals(type)){
+            return new JdbcDAOImpl();
+        }
+        return null;
+    }
+
+    private static CBAMService createCBAMService(){
+        return new CBAMServiceImpl(getPermissionEvaluator(),createDAO());
+    }
 
     private static PermissionEvaluator getPermissionEvaluator(){
         return new DefaultPermissionEvaluator();
