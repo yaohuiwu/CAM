@@ -34,4 +34,12 @@ public class UserImpl implements User{
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "UserImpl{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

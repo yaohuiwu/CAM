@@ -1,5 +1,7 @@
 package org.cbam.core;
 
+import java.util.Arrays;
+
 public class Action implements Executable{
 
     private final String name;
@@ -20,4 +22,11 @@ public class Action implements Executable{
         return this.objects;
     }
 
+    @Override
+    public String toString() {
+        return "Action{" +
+                "name='" + name + '\'' +
+                ", objects=" + Arrays.toString(objects) +
+                '}';
+    }
 }
