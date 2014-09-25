@@ -56,9 +56,10 @@ public class CenterFlowHandler implements FlowHandler{
      * @param userBehavior
      */
     public void before(UserBehavior userBehavior){
-        if(cbamService.isNotAllowed(userBehavior)){
-            throw new ActionNotAllowedException("",userBehavior);
-        }
+//        if(cbamService.isNotAllowed(userBehavior)){
+//            throw new ActionNotAllowedException("",userBehavior);
+//        }
+        LOG.debug("before invoke..{}",userBehavior);
     }
 
     /**
@@ -69,6 +70,7 @@ public class CenterFlowHandler implements FlowHandler{
      */
     public Object after(Object returnValue){
 
+        LOG.debug("After invoke..{}",returnValue);
         return returnValue;
     }
 }
