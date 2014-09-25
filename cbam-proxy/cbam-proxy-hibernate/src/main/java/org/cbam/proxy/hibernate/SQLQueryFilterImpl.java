@@ -10,6 +10,6 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
     @Override
     public String filterQueryString(Session session, String source) {
 
-        return null;
+        return source;
     }
 }
