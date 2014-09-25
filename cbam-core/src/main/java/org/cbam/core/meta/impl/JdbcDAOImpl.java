@@ -7,7 +7,6 @@ import org.cbam.core.meta.domain.Permission;
 import org.cbam.core.meta.domain.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.MarkerIgnoringBase;
 
 import javax.sql.DataSource;
 import java.util.List;
