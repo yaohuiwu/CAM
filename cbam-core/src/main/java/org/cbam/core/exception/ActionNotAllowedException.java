@@ -1,13 +1,10 @@
 package org.cbam.core.exception;
 
-import org.cbam.core.CBAMException;
 import org.cbam.core.UserBehavior;
 
-public class ActionNotAllowedException extends CBAMException {
+public class ActionNotAllowedException extends UserBehaviorException {
 
-    private String userId;
-    private String operation;
-    private Object[] objects;
+    private UserBehavior userBehavior;
 
     public ActionNotAllowedException(String message){
         this(message,null);
@@ -15,20 +12,17 @@ public class ActionNotAllowedException extends CBAMException {
 
     public ActionNotAllowedException(String message, UserBehavior userBehavior) {
         super(message);
-        this.userId = userBehavior.getUserId();
-        this.operation = userBehavior.getExecutable().getName();
-        this.objects = userBehavior.getExecutable().getObjects();
+        this.userBehavior = userBehavior;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserBehavior getUserBehavior() {
+        return userBehavior;
     }
 
-    public String getOperation() {
-        return operation;
-    }
-
-    public Object[] getObjects() {
-        return objects;
+    @Override
+    public String toString() {
+        return "ActionNotAllowedException{" +
+                "userBehavior=" + userBehavior +
+                '}';
     }
 }

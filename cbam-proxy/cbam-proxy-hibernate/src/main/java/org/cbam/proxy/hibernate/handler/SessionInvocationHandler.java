@@ -1,12 +1,9 @@
 package org.cbam.proxy.hibernate.handler;
 
-import org.cbam.core.Action;
-import org.cbam.core.CBAMService;
-import org.cbam.core.CoreFactory;
-import org.cbam.core.UserBehavior;
+import org.cbam.core.*;
 import org.cbam.core.exception.ActionNotAllowedException;
-import org.cbam.core.meta.domain.UserImpl;
-import org.cbam.core.parser.PermissionEvaluator;
+import org.cbam.core.exception.UserBehaviorException;
+import org.cbam.core.impl.JdkProxyInvokable;
 import org.cbam.proxy.hibernate.QueryFilter;
 import org.cbam.proxy.hibernate.QueryFilterImpl;
 import org.cbam.proxy.hibernate.QueryWrapper;
@@ -32,15 +29,12 @@ public class SessionInvocationHandler implements InvocationHandler{
     private QueryFilter queryFilter;
     private QueryFilter sqlQueryFilter;
 
-//    private PermissionEvaluator evaluator ;
-    private CBAMService cbamService;
-
+    private FlowHandler flowHandler;
 
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
         sqlQueryFilter = new SQLQueryFilterImpl();
-//        evaluator = CoreFactory.createPermissionEvaluator();
-        cbamService = CoreFactory.createCBAMService();
+        flowHandler = CoreFactory.getFlowHandler();
     }
 
     /**
@@ -59,24 +53,14 @@ public class SessionInvocationHandler implements InvocationHandler{
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         Object result=null;
-        final String methodName = method.getName();
-
-        UserBehavior userBehavior = CoreFactory.createUserBehavior(methodName,args);
-        if(LOG.isTraceEnabled()){
-            LOG.trace("Checking behavior {}...", userBehavior);
+        Invokable invokable = new JdkProxyInvokable(method,session,args);
+        try{
+            result = flowHandler.handleFlow(invokable);
+        }catch (UserBehaviorException e){
+            return result;
         }
 
-        if(cbamService.isNotAllowed(userBehavior)){
-            throw new ActionNotAllowedException("Action is not allowed",userBehavior);
-        }
-        //执行方法
-        result=method.invoke(session, args);
-
-        if(LOG.isTraceEnabled()){
-            LOG.trace("Clear .{}",userBehavior);
-        }
-
-        if("createCriteria".equals(methodName)){
+        if("createCriteria".equals(method.getName())){
             if(args.length < 1){
                 throw new IllegalStateException("Bad argument length of createCriteria -- at least one. " +
                         "Check method createCriteria in SharedSessionContract!");
@@ -99,7 +83,7 @@ public class SessionInvocationHandler implements InvocationHandler{
             CriteriaInvocationHandler criteriaProxy = new CriteriaInvocationHandler(session,entityName);
             return criteriaProxy.bind((Criteria)result);
         }
-        else if("createQuery".equals(methodName)){
+        else if("createQuery".equals(method.getName())){
             if(args.length < 1){
                 throw new IllegalStateException("Bad argument length of createQuery -- must be one. " +
                         "Check method createQuery in SharedSessionContract!");
@@ -114,7 +98,7 @@ public class SessionInvocationHandler implements InvocationHandler{
             return queryProxy.bind(wrapper);
 
         }
-        else if("createSQLQuery".equals(methodName)){
+        else if("createSQLQuery".equals(method.getName())){
             /**
              * SQLQueryInvocationHandler will take over control all methods of SQLQuery.
              */

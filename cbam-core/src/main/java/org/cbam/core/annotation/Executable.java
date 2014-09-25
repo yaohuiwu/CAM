@@ -9,8 +9,18 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Executable {
 
-    public String[] value() default {};
+    /**
+     * Value of executable name.
+     *
+     * @return
+     */
+    public ExecutableType value() default ExecutableType.VIEW;
 
-    public String type() default "";
+    /**
+     * Object types which target method will operate on. It's not necessary.
+     * @return
+     */
+    public String[] objectTypes() default {};
+
 
 }

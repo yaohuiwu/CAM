@@ -2,6 +2,7 @@ package org.cbam.core;
 
 import org.cbam.core.exception.UserContextNotRegisteredException;
 import org.cbam.core.impl.CBAMServiceImpl;
+import org.cbam.core.impl.CenterFlowHandler;
 import org.cbam.core.meta.domain.User;
 import org.cbam.core.meta.domain.UserImpl;
 import org.cbam.core.meta.impl.JdbcDAOImpl;
@@ -15,10 +16,6 @@ public class CoreFactory {
 
     private static UserContextProvider userContextProvider;
 
-    public static PermissionEvaluator createPermissionEvaluator(){
-        return new DefaultPermissionEvaluator();
-    }
-
     public static CoreDAO createDAO(){
         return createDAO(CoreDAO.JDBC);
     }
@@ -31,7 +28,7 @@ public class CoreFactory {
     }
 
     public static CBAMService createCBAMService(){
-        return new CBAMServiceImpl(createPermissionEvaluator(),createDAO());
+        return new CBAMServiceImpl(getPermissionEvaluator(),createDAO());
     }
 
     public static void registerUserContextProvider(UserContextProvider provider){
@@ -50,23 +47,33 @@ public class CoreFactory {
         }
     }
 
-    public static User createUser(String id){
+    public static UserBehavior createUserBehavior(String actionName,Object[] objects){
+        return new UserBehavior(getCurrentUser(),createAction(actionName,objects));
+    }
+
+    public static FlowHandler getFlowHandler(){
+        return new CenterFlowHandler(createCBAMService());
+    }
+
+    //-------private methods--------//
+
+    private static PermissionEvaluator getPermissionEvaluator(){
+        return new DefaultPermissionEvaluator();
+    }
+
+    private static User createUser(String id){
         return createUser(id,"unkown");
     }
 
-    public static User createUser(String id ,String name){
+    private static User createUser(String id ,String name){
         return new UserImpl(id,name);
     }
 
-    public static Action createAction(String name,Object[] objects){
+    private static Action createAction(String name,Object[] objects){
         return new Action(name,objects);
     }
 
-    public static UserBehavior createUserBehavior(String userId,String actionName,Object[] objects){
+    private static UserBehavior createUserBehavior(String userId,String actionName,Object[] objects){
         return new UserBehavior(createUser(userId),createAction(actionName,objects));
-    }
-
-    public static UserBehavior createUserBehavior(String actionName,Object[] objects){
-        return new UserBehavior(getCurrentUser(),createAction(actionName,objects));
     }
 }

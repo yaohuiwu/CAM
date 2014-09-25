@@ -41,4 +41,9 @@ public class JdbcDAOImpl implements CoreDAO {
     public List<Role> getRolesOfUser(String userId) {
         return null;
     }
+
+    @Override
+    public List<Permission> getPermissionsOf(Role role) {
+        return null;
+    }
 }

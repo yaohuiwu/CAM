@@ -11,26 +11,18 @@
 		<relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cbam-core</artifactId>
+    <artifactId>cbam-spring</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr-runtime</artifactId>
-            <version>4.4</version>
+            <groupId>org.cbam</groupId>
+            <artifactId>cbam-core</artifactId>
+            <version>1.0b</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${jdbc.groupId}</groupId>
-            <artifactId>${jdbc.artifactId}</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.7.4</version>
         </dependency>
     </dependencies>
 </project>

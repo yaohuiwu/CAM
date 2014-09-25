@@ -12,6 +12,7 @@
 
     <modules>
         <module>cbam-core</module>
+        <module>cbam-spring</module>
         <module>cbam-proxy</module>
     </modules>
 
