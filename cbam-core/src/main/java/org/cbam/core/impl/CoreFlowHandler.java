@@ -1,7 +1,6 @@
 package org.cbam.core.impl;
 
 import org.cbam.core.*;
-import org.cbam.core.exception.ActionNotAllowedException;
 import org.cbam.core.exception.UserBehaviorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +8,13 @@ import org.slf4j.LoggerFactory;
 /**
  * Control flow of authorization.
  */
-public class CenterFlowHandler implements FlowHandler{
+public class CoreFlowHandler implements FlowHandler{
 
-    private static final Logger LOG = LoggerFactory.getLogger(CenterFlowHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CoreFlowHandler.class);
 
     private CBAMService cbamService;
 
-    public CenterFlowHandler(CBAMService cbamService,UserContextProvider userContextProvider){
+    public CoreFlowHandler(CBAMService cbamService, UserContextProvider userContextProvider){
         this.cbamService = cbamService;
 
         CoreFactory.registerUserContextProvider(userContextProvider);

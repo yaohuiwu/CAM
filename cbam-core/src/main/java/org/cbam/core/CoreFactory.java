@@ -1,11 +1,7 @@
 package org.cbam.core;
 
-import org.cbam.core.exception.UserContextNotRegisteredException;
-import org.cbam.core.impl.CBAMServiceImpl;
-import org.cbam.core.impl.CenterFlowHandler;
 import org.cbam.core.meta.domain.User;
 import org.cbam.core.meta.domain.UserImpl;
-import org.cbam.core.meta.impl.JdbcDAOImpl;
 import org.cbam.core.parser.DefaultPermissionEvaluator;
 import org.cbam.core.parser.PermissionEvaluator;
 
@@ -48,20 +44,20 @@ public class CoreFactory {
 
     //-------private methods--------//
 
-    private static CoreDAO createDAO(){
-        return createDAO(CoreDAO.JDBC);
-    }
+//    private static CoreDAO createDAO(){
+//        return createDAO(CoreDAO.JDBC);
+//    }
+//
+//    private static CoreDAO createDAO(String type){
+//        if(CoreDAO.JDBC.equals(type)){
+//            return new JdbcDAOImpl();
+//        }
+//        return null;
+//    }
 
-    private static CoreDAO createDAO(String type){
-        if(CoreDAO.JDBC.equals(type)){
-            return new JdbcDAOImpl();
-        }
-        return null;
-    }
-
-    private static CBAMService createCBAMService(){
-        return new CBAMServiceImpl(getPermissionEvaluator(),createDAO());
-    }
+//    private static CBAMService createCBAMService(){
+//        return new CBAMServiceImpl(getPermissionEvaluator(),createDAO());
+//    }
 
     private static PermissionEvaluator getPermissionEvaluator(){
         return new DefaultPermissionEvaluator();
