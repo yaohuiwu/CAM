@@ -1,5 +1,6 @@
 package org.cbam.proxy.hibernate.handler;
 
+import org.cbam.core.Logs;
 import org.cbam.proxy.hibernate.QueryWrapper;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -42,11 +43,11 @@ public class QueryWrapperInvocationHandler implements InvocationHandler{
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         Object result=null;
-        LOG.debug("Query {} start", method.getName());
+        Logs.traceIfEnabled(LOG,"Query {} start", method.getName());
         //执行方法
         result=method.invoke(query, args);
 
-        LOG.debug("Query {} end", method.getName());
+        Logs.traceIfEnabled(LOG,"Query {} end", method.getName());
         return result;
     }
 }

@@ -62,7 +62,7 @@ public class CoreFlowHandler implements FlowHandler{
 //        if(cbamService.isNotAllowed(userBehavior)){
 //            throw new ActionNotAllowedException("",userBehavior);
 //        }
-        LOG.debug("before invoke..{}",userBehavior);
+        Logs.traceIfEnabled(LOG,"before invoke..{}",userBehavior);
     }
 
     /**
@@ -73,7 +73,7 @@ public class CoreFlowHandler implements FlowHandler{
      */
     public Object after(Object returnValue){
 
-        LOG.debug("After invoke..{}",returnValue);
+        Logs.traceIfEnabled(LOG,"After invoke..{}",returnValue);
         return returnValue;
     }
 }

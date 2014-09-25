@@ -1,5 +1,6 @@
 package org.cbam.proxy.hibernate.handler;
 
+import org.cbam.core.Logs;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class CriteriaInvocationHandler implements InvocationHandler{
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         Object result=null;
-        LOG.debug("Criteria {} start, entity name : {}", method.getName(),entityName);
+        Logs.traceIfEnabled(LOG,"Criteria {} start, entity name : {}", method.getName(),entityName);
 
         List<String> mdToAuthorize = new ArrayList<String>();
         mdToAuthorize.add("list");
@@ -56,7 +57,7 @@ public class CriteriaInvocationHandler implements InvocationHandler{
         //执行方法
         result=method.invoke(criteria, args);
 
-        LOG.debug("Criteria {} end", method.getName());
+        Logs.traceIfEnabled(LOG, "Criteria {} end", method.getName());
         return result;
     }
 
@@ -64,7 +65,7 @@ public class CriteriaInvocationHandler implements InvocationHandler{
      * Authorization plugin in here.
      */
     private void addAuthorizationCriteria(){
-        LOG.debug("查询对象 {} ", criteria.toString());
+        Logs.traceIfEnabled(LOG,"查询对象 {} ", criteria.toString());
 
 //        if(Company.class.getName().equals(entityName)){
 //

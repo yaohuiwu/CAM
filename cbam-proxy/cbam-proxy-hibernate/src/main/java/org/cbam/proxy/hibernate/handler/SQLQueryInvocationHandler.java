@@ -1,5 +1,6 @@
 package org.cbam.proxy.hibernate.handler;
 
+import org.cbam.core.Logs;
 import org.cbam.proxy.hibernate.HibernateHelper;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -51,7 +52,7 @@ public class SQLQueryInvocationHandler implements InvocationHandler{
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         Object result=null;
-        LOG.debug("SQLQuery {} start", method.getName());
+        Logs.traceIfEnabled(LOG,"SQLQuery {} start", method.getName());
 
 //        List<String> tables = Collections.EMPTY_LIST;
 //        Map<String,ClassMetadata> classMetadatas = session.getSessionFactory().getAllClassMetadata();
@@ -71,7 +72,7 @@ public class SQLQueryInvocationHandler implements InvocationHandler{
         //执行方法
         result=method.invoke(proxiedSQLQuery, args);
 
-        LOG.debug("SQLQuery {} end", method.getName());
+        Logs.traceIfEnabled(LOG,"SQLQuery {} end", method.getName());
         return result;
     }
 }
