@@ -20,7 +20,7 @@ public class SqlFromExtractTest {
 
         String sql = "select * from t_doc where name like 'tom_cat'";
         String sql1 = "select * from t_doc t  where name like 'tom_cat'";
-        String sql10 = "select * from t_doc  ,t_user,t_app where d.user_id = a.id and name like 'tom_cat'";
+        String sql10 = "select * from t_doc  d,t_user,t_app where d.user_id = a.id and name like 'tom_cat'";
         String sql11 = "select * from t_doc  ,t_user  where d.user_id = a.id and name like 'tom_cat'";
         String sql2 = "select * from ( select * from t_doc where t.user_id = 'mock_user') d  where d.name like 'tom_cat'";
         String sql3 = "select * from ( select * from t_doc where t.user_id = 'mock_user') d  where d.name in (select * from names )";

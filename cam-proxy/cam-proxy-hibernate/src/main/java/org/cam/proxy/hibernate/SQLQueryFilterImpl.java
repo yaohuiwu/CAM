@@ -7,8 +7,12 @@ import org.cam.core.CoreDAO;
 import org.cam.core.FactoryHelper;
 import org.cam.core.Logs;
 import org.cam.core.ObjectUtils;
+import org.cam.core.annotation.ExecutableType;
 import org.cam.core.meta.domain.Permission;
+import org.cam.core.meta.domain.User;
 import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.mapping.PersistentClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,22 +42,62 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
     @Override
     public String filterQueryString(Session session, String source) {
 
-        List<TableIdentity> tableIdentities = extractTableIdentities(source);
-//        Iterator<TableIdentity> it = tableIdentities.iterator();
-//
-//        String tmp = source;
-//        while(it.hasNext()){
-//            TableIdentity identity = it.next();
-//            List<Permission> permissions = coreDAO.getPermissionsOfUserByObjectType(
-//                    FactoryHelper.currentUser(),
-//                    identity.getEntity());
-//            String sqlCriteria = toSqlCriteria(permissions);
-//            //replace table name with sqlCriteria.
-//            tmp = StringUtils.replacePattern(tmp,
-//                    ObjectUtils.getWordRegex(identity.getName()),
-//                    toSecurityView(sqlCriteria));
-//        }
-        return source;
+        Set<String> tableSet = extractTableIdentities(source);
+        Logs.debugIfEnabled(logger,"Table {} found in sql [{}]",tableSet,source);
+        Iterator<String> it = tableSet.iterator();
+
+        //Mock permission
+        List<Permission> permissions = Lists.newArrayList();
+        Permission per = new Permission();
+        per.setCriteria("country = 'China'");
+        permissions.add(per);
+
+
+        String tmp = source;
+        Configuration cfg = HibernateHelper.getConfiguration();
+        User currentUser = FactoryHelper.currentUser();
+        while(it.hasNext()){
+            String table = it.next();
+            PersistentClass pClass = getPersistClassByTable(table, cfg);
+            //table name to entity name
+            String entity = pClass.getEntityName();
+
+//            List<Permission> permissions = coreDAO.getPermsOfUserByActionAndObjectType(
+//                    currentUser, ExecutableType.VIEW.toString(), entity);
+
+            StringBuilder sqlCriteria = new StringBuilder();
+            if(permissions!=null){
+                Iterator<Permission> permIt = permissions.iterator();
+                while(permIt.hasNext()){
+                    Permission perm = permIt.next();
+                    sqlCriteria.append("(");
+                    sqlCriteria.append(perm.getCriteria());
+                    sqlCriteria.append(")");
+                    if(permIt.hasNext()){
+                        sqlCriteria.append(" or ");
+                    }
+                }
+            }
+            //replace table name with sqlCriteria.
+            tmp = StringUtils.replacePattern(tmp,
+                    ObjectUtils.getWordRegex(table),
+                    toSecurityView(table,sqlCriteria.toString()));
+        }
+        Logs.debugIfEnabled(logger,"sql with security view [{}]",tmp);
+        return tmp;
+    }
+
+    protected PersistentClass getPersistClassByTable(String table,Configuration cfg){
+        PersistentClass rClass = null;
+        Iterator<PersistentClass> mappings =  cfg.getClassMappings();
+        while(mappings.hasNext()){
+            PersistentClass pClass = mappings.next();
+            if(table.equals(pClass.getTable().getName())){
+                rClass = pClass;
+                break;
+            }
+        }
+        return rClass;
     }
 
     /**
@@ -62,7 +106,7 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
      * @param sourceSql
      * @return
      */
-    protected List<TableIdentity> extractTableIdentities(String sourceSql){
+    protected Set<String> extractTableIdentities(String sourceSql){
         String tmp = StringUtils.replacePattern(sourceSql,"\\s*,\\s*",",");
         Matcher m = FROM_PATTERN.matcher(tmp);
 
@@ -71,27 +115,20 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
             String[] parts = StringUtils.split(m.group(1), ',');
             tableSet.addAll(Arrays.asList(parts));
         }
-        Logs.debugIfEnabled(logger,"Table {} found in sql [{}]",tableSet,sourceSql);
-
-        List<TableIdentity> identities = Lists.newArrayList();
-        Iterator<String> iterator = tableSet.iterator();
-        while (iterator.hasNext()){
-            String tableName = iterator.next();
-            TableIdentity identity = new TableIdentity(null,tableName);
-            identities.add(identity);
-        }
-        return identities;
+        return tableSet;
     }
 
-    protected String toSqlCriteria(List<Permission> permissions){
-        return null;
-    }
-
-    protected String toSecurityView(String sqlCriteria){
+    protected String toSecurityView(String table,String sqlCriteria){
         StringBuilder s = new StringBuilder();
         s.append("(");
-        s.append(sqlCriteria);
+        s.append("select * from ");
+        s.append(table);
+        if(sqlCriteria!=null&&sqlCriteria.length()>0){
+            s.append(" where ");
+            s.append(sqlCriteria);
+        }
         s.append(")");
+        s.append(" a");
         return s.toString();
     }
 

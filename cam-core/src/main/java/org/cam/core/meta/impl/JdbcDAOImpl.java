@@ -72,4 +72,9 @@ public class JdbcDAOImpl implements CoreDAO {
     public List<Permission> getPermissionsOfUserByObjectType(User user, String objectType) {
         return null;
     }
+
+    @Override
+    public List<Permission> getPermsOfUserByActionAndObjectType(User user, String action, String objectType) {
+        return null;
+    }
 }
