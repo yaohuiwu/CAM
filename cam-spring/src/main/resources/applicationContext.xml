@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/util
+            http://www.springframework.org/schema/util/spring-util.xsd
+            "
+       default-lazy-init="true">
+
+    <!--CAM system configuration-->
+    <bean id="camDao" class="org.cam.core.meta.impl.JdbcDAOImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="camPermissionEvaluator" class="org.cam.core.parser.DefaultPermissionEvaluator"/>
+
+    <bean id="camService" class="org.cam.core.impl.CamServiceImpl">
+        <constructor-arg ref="camPermissionEvaluator"/>
+        <constructor-arg ref="camDao"/>
+    </bean>
+
+    <bean id="camFlowHandler" class="org.cam.core.impl.CoreFlowHandler" >
+        <constructor-arg ref="camService" />
+        <constructor-arg ref="userContextProvider"/>
+    </bean>
+
+    <bean id="camServiceAspect" class="org.cam.spring.ServiceAroundAspect" >
+        <constructor-arg ref="camFlowHandler"/>
+    </bean>
+
+    <util:properties id="camDefault">
+        <!--默认拦截任意深度的service包下的类名以Service结尾的public方法-->
+        <prop key="expression">execution(* com..service.*Service.*(..))</prop>
+    </util:properties>
+
+    <aop:config>
+        <aop:pointcut id="camPtCt"
+           expression="#{camProperties['expression']==null ? camDefault['expression'] : camProperties['expression']}" />
+        <aop:aspect ref="camServiceAspect">
+            <aop:around method="invoke" pointcut-ref="camPtCt"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="camFactory" class="org.cam.spring.SpringCamFactory" lazy-init="false"/>
+
+</beans>

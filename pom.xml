@@ -4,16 +4,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.cbam</groupId>
-	<artifactId>cbam-aggregator</artifactId>
+	<groupId>org.cam</groupId>
+	<artifactId>cam-aggregator</artifactId>
 	<version>1.0b</version>
 
 	<packaging>pom</packaging>
 
     <modules>
-        <module>cbam-core</module>
-        <module>cbam-spring</module>
-        <module>cbam-proxy</module>
+        <module>cam-core</module>
+        <module>cam-spring</module>
+        <module>cam-proxy</module>
     </modules>
 
 	<properties>
