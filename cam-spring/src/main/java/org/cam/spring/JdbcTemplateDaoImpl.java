@@ -4,6 +4,7 @@ import org.cam.core.CoreDAO;
 import org.cam.core.meta.domain.Authorization;
 import org.cam.core.meta.domain.Permission;
 import org.cam.core.meta.domain.Role;
+import org.cam.core.meta.domain.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -91,6 +92,16 @@ public class JdbcTemplateDaoImpl implements CoreDAO{
 
     @Override
     public List<Role> getRolesOfUser(String userId) {
+        return null;
+    }
+
+    @Override
+    public List<Permission> getPermissionsOfUser(User user) {
+        return null;
+    }
+
+    @Override
+    public List<Permission> getPermissionsOfUserByObjectType(User user, String objectType) {
         return null;
     }
 }

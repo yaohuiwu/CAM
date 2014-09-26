@@ -5,6 +5,8 @@ import org.cam.proxy.hibernate.handler.SessionInvocationHandler;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Helper help to create proxied and normal session.
@@ -15,7 +17,9 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateHelper {
 
-    private static Configuration configuration ;
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateHelper.class);
+
+    private volatile static Configuration _configuration ;
 
     /**
      * Create normal session.
@@ -51,14 +55,17 @@ public class HibernateHelper {
     }
 
     public static void registerConfiguration(Configuration configuration){
-        configuration = configuration;
+        _configuration = configuration;
+        if(_configuration!=null){
+            LOG.info("Hibernate Configuration has been registered.");
+        }
     }
 
     public static Configuration getConfiguration(){
-        if(configuration==null){
+        if(_configuration==null){
             throw new ConfigurationNotRegisterException();
         }
-        return configuration;
+        return _configuration;
     }
 
 }

@@ -31,7 +31,7 @@ public class SessionInvocationHandler implements InvocationHandler{
 
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
-        sqlQueryFilter = new SQLQueryFilterImpl();
+        sqlQueryFilter = new SQLQueryFilterImpl(FactoryHelper.factory().getCoreDao());
     }
 
     /**

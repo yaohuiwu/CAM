@@ -13,4 +13,5 @@ public interface PermissionDAO {
     List<Permission> getAllPermission();
 
     List<Permission> getPermissionsOf(Role role);
+
 }

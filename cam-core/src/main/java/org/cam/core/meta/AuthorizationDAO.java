@@ -1,6 +1,9 @@
 package org.cam.core.meta;
 
 import org.cam.core.meta.domain.Authorization;
+import org.cam.core.meta.domain.Permission;
+import org.cam.core.meta.domain.Role;
+import org.cam.core.meta.domain.User;
 
 import java.util.List;
 
@@ -10,4 +13,8 @@ import java.util.List;
 public interface AuthorizationDAO {
 
     public List<Authorization> getAllAuthorization();
+
+    public List<Permission> getPermissionsOfUser(User user);
+
+    public List<Permission> getPermissionsOfUserByObjectType(User user,String objectType);
 }

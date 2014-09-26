@@ -42,4 +42,8 @@ public class CoreFactory implements CamFactory{
         return getUserContextProvider().getCurrentUser();
     }
 
+    @Override
+    public CoreDAO getCoreDao() {
+        return null;
+    }
 }

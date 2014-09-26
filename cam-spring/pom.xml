@@ -24,6 +24,11 @@
             <version>1.0b</version>
         </dependency>
         <dependency>
+            <groupId>org.cam</groupId>
+            <artifactId>cam-proxy-hibernate</artifactId>
+            <version>1.0b</version>
+        </dependency>
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.8.0.M1</version>
@@ -50,6 +55,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>${version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
             <version>${version.spring}</version>
         </dependency>
         <dependency>

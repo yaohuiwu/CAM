@@ -10,4 +10,6 @@ public interface CamFactory {
     public FlowHandler getFlowHandler();
 
     public User getCurrentUser();
+
+    public CoreDAO getCoreDao();
 }

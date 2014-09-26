@@ -112,4 +112,16 @@ public class ObjectUtils {
         return p.matcher(str).matches();
     }
 
+    public static String getWordRegex(String word){
+        StringBuilder s = new StringBuilder();
+        s.append("\\b");
+        s.append(word);
+        s.append("\\b");
+        return s.toString();
+    }
+
+    public static boolean matches(String str,String pattern){
+        return Pattern.compile(pattern).matcher(str).matches();
+    }
+
 }

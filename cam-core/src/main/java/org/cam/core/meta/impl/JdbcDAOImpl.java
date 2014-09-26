@@ -5,6 +5,7 @@ import org.cam.core.CoreDAO;
 import org.cam.core.meta.domain.Authorization;
 import org.cam.core.meta.domain.Permission;
 import org.cam.core.meta.domain.Role;
+import org.cam.core.meta.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,6 +60,16 @@ public class JdbcDAOImpl implements CoreDAO {
 
     @Override
     public List<Permission> getPermissionsOf(Role role) {
+        return null;
+    }
+
+    @Override
+    public List<Permission> getPermissionsOfUser(User user) {
+        return null;
+    }
+
+    @Override
+    public List<Permission> getPermissionsOfUserByObjectType(User user, String objectType) {
         return null;
     }
 }
