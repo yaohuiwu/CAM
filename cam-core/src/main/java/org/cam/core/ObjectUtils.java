@@ -87,6 +87,14 @@ public class ObjectUtils {
         return property;
     }
 
+    public static String getterField(String getter){
+        if(getter.startsWith("get")){
+            return StringUtils.uncapitalize(getter.substring(3));
+        }else{
+            return getter;
+        }
+    }
+
     /**
      * Check whether given str matches the like pattern.
      *

@@ -3,7 +3,6 @@ package org.cam.core.parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.apache.commons.lang3.StringUtils;
 import org.cam.core.ObjectUtils;
-import org.cam.core.parser.antlr.PermissionBaseVisitor;
 import org.cam.core.parser.antlr.PermissionParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,15 +13,15 @@ import java.util.List;
 /**
  * Created by yaohui on 14-9-21.
  */
-public class PermVisitor extends PermissionBaseVisitor<Boolean> {
+public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PermVisitor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultPermissionVisitor.class);
 
     private static final String SINGLE_QUOTE = "'";
 
     private Object object ;
 
-    public PermVisitor(Object object){
+    public DefaultPermissionVisitor(Object object){
         this.object = object;
     }
 
@@ -180,22 +179,6 @@ public class PermVisitor extends PermissionBaseVisitor<Boolean> {
 
         LOG.debug("visit or ,left:{} , right:{}",left,right);
         return left || right;
-    }
-
-    protected boolean isFloat(PermissionParser.ValueContext ctx){
-        return ctx.FLOAT()!=null;
-    }
-
-    protected boolean isInt(PermissionParser.ValueContext ctx){
-        return ctx.INT()!=null;
-    }
-
-    protected boolean isString(PermissionParser.ValueContext ctx){
-        return ctx.STRING()!=null;
-    }
-
-    protected boolean isBoolean(PermissionParser.ValueContext ctx){
-        return ctx.boo!=null;
     }
 
     protected Object getFromObject(String attrName){

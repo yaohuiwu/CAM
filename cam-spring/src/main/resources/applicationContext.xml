@@ -13,7 +13,7 @@
        default-lazy-init="true">
 
     <!--CAM system configuration-->
-    <bean id="camDao" class="org.cam.core.meta.impl.JdbcDAOImpl">
+    <bean id="camDao" class="org.cam.core.mock.MockDaoImpl">
         <constructor-arg ref="dataSource"/>
     </bean>
 

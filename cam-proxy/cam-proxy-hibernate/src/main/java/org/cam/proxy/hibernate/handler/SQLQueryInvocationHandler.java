@@ -45,21 +45,6 @@ public class SQLQueryInvocationHandler implements InvocationHandler{
         Object result=null;
         Logs.traceIfEnabled(LOG,"SQLQuery {} start", method.getName());
 
-//        List<String> tables = Collections.EMPTY_LIST;
-//        Map<String,ClassMetadata> classMetadatas = session.getSessionFactory().getAllClassMetadata();
-//        Iterator<Map.Entry<String,ClassMetadata>> it = classMetadatas.entrySet().iterator();
-//        while(it.hasNext()){
-//            Map.Entry<String,ClassMetadata> meta = it.next();
-//            ClassMetadata classMetadata = meta.getValue();
-//        }
-//
-//        Configuration cfg = HibernateHelper.getConfiguration();
-//        PersistentClass persistentClass = cfg.getClassMapping("");
-//
-//        Table tb = persistentClass.getTable();
-//
-//        tb.getName();
-
         //执行方法
         result=method.invoke(proxiedSQLQuery, args);
 

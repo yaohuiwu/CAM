@@ -12,6 +12,15 @@ public class Permission implements Serializable{
     private String objectType;
     private String criteria;
 
+    public Permission() {
+    }
+
+    public Permission(String action, String objectType, String criteria) {
+        this.action = action;
+        this.objectType = objectType;
+        this.criteria = criteria;
+    }
+
     public String getId() {
         return id;
     }
@@ -42,5 +51,16 @@ public class Permission implements Serializable{
 
     public void setCriteria(String criteria) {
         this.criteria = criteria;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append(action);
+        s.append(":");
+        s.append(objectType);
+        s.append(":");
+        s.append(criteria);
+        return s.toString();
     }
 }

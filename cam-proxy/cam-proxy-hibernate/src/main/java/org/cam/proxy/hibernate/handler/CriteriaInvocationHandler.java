@@ -1,8 +1,16 @@
 package org.cam.proxy.hibernate.handler;
 
+import org.cam.core.CoreDAO;
+import org.cam.core.FactoryHelper;
 import org.cam.core.Logs;
+import org.cam.core.annotation.ExecutableType;
+import org.cam.core.exception.ActionNotAllowedException;
+import org.cam.core.meta.domain.Permission;
+import org.cam.proxy.hibernate.PermCriteriaTranslator;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,9 +31,15 @@ public class CriteriaInvocationHandler implements InvocationHandler{
     private Criteria criteria;
     private String entityName;
 
+    private PermCriteriaTranslator translator;
+    private CoreDAO coreDAO;
+
     public CriteriaInvocationHandler(Session session, String entityName){
         this.session = session;
         this.entityName = entityName;
+        translator = new PermCriteriaTranslator();
+
+        coreDAO = FactoryHelper.factory().getCoreDao();
     }
 
     /**
@@ -44,36 +58,36 @@ public class CriteriaInvocationHandler implements InvocationHandler{
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         Object result=null;
-        Logs.traceIfEnabled(LOG,"Criteria {} start, entity name : {}", method.getName(),entityName);
+        LOG.trace("Criteria {} start",method.getName());
 
         List<String> mdToAuthorize = new ArrayList<String>();
         mdToAuthorize.add("list");
         mdToAuthorize.add("uniqueResult");
 
-//        if(mdToAuthorize.contains(method.getName())){
-//            addAuthorizationCriteria();
-//        }
+        if(mdToAuthorize.contains(method.getName())){
+            Criterion criterion = createSecurityView();
+            LOG.debug("security criterion view: [{}]",criterion);
+            criteria.add(criterion);
+        }
 
         //执行方法
         result=method.invoke(criteria, args);
 
-        Logs.traceIfEnabled(LOG, "Criteria {} end", method.getName());
+        LOG.trace("Criteria {} end", method.getName());
         return result;
     }
 
     /**
      * Authorization plugin in here.
      */
-    private void addAuthorizationCriteria(){
-        Logs.traceIfEnabled(LOG,"查询对象 {} ", criteria.toString());
-
-//        if(Company.class.getName().equals(entityName)){
-//
-//            String namePropertyOfUser = "companyName";
-//            String nameValueOfUser = "%tom_at%";
-//            Criterion nameCriterion = Restrictions.like(namePropertyOfUser,nameValueOfUser);
-//
-//            criteria.add(nameCriterion);
-//        }
+    private Criterion createSecurityView(){
+        List<Permission> permList = coreDAO.getPermsOfUserByActionAndObjectType(FactoryHelper.currentUser(), ExecutableType.VIEW.toString(), entityName);
+        if(permList==null||permList.isEmpty()){
+            throw new ActionNotAllowedException("");
+        }
+        List<Criterion> criterionList = translator.toCriterion(permList);
+        return criterionList.size()>1 ?
+                Restrictions.or(criterionList.toArray(new Criterion[0])) :
+                criterionList.get(0);
     }
 }

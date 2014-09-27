@@ -4,6 +4,7 @@ import org.cam.core.Executable;
 import org.cam.core.meta.domain.Permission;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yaohui on 14-9-21.
@@ -40,5 +41,14 @@ public interface PermissionEvaluator {
      * @return
      */
     public boolean isAnyPermit(Executable executable,List<Permission> permissions);
+
+    /**
+     * Convert permissions to sql criteria.
+     *
+     * @param fieldColumnMap
+     * @param permissions
+     * @return
+     */
+    public String toSqlCriteria(Map<String,String> fieldColumnMap , List<Permission> permissions);
 
 }

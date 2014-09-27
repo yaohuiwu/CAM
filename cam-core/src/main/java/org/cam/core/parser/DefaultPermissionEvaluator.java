@@ -1,32 +1,28 @@
 package org.cam.core.parser;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cam.core.Executable;
+import org.cam.core.Logs;
 import org.cam.core.meta.domain.Permission;
-import org.cam.core.parser.antlr.PermissionLexer;
-import org.cam.core.parser.antlr.PermissionParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 /**
  * Created by yaohui on 14-9-21.
  */
-public class DefaultPermissionEvaluator implements PermissionEvaluator {
+public class DefaultPermissionEvaluator extends AbstractPermissionEvaluator implements PermissionEvaluator{
+
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultPermissionEvaluator.class);
 
     @Override
     public boolean isPermit(Object object, String permission) {
-
-        ANTLRInputStream antIn = new ANTLRInputStream(permission);
-
-        PermissionLexer lexer = new PermissionLexer(antIn);
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        PermissionParser parser = new PermissionParser(tokenStream);
-        ParseTree tree = parser.permission();
-
-        PermVisitor pv = new PermVisitor(object);
+        ParseTree tree = createParseTree(permission);
+        DefaultPermissionVisitor pv = new DefaultPermissionVisitor(object);
         return pv.visit(tree);
     }
 
@@ -41,4 +37,25 @@ public class DefaultPermissionEvaluator implements PermissionEvaluator {
         //TODO to be implemented.
         return false;
     }
+
+    @Override
+    public String toSqlCriteria(Map<String, String> fieldColumnMap, List<Permission> permissions) {
+        StringBuilder s = new StringBuilder();
+        if(permissions!=null){
+            Iterator<Permission> iterator = permissions.iterator();
+            while(iterator.hasNext()){
+                Permission perm = iterator.next();
+                Logs.debugIfEnabled(LOG, "{}", perm);
+
+                ParseTree pt = createParseTree(perm.toString());
+                SQLCriteriaTranslator translator = new SQLCriteriaTranslator(fieldColumnMap);
+                s.append(translator.visit(pt));
+                if(iterator.hasNext()){
+                    s.append(" or ");
+                }
+            }
+        }
+        return s.toString();
+    }
+
 }
