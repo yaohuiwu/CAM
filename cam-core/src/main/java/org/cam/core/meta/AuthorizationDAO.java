@@ -14,9 +14,6 @@ public interface AuthorizationDAO {
 
     public List<Authorization> getAllAuthorization();
 
-    public List<Permission> getPermissionsOfUser(User user);
-
-    public List<Permission> getPermissionsOfUserByObjectType(User user,String objectType);
-
     public List<Permission> getPermsOfUserByActionAndObjectType(User user,String action,String objectType);
+
 }

@@ -7,6 +7,7 @@ import org.cam.core.meta.domain.Permission;
 import org.cam.core.meta.domain.Role;
 import org.cam.core.parser.PermissionEvaluator;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,7 +26,10 @@ public class CamServiceImpl implements CamService {
     @Override
     public boolean isAllowed(UserBehavior entity) {
         boolean isAllowed = false;
-        List<Role> roleList = dao.getRolesOfUser(entity.getUserId());
+//        List<Role> roleList = dao.getRolesOfUser(entity.getUserId());
+        //TODO Roles of user should be calculated in memory.
+        List<Role> roleList = Collections.emptyList();
+
         for(Role role : roleList){
             List<Permission> permissionList = dao.getPermissionsOf(role);
             if(evaluator.isAnyPermit(entity.getExecutable(),permissionList)){

@@ -49,6 +49,11 @@ public class DefaultPermissionEvaluator extends AbstractPermissionEvaluator impl
 
                 ParseTree pt = createParseTree(perm.toString());
                 SQLCriteriaTranslator translator = new SQLCriteriaTranslator(fieldColumnMap);
+
+                String sqlCri = translator.visit(pt);
+                if(ParserUtil.isAll(sqlCri)){
+                    return ParserUtil.ALL;
+                }
                 s.append(translator.visit(pt));
                 if(iterator.hasNext()){
                     s.append(" or ");

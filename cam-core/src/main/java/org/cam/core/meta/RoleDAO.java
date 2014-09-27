@@ -27,16 +27,4 @@ public interface RoleDAO {
      */
     public boolean updateRole(Role role);
 
-
-    /**
-     * Get role list of user.
-     *
-     * <p>
-     *     This method will be heavily used by the first step of authorization.
-     * </p>
-     *
-     * @param userId id of (login) user.
-     * @return role list that user have.
-     */
-    public List<Role> getRolesOfUser(String userId);
 }

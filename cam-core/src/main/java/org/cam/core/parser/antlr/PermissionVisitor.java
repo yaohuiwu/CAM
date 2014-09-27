@@ -1,4 +1,4 @@
-// Generated from /home/wuyaohui/code/github/learning-java/project/antlr/permission-parser-01/src/main/antlr4/Permission.g4 by ANTLR 4.4.1-dev
+// Generated from /home/yaohui/code/github/CBAM/cam-core/src/main/antlr/Permission.g4 by ANTLR 4.4.1-dev
 package org.cam.core.parser.antlr;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -18,6 +18,12 @@ public interface PermissionVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAndExpr(@NotNull PermissionParser.AndExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PermissionParser#criteria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCriteria(@NotNull PermissionParser.CriteriaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PermissionParser#value}.
 	 * @param ctx the parse tree

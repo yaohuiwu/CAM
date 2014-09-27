@@ -4,14 +4,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
-import org.cam.core.CoreDAO;
-import org.cam.core.FactoryHelper;
-import org.cam.core.Logs;
-import org.cam.core.ObjectUtils;
+import org.cam.core.*;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.meta.domain.Permission;
 import org.cam.core.meta.domain.User;
 import org.cam.core.parser.DefaultPermissionEvaluator;
+import org.cam.core.parser.ParserUtil;
 import org.cam.core.parser.PermissionEvaluator;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -77,11 +75,16 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
                 }
             }
             String sqlCriteria = evaluator.toSqlCriteria(fieldColumnMap,permissions);
-            //replace table name with sqlCriteria.
-            tmp = StringUtils.replacePattern(
-                    tmp,
-                    ObjectUtils.getWordRegex(table),
-                    toSecurityView(table,sqlCriteria));
+            if(sqlCriteria==null){
+                throw new CamException("security criteria view can't be null");
+            }
+            if(!ParserUtil.isAll(sqlCriteria)){
+                //replace table name with sqlCriteria.
+                tmp = StringUtils.replacePattern(
+                        tmp,
+                        ObjectUtils.getWordRegex(table),
+                        toSecurityView(table,sqlCriteria));
+            }
         }
         Logs.debugIfEnabled(logger,"sql with security view [{}]",tmp);
         return tmp;

@@ -43,6 +43,15 @@ public class SQLCriteriaTranslator extends PermissionBaseVisitor<String> {
     }
 
     @Override
+    public String visitCriteria(@NotNull PermissionParser.CriteriaContext ctx) {
+        if(ctx.STAR()==null){
+            return visit(ctx.condition());
+        }else{
+            return ctx.STAR().getText();
+        }
+    }
+
+    @Override
     public String visitPermission(@NotNull PermissionParser.PermissionContext ctx) {
         return super.visitPermission(ctx);
     }

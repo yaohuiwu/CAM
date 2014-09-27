@@ -28,16 +28,6 @@ public class MockDaoImpl implements CoreDAO{
     }
 
     @Override
-    public List<Permission> getPermissionsOfUser(User user) {
-        return null;
-    }
-
-    @Override
-    public List<Permission> getPermissionsOfUserByObjectType(User user, String objectType) {
-        return null;
-    }
-
-    @Override
     public List<Permission> getPermsOfUserByActionAndObjectType(User user, String action, String objectType) {
         List<Permission> permList = Lists.newArrayList();
 
@@ -72,8 +62,4 @@ public class MockDaoImpl implements CoreDAO{
         return false;
     }
 
-    @Override
-    public List<Role> getRolesOfUser(String userId) {
-        return null;
-    }
 }

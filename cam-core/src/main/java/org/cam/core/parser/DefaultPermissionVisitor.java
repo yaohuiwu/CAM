@@ -46,7 +46,17 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
 //        visit(ctx.action());
 //        visit(ctx.objectType());
 
-        return visit(ctx.condition());
+        return visit(ctx.criteria());
+    }
+
+    @Override
+    public Boolean visitCriteria(@NotNull PermissionParser.CriteriaContext ctx) {
+        if(ctx.STAR()==null){
+            return visit(ctx.condition());
+        }else{
+            // always return true with a asterisk.
+            return true;
+        }
     }
 
     @Override
@@ -179,6 +189,16 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
 
         LOG.debug("visit or ,left:{} , right:{}",left,right);
         return left || right;
+    }
+
+    @Override
+    public Boolean visitAction(@NotNull PermissionParser.ActionContext ctx) {
+        return super.visitAction(ctx);
+    }
+
+    @Override
+    public Boolean visitObjectType(@NotNull PermissionParser.ObjectTypeContext ctx) {
+        return super.visitObjectType(ctx);
     }
 
     protected Object getFromObject(String attrName){

@@ -1,4 +1,4 @@
-// Generated from /home/wuyaohui/code/github/learning-java/project/antlr/permission-parser-01/src/main/antlr4/Permission.g4 by ANTLR 4.4.1-dev
+// Generated from /home/yaohui/code/github/CBAM/cam-core/src/main/antlr/Permission.g4 by ANTLR 4.4.1-dev
 package org.cam.core.parser.antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -24,6 +24,18 @@ public class PermissionBaseListener implements PermissionListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAndExpr(@NotNull PermissionParser.AndExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCriteria(@NotNull PermissionParser.CriteriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCriteria(@NotNull PermissionParser.CriteriaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

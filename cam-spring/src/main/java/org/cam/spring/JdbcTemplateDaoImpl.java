@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -88,21 +89,6 @@ public class JdbcTemplateDaoImpl implements CoreDAO{
         int r = jdbcTemplate.update("update  cbam_role name = ? , user_criteria = ? where id = ? ",
                 role.getName(),role.getUserCriteria(),role.getId());
         return r == 1;
-    }
-
-    @Override
-    public List<Role> getRolesOfUser(String userId) {
-        return null;
-    }
-
-    @Override
-    public List<Permission> getPermissionsOfUser(User user) {
-        return null;
-    }
-
-    @Override
-    public List<Permission> getPermissionsOfUserByObjectType(User user, String objectType) {
-        return null;
     }
 
     @Override

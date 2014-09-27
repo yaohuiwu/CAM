@@ -117,6 +117,15 @@ public class PermCriteriaTranslator extends AbstractPermissionEvaluator{
             Criterion right = visit(ctx.condition(1));
             return Restrictions.and(left, right);
         }
+
+        @Override
+        public Criterion visitCriteria(@NotNull PermissionParser.CriteriaContext ctx) {
+            if(ctx.STAR()!=null){
+                return visit(ctx.condition());
+            }else{
+                return null;
+            }
+        }
     }
 
 }
