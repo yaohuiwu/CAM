@@ -1,9 +1,11 @@
 package org.cam.core.meta.domain;
 
+import org.cam.core.Copyable;
+
 /**
  * Created by wuyaohui on 14-9-23.
  */
-public class UserImpl implements User{
+public class UserImpl implements User,Copyable{
 
     private String id;
     private String name;
@@ -41,5 +43,10 @@ public class UserImpl implements User{
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public Object copy() {
+        return new UserImpl(this.id,this.name);
     }
 }

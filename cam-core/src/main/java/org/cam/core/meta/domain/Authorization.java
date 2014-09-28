@@ -1,12 +1,14 @@
 package org.cam.core.meta.domain;
 
+import org.cam.core.Copyable;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Which role can do what.
  */
-public class Authorization implements Serializable{
+public class Authorization implements Serializable,Copyable{
 
     private String id;
     private String roleId;
@@ -52,5 +54,16 @@ public class Authorization implements Serializable{
 
     public void setAuthorizedBy(String authorizedBy) {
         this.authorizedBy = authorizedBy;
+    }
+
+    @Override
+    public Object copy() {
+        Authorization a = new Authorization();
+        a.setId(this.id);
+        a.setRoleId(this.roleId);
+        a.setPermissionId(this.permissionId);
+        a.setAuthorizedBy(this.authorizedBy);
+        a.setUpdateTime(this.updateTime);
+        return a;
     }
 }

@@ -1,11 +1,13 @@
 package org.cam.core.meta.domain;
 
+import org.cam.core.Copyable;
+
 import java.io.Serializable;
 
 /**
  * Do something on what.
  */
-public class Permission implements Serializable{
+public class Permission implements Serializable,Copyable{
 
     private String id;
     private String action;
@@ -62,5 +64,34 @@ public class Permission implements Serializable{
         s.append(":");
         s.append(criteria);
         return s.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Permission that = (Permission) o;
+
+        if (action != null ? !action.equals(that.action) : that.action != null) return false;
+        if (criteria != null ? !criteria.equals(that.criteria) : that.criteria != null) return false;
+        if (objectType != null ? !objectType.equals(that.objectType) : that.objectType != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = action != null ? action.hashCode() : 0;
+        result = 31 * result + (objectType != null ? objectType.hashCode() : 0);
+        result = 31 * result + (criteria != null ? criteria.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public Object copy() {
+        Permission p = new Permission(this.action,this.objectType,this.criteria);
+        p.setId(this.id);
+        return p;
     }
 }

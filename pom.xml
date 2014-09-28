@@ -33,6 +33,8 @@
 
         <version.guava>17.0</version.guava>
 
+        <version.ehcache>2.6.6</version.ehcache>
+
         <version.junit>4.11</version.junit>
         <version.mockito>1.9.5</version.mockito>
 
@@ -75,6 +77,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${version.guava}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>${version.ehcache}</version>
             </dependency>
 
             <dependency>

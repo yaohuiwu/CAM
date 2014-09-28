@@ -1,15 +1,31 @@
 package org.cam.core.meta.domain;
 
+import org.cam.core.Copyable;
+
 import java.io.Serializable;
 
 /**
  * A collection of permissions.
  */
-public class Role implements Serializable{
+public class Role implements Serializable,Copyable{
 
     private String id;
     private String name;
     private String userCriteria;
+
+    public Role() {
+    }
+
+    public Role(String name, String userCriteria) {
+        this.name = name;
+        this.userCriteria = userCriteria;
+    }
+
+    public Role(String id, String name, String userCriteria) {
+        this.id = id;
+        this.name = name;
+        this.userCriteria = userCriteria;
+    }
 
     public String getId() {
         return id;
@@ -33,5 +49,39 @@ public class Role implements Serializable{
 
     public void setUserCriteria(String userCriteria) {
         this.userCriteria = userCriteria;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (name != null ? !name.equals(role.name) : role.name != null) return false;
+        if (userCriteria != null ? !userCriteria.equals(role.userCriteria) : role.userCriteria != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (userCriteria != null ? userCriteria.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
+    public Object copy() {
+        Role r = new Role();
+        r.setId(this.id);
+        r.setName(this.name);
+        r.setUserCriteria(this.userCriteria);
+        return r;
     }
 }
