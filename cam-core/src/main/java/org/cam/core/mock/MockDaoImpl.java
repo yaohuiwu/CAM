@@ -31,7 +31,7 @@ public class MockDaoImpl implements CoreDAO{
     public List<Permission> getPermsOfUserByActionAndObjectType(User user, String action, String objectType) {
         List<Permission> permList = Lists.newArrayList();
 
-        Permission per = new Permission(action,objectType,"country = 'China'");
+        Permission per = new Permission(action,objectType,"country = 'USA'");
         permList.add(per);
 
         return permList;

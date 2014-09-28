@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Member;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,10 +33,11 @@ import java.util.regex.Pattern;
  */
 public class SQLQueryFilterImpl extends AbstractQueryFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(SQLQueryFilterImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SQLQueryFilterImpl.class);
 
-    private static final String FROM_REG = "from\\s+((\\w+)(\\s+(\\w+)?!where)?(,(\\w+)(\\s+(\\w+)?!where)?)*)";
-    private static final Pattern FROM_PATTERN = Pattern.compile(FROM_REG);
+//    private static final String FROM_REG = "from\\s+((\\w+)(\\s+(\\w+)?!where)?(,(\\w+)(\\s+(\\w+)?!where)?)*)";
+    private static final String FROM_PATTERN_STRING = "from(\\s+\\w+(\\s+\\w+)?(\\s*,\\s*\\w+(\\s+\\w+)?)*)";
+    private static final Pattern FROM_PATTERN = Pattern.compile(FROM_PATTERN_STRING);
 
     private CoreDAO coreDAO;
     private PermissionEvaluator evaluator;
@@ -47,19 +50,20 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
     @Override
     public String filterQueryString(Session session, String source) {
 
-        Set<String> tableSet = extractTableIdentities(source);
-        Logs.debugIfEnabled(logger,"Table {} found in sql [{}]",tableSet,source);
-        Iterator<String> it = tableSet.iterator();
+        Set<TableSegment> tableSet = extractTableIdentities(source);
+        LOG.debug("Table {} found in sql [{}]",tableSet,source);
+        Iterator<TableSegment> it = tableSet.iterator();
 
         String tmp = source;
         Configuration cfg = HibernateHelper.getConfiguration();
         User currentUser = FactoryHelper.currentUser();
         while(it.hasNext()){
-            String table = it.next();//有无别名？
-            PersistentClass pClass = getPersistClassByTable(table, cfg);
+            TableSegment table = it.next();//有无别名？
+            PersistentClass pClass = getPersistClassByTable(table.getName(), cfg);
             List<Permission> permissions = coreDAO.getPermsOfUserByActionAndObjectType(
                     currentUser, ExecutableType.VIEW.toString(), pClass.getEntityName());
-            //TODO 可以放入缓存
+
+            //TODO put in cache later.
             Map<String,String> fieldColumnMap = Maps.newHashMap();
             Iterator<Property> iterator = pClass.getPropertyIterator();
             while(iterator.hasNext()){
@@ -82,11 +86,11 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
                 //replace table name with sqlCriteria.
                 tmp = StringUtils.replacePattern(
                         tmp,
-                        ObjectUtils.getWordRegex(table),
+                        ObjectUtils.getWordRegex(table.getName()),
                         toSecurityView(table,sqlCriteria));
             }
         }
-        Logs.debugIfEnabled(logger,"sql with security view [{}]",tmp);
+        LOG.debug("query with security view [{}]",tmp);
         return tmp;
     }
 
@@ -109,29 +113,65 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
      * @param sourceSql
      * @return
      */
-    protected Set<String> extractTableIdentities(String sourceSql){
-        String tmp = StringUtils.replacePattern(sourceSql,"\\s*,\\s*",",");
-        Matcher m = FROM_PATTERN.matcher(tmp);
+    protected Set<TableSegment> extractTableIdentities(String sourceSql){
+//        String tmp = StringUtils.replacePattern(sourceSql,"\\s*,\\s*",",");
+        Set<TableSegment> tableSet = Sets.newHashSet();
 
-        Set<String> tableSet = Sets.newHashSet();
+        Matcher m = FROM_PATTERN.matcher(sourceSql);
         while(m.find()){
-            String[] parts = StringUtils.split(m.group(1), ',');
-            tableSet.addAll(Arrays.asList(parts));
+            // examples :
+            // t_doc where
+            // t_doc  d,t_user,t_app where
+            // t_doc t
+            if(m.group(1)==null){
+                break;
+            }
+            String tmp = StringUtils.trim(m.group(1));
+            tmp = StringUtils.removeEndIgnoreCase(tmp, "where");
+            // t_doc |
+            // t_doc  d,t_user,t_app |
+            // t_doc t|
+            tmp = StringUtils.trim(tmp);
+            // first split by ,
+            String[] splits_1 = StringUtils.split(tmp,",");
+            if(splits_1.length == 0){
+                LOG.error("pattern {} broken, fix it!", FROM_PATTERN_STRING);
+                continue;
+            }
+            for(String split_1 : splits_1){
+                String[] splits_2 = StringUtils.split(StringUtils.trim(split_1));
+                if(splits_2.length==0){
+                    LOG.error("pattern {} broken, fix it!",FROM_PATTERN_STRING);
+                    continue;
+                }
+                TableSegment tableSeg = new TableSegment();
+                tableSeg.setName(splits_2[0]);
+                if(splits_2.length > 1){
+                    tableSeg.setAlias(splits_2[1]);
+                }
+                // equals method already override.
+                tableSet.add(tableSeg);
+            }
         }
         return tableSet;
     }
 
-    protected String toSecurityView(String table,String sqlCriteria){
+    protected String toSecurityView(TableSegment table,String sqlCriteria){
         StringBuilder s = new StringBuilder();
         s.append("(");
         s.append("select * from ");
-        s.append(table);
+        s.append(table.getName());
         if(sqlCriteria!=null&&sqlCriteria.length()>0){
             s.append(" where ");
             s.append(sqlCriteria);
         }
         s.append(")");
-        s.append(" a");
+
+        if(table.hasNoAlias()){
+            //give an alias for you
+            s.append(" ");
+            s.append(table.createDefaultAlias());
+        }
         return s.toString();
     }
 

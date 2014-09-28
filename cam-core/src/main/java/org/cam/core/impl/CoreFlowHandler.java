@@ -28,7 +28,7 @@ public class CoreFlowHandler implements FlowHandler {
         /**
          * Cancel execution by throws an ActionNotAllowedException if user behavior is nor allowed.
          */
-        Logs.traceIfEnabled(LOG, "before {}",userBehavior);
+        LOG.debug("before {}",userBehavior);
         try{
             before(userBehavior);
         }catch (UserBehaviorException e){
@@ -44,7 +44,7 @@ public class CoreFlowHandler implements FlowHandler {
             throwable.printStackTrace();
             throw new RuntimeException(throwable.getCause());
         }
-        Logs.traceIfEnabled(LOG,"After {} .. return {}",userBehavior,value);
+        LOG.debug("After {} .. return {}",userBehavior,value);
         return after(userBehavior,value);
     }
 
