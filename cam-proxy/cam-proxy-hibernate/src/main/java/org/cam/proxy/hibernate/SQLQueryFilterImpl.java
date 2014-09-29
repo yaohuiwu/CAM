@@ -50,6 +50,7 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public String filterQueryString(Session session, String source) {
 
         Set<TableSegment> tableSet = extractTableIdentities(source);
