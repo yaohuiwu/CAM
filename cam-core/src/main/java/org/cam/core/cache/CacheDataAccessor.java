@@ -1,17 +1,16 @@
 package org.cam.core.cache;
 
-import net.sf.ehcache.CacheEntry;
-import net.sf.ehcache.CacheException;
+import com.google.common.collect.Lists;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.constructs.blocking.CacheEntryFactory;
 import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
-import net.sf.ehcache.writer.CacheWriter;
-import net.sf.ehcache.writer.writebehind.operations.SingleOperationType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wuyaohui on 14-9-28.
@@ -21,85 +20,40 @@ public class CacheDataAccessor<K,V> {
     private static final Logger LOG = LoggerFactory.getLogger(CacheDataAccessor.class);
 
     private final Ehcache cache;
-    public CacheDataAccessor(Ehcache cache)
-    {
-        cache.registerCacheWriter(new MyCacheWriter());
-        this.cache = new SelfPopulatingCache(cache,new MyCacheEntryFactory());
+
+    public CacheDataAccessor(Ehcache cache){
+        this.cache = cache;
     }
-    /* read some data - notice the cache is treated as an SOR.
+
+    /* get some data - notice the cache is treated as an SOR.
     * the application code simply assumes the key will always be available
     */
-    public V readSomeData(K key)
+    @SuppressWarnings("unchecked")
+    public V get(K key)
     {
         Element e = cache.get(key);
-        return e != null ?(V)e.getObjectValue():null;
+        return e != null ? (V)e.getObjectValue():null;
     }
+
+    public List<V> getAll(Collection<String> keys)
+    {
+//        List<V> values = Lists.newLinkedList();
+//        Iterator<Element> it = elements.values().iterator();
+//        while(it.hasNext()){
+//            values.add((V)it.next().getObjectValue());
+//        }
+        return null;
+    }
+
     /* write some data - notice the cache is treated as an SOR, it is
     * the cache's responsibility to write the data to the SOR.
     */
-    public void writeSomeData(K key, V value)
+    public void write(K key, V value)
     {
         cache.putWithWriter(new Element(key, value));
     }
-    /**
-     * Implement the CacheEntryFactory that allows the cache to provide
-     * the read-through strategy
-     */
-    private class MyCacheEntryFactory implements CacheEntryFactory
-    {
-        public Object createEntry(Object key) throws Exception
-        {
-//            return readDataFromDataStore(key);
-            LOG.debug("read data with key [{}] from data store ",key);
-            return null;
-        }
+
+    public void delete(K key){
+        cache.removeWithWriter(key);
     }
-
-    /**
-     * Implement the CacheWriter interface which allows the cache to provide
-     * the write-through or write-behind strategy.
-     */
-    private class MyCacheWriter implements CacheWriter{
-        @Override
-        public CacheWriter clone(Ehcache cache) throws CloneNotSupportedException {
-            return null;
-        }
-
-        @Override
-        public void init() {
-
-        }
-
-        @Override
-        public void dispose() throws CacheException {
-
-        }
-
-        @Override
-        public void write(Element element) throws CacheException {
-
-            LOG.debug("write data with element [{}] from data store ",element);
-        }
-
-        @Override
-        public void writeAll(Collection<Element> elements) throws CacheException {
-
-        }
-
-        @Override
-        public void delete(CacheEntry entry) throws CacheException {
-
-        }
-
-        @Override
-        public void deleteAll(Collection<CacheEntry> entries) throws CacheException {
-
-        }
-
-        @Override
-        public void throwAway(Element element, SingleOperationType operationType, RuntimeException e) {
-
-        }
-    }
-
 }

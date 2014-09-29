@@ -1,6 +1,6 @@
 package org.cam.core.meta.domain;
 
-import org.cam.core.Copyable;
+import org.cam.core.cache.Copyable;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -57,7 +57,7 @@ public class Authorization implements Serializable,Copyable{
     }
 
     @Override
-    public Object copy() {
+    public Authorization copy() {
         Authorization a = new Authorization();
         a.setId(this.id);
         a.setRoleId(this.roleId);

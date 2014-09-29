@@ -1,31 +1,37 @@
 package org.cam.core.cache;
 
+import net.sf.ehcache.Element;
 import net.sf.ehcache.store.compound.ReadWriteCopyStrategy;
-import org.cam.core.Copyable;
+import org.cam.core.CamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Created by wuyaohui on 14-9-28.
  */
-public class CloneCopyStrategy<T> implements ReadWriteCopyStrategy<T>{
+public class CloneCopyStrategy implements ReadWriteCopyStrategy<Element>{
 
     private static final Logger LOG = LoggerFactory.getLogger(CloneCopyStrategy.class);
 
     @Override
-    public T copyForWrite(T value) {
-        return copy(value);
+    public Element copyForWrite(Element value) {
+        return value!=null ? new Element(value.getObjectKey(),copy(value.getObjectValue())) : null;
     }
 
     @Override
-    public T copyForRead(T storedValue) {
+    public Element copyForRead(Element storedValue) {
         return copyForWrite(storedValue);
     }
 
-    public <T> T copy(T value) {
-        if(value!=null && value instanceof Copyable){
-            LOG.debug("copy {} with CloneCopyStrategy.",value);
-            return (T)((Copyable)value).copy();
+    public Object copy(Object value) {
+        if(value!=null){
+            if(value instanceof Copyable){
+                if(LOG.isTraceEnabled()){
+                    LOG.trace("Copy {} with CloneCopyStrategy",value);
+                }
+                return ((Copyable)value).copy();
+            }
+            throw new CamException(value.getClass().getSimpleName()+" is not instance of Copyable.");
         }
         return null;
     }

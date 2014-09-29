@@ -1,6 +1,6 @@
 package org.cam.core.meta.domain;
 
-import org.cam.core.Copyable;
+import org.cam.core.cache.Copyable;
 
 import java.io.Serializable;
 
@@ -77,7 +77,7 @@ public class Role implements Serializable,Copyable{
     }
 
     @Override
-    public Object copy() {
+    public Role copy() {
         Role r = new Role();
         r.setId(this.id);
         r.setName(this.name);

@@ -1,6 +1,6 @@
 package org.cam.core.meta.domain;
 
-import org.cam.core.Copyable;
+import org.cam.core.cache.Copyable;
 
 /**
  * Created by wuyaohui on 14-9-23.
@@ -46,7 +46,7 @@ public class UserImpl implements User,Copyable{
     }
 
     @Override
-    public Object copy() {
+    public UserImpl copy() {
         return new UserImpl(this.id,this.name);
     }
 }

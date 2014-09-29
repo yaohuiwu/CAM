@@ -26,7 +26,7 @@ public class MyDataAccessClass<K,V> {
         cache.registerCacheWriter(new MyCacheWriter());
         this.cache = new SelfPopulatingCache(cache,new MyCacheEntryFactory());
     }
-    /* read some data - notice the cache is treated as an SOR.
+    /* get some data - notice the cache is treated as an SOR.
     * the application code simply assumes the key will always be available
     */
     public V readSomeData(K key)
@@ -43,14 +43,14 @@ public class MyDataAccessClass<K,V> {
     }
     /**
      * Implement the CacheEntryFactory that allows the cache to provide
-     * the read-through strategy
+     * the get-through strategy
      */
     private class MyCacheEntryFactory implements CacheEntryFactory
     {
         public Object createEntry(Object key) throws Exception
         {
 //            return readDataFromDataStore(key);
-            LOG.debug("read data with key [{}] from data store ",key);
+            LOG.debug("get data with key [{}] from data store ",key);
             return null;
         }
     }

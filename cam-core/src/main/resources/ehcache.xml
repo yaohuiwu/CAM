@@ -1,0 +1,89 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false">
+
+    <!--
+    The ehcache-failsafe.xml is a default configuration for ehcache, if an ehcache.xml is not configured.
+
+    The diskStore element is optional. It must be configured if you have overflowToDisk or diskPersistent enabled
+    for any cache. If it is not configured, a warning will be issues and java.io.tmpdir will be used.
+
+    diskStore has only one attribute - "path". It is the path to the directory where .data and .index files will be created.
+
+    If the path is a Java System Property it is replaced by its value in the
+    running VM.
+
+    The following properties are translated:
+    * user.home - User's home directory
+    * user.dir - User's current working directory
+    * java.io.tmpdir - Default temp file path
+    * ehcache.disk.store.dir - A system property you would normally specify on the command line
+          e.g. java -Dehcache.disk.store.dir=/u01/myapp/diskdir ...
+
+    Subdirectories can be specified below the property e.g. java.io.tmpdir/one
+
+    -->
+    <diskStore path="java.io.tmpdir"/>
+
+    <!--
+    Mandatory Default Cache configuration. These settings will be applied to caches
+    created programmtically using CacheManager.add(String cacheName)
+    -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+
+    <!--user_id -> Set of role_id-->
+    <cache name="user_role"
+           maxElementsInMemory="1800"
+           overflowToDisk="false"
+           eternal="true"
+           memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="none"/>
+    </cache>
+
+    <!--role_id -> perm_id-->
+    <cache name="authorization"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false"
+           memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="none"/>
+    </cache>
+
+    <!--perm_id ->Permission-->
+    <cache name="permission"
+           maxElementsInMemory="10000"
+           overflowToDisk="false"
+           eternal="true"
+           copyOnRead="true"
+           copyOnWrite="true"
+           memoryStoreEvictionPolicy="LRU"
+           cacheLoaderTimeoutMillis="5000">
+
+        <cacheLoaderFactory class="org.cam.core.cache.CamCacheLoaderFactory"/>
+
+        <cacheWriter writeMode="write-through"
+                     notifyListenersOnException="false"
+                     maxWriteDelay="0"
+                     rateLimitPerSecond="0"
+                     writeCoalescing="false"
+                     writeBatching="false"
+                     writeBatchSize="1"
+                     retryAttempts="0"
+                     retryAttemptDelaySeconds="0">
+            <cacheWriterFactory class="org.cam.core.cache.CamWTCacheWriterFactory"/>
+        </cacheWriter>
+
+        <copyStrategy class="org.cam.core.cache.CloneCopyStrategy"/>
+
+        <persistence strategy="none"/>
+    </cache>
+
+
+</ehcache>

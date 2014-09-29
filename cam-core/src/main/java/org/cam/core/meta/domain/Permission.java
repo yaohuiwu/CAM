@@ -1,6 +1,6 @@
 package org.cam.core.meta.domain;
 
-import org.cam.core.Copyable;
+import org.cam.core.cache.Copyable;
 
 import java.io.Serializable;
 
@@ -89,7 +89,7 @@ public class Permission implements Serializable,Copyable{
     }
 
     @Override
-    public Object copy() {
+    public Permission copy() {
         Permission p = new Permission(this.action,this.objectType,this.criteria);
         p.setId(this.id);
         return p;
