@@ -1,7 +1,7 @@
 package org.cam.core;
 
 import com.google.common.base.Preconditions;
-import org.cam.core.meta.domain.User;
+import org.cam.core.domain.User;
 
 /**
  * Created by wuyaohui on 14-9-24.

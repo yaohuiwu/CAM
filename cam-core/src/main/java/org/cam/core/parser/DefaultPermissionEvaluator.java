@@ -3,7 +3,7 @@ package org.cam.core.parser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cam.core.Executable;
 import org.cam.core.Logs;
-import org.cam.core.meta.domain.Permission;
+import org.cam.core.domain.Permission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -13,8 +13,12 @@
        default-lazy-init="true">
 
     <!--CAM system configuration-->
-    <bean id="camDao" class="org.cam.core.mock.MockDaoImpl">
+    <bean id="persistentDao" class="org.cam.core.dao.JdbcPersistentDaoImpl">
         <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="camDao" class="org.cam.core.dao.CamDaoImpl">
+        <constructor-arg ref="persistentDao"/>
     </bean>
 
     <bean id="camPermissionEvaluator" class="org.cam.core.parser.DefaultPermissionEvaluator"/>

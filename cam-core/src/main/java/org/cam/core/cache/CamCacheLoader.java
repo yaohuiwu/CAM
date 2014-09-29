@@ -5,7 +5,7 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Status;
 import net.sf.ehcache.loader.CacheLoader;
 import org.cam.core.annotation.ExecutableType;
-import org.cam.core.meta.domain.Permission;
+import org.cam.core.domain.Permission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,7 @@
 package org.cam.core.parser;
 
 import org.cam.core.Executable;
-import org.cam.core.meta.domain.Permission;
+import org.cam.core.domain.Permission;
 
 import java.util.List;
 import java.util.Map;

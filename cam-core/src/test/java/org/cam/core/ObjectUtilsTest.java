@@ -2,6 +2,8 @@ package org.cam.core;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 /**
  * Created by wuyaohui on 14-9-27.
@@ -43,6 +45,16 @@ public class ObjectUtilsTest {
 
         public void setEaten(boolean eaten) {
             this.eaten = eaten;
+        }
+    }
+
+    public static void printlnList(List<?> list){
+        if(list!=null){
+            for(Object o : list){
+                System.out.println(o.toString());
+            }
+        }else{
+            System.out.println("list is null");
         }
     }
 }

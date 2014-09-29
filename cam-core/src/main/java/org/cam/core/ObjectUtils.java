@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -130,6 +131,13 @@ public class ObjectUtils {
 
     public static boolean matches(String str,String pattern){
         return Pattern.compile(pattern).matcher(str).matches();
+    }
+
+    public static String joinAsSqlIn(Collection<String> items){
+        StringBuilder s = new StringBuilder();
+        return s.append("'")
+         .append(StringUtils.join(items.iterator(),"','"))
+         .append("'").toString();
     }
 
 }

@@ -1,4 +1,4 @@
-package org.cam.core.meta.domain;
+package org.cam.core.domain;
 
 import org.cam.core.cache.Copyable;
 

@@ -1,11 +1,10 @@
 package org.cam.proxy.hibernate.handler;
 
-import org.cam.core.CoreDAO;
+import org.cam.core.CamService;
 import org.cam.core.FactoryHelper;
-import org.cam.core.Logs;
 import org.cam.core.annotation.ExecutableType;
+import org.cam.core.domain.Permission;
 import org.cam.core.exception.ActionNotAllowedException;
-import org.cam.core.meta.domain.Permission;
 import org.cam.proxy.hibernate.PermCriteriaTranslator;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -32,14 +31,17 @@ public class CriteriaInvocationHandler implements InvocationHandler{
     private String entityName;
 
     private PermCriteriaTranslator translator;
-    private CoreDAO coreDAO;
+//    private CoreDAO coreDAO;
+
+    private CamService service;
 
     public CriteriaInvocationHandler(Session session, String entityName){
         this.session = session;
         this.entityName = entityName;
         translator = new PermCriteriaTranslator();
 
-        coreDAO = FactoryHelper.factory().getCoreDao();
+//        coreDAO = FactoryHelper.factory().getCoreDao();
+        service = FactoryHelper.factory().getService();
     }
 
     /**
@@ -81,7 +83,7 @@ public class CriteriaInvocationHandler implements InvocationHandler{
      * Authorization plugin in here.
      */
     private Criterion createSecurityView(){
-        List<Permission> permList = coreDAO.getPermsOfUserByActionAndObjectType(FactoryHelper.currentUser(), ExecutableType.VIEW.toString(), entityName);
+        List<Permission> permList = service.getPermissionOfUser(FactoryHelper.currentUser(), ExecutableType.VIEW.toString(), entityName);
         if(permList==null||permList.isEmpty()){
             throw new ActionNotAllowedException("");
         }

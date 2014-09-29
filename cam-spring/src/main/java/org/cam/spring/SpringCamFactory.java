@@ -1,7 +1,8 @@
 package org.cam.spring;
 
 import org.cam.core.*;
-import org.cam.core.meta.domain.User;
+import org.cam.core.dao.CamDao;
+import org.cam.core.domain.User;
 import org.cam.proxy.hibernate.HibernateHelper;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -44,8 +45,14 @@ public class SpringCamFactory implements ApplicationContextAware,CamFactory{
         return provider.getCurrentUser();
     }
 
+    @SuppressWarnings("unchecked")
+    private <T> T getBean(String beanId,Class<T> beanClass){
+        Object bean = context.getBean(beanId);
+        return bean !=null ? (T)bean : null;
+    }
+
     @Override
-    public CoreDAO getCoreDao() {
-        return (CoreDAO)context.getBean("camDao");
+    public CamService getService() {
+        return getBean("camService",CamService.class);
     }
 }

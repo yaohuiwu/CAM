@@ -1,17 +1,12 @@
 package org.cam.core.cache;
 
-import com.google.common.collect.Sets;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import org.cam.core.annotation.ExecutableType;
-import org.cam.core.meta.domain.Permission;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

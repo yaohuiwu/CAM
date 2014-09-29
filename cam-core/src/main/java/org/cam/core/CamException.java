@@ -11,4 +11,16 @@ public class CamException extends RuntimeException{
     public CamException(String message) {
         super(message);
     }
+
+    public CamException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public CamException(Throwable cause) {
+        super(cause);
+    }
+
+    public CamException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

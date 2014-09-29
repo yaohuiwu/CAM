@@ -2,7 +2,7 @@ package org.cam.proxy.hibernate;
 
 import com.google.common.collect.Lists;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.cam.core.meta.domain.Permission;
+import org.cam.core.domain.Permission;
 import org.cam.core.parser.AbstractPermissionEvaluator;
 import org.cam.core.parser.AbstractPermissionVisitor;
 import org.cam.core.parser.antlr.PermissionParser;

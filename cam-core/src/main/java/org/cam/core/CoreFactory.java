@@ -1,12 +1,12 @@
 package org.cam.core;
 
+import org.cam.core.dao.CamDao;
+import org.cam.core.dao.CamDaoImpl;
+import org.cam.core.dao.JdbcPersistentDaoImpl;
+import org.cam.core.domain.User;
 import org.cam.core.impl.CamServiceImpl;
 import org.cam.core.impl.CoreFlowHandler;
-import org.cam.core.meta.domain.User;
-import org.cam.core.meta.domain.UserImpl;
-import org.cam.core.meta.impl.JdbcDAOImpl;
 import org.cam.core.parser.DefaultPermissionEvaluator;
-import org.cam.core.parser.PermissionEvaluator;
 
 import javax.sql.DataSource;
 
@@ -20,7 +20,8 @@ public class CoreFactory implements CamFactory{
 
     public CoreFactory(){
         DataSource ds = null;
-        CamService service = new CamServiceImpl(new DefaultPermissionEvaluator(),new JdbcDAOImpl(ds));
+        CamDao camDao = new CamDaoImpl(new JdbcPersistentDaoImpl(ds));
+        CamService service = new CamServiceImpl(new DefaultPermissionEvaluator(),camDao);
         FlowHandler flowHandler = new CoreFlowHandler(service,null);
         FactoryHelper.register(this);
     }
@@ -42,8 +43,14 @@ public class CoreFactory implements CamFactory{
         return getUserContextProvider().getCurrentUser();
     }
 
+//    @Override
+//    public CoreDAO getCoreDao() {
+//        return null;
+//    }
+
+
     @Override
-    public CoreDAO getCoreDao() {
+    public CamService getService() {
         return null;
     }
 }

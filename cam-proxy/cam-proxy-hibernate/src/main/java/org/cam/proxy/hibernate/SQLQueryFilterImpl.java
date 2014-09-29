@@ -1,13 +1,15 @@
 package org.cam.proxy.hibernate;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
-import org.cam.core.*;
+import org.cam.core.CamException;
+import org.cam.core.CamService;
+import org.cam.core.FactoryHelper;
+import org.cam.core.ObjectUtils;
 import org.cam.core.annotation.ExecutableType;
-import org.cam.core.meta.domain.Permission;
-import org.cam.core.meta.domain.User;
+import org.cam.core.domain.Permission;
+import org.cam.core.domain.User;
 import org.cam.core.parser.DefaultPermissionEvaluator;
 import org.cam.core.parser.ParserUtil;
 import org.cam.core.parser.PermissionEvaluator;
@@ -22,9 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Member;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,11 +42,10 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
     private static final String FROM_PATTERN_STRING = "from(\\s+\\w+(\\s+\\w+)?(\\s*,\\s*\\w+(\\s+\\w+)?)*)";
     private static final Pattern FROM_PATTERN = Pattern.compile(FROM_PATTERN_STRING);
 
-    private CoreDAO coreDAO;
+    private CamService camService ;
     private PermissionEvaluator evaluator;
 
-    public SQLQueryFilterImpl(CoreDAO coreDAO) {
-        this.coreDAO = coreDAO;
+    public SQLQueryFilterImpl(CamService camService) {
         evaluator = new DefaultPermissionEvaluator();
     }
 
@@ -60,7 +62,7 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
         while(it.hasNext()){
             TableSegment table = it.next();//有无别名？
             PersistentClass pClass = getPersistClassByTable(table.getName(), cfg);
-            List<Permission> permissions = coreDAO.getPermsOfUserByActionAndObjectType(
+            List<Permission> permissions = camService.getPermissionOfUser(
                     currentUser, ExecutableType.VIEW.toString(), pClass.getEntityName());
 
             //TODO put in cache later.

@@ -1,6 +1,6 @@
 package org.cam.core;
 
-import org.cam.core.meta.domain.User;
+import org.cam.core.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package org.cam.core.meta.domain;
+package org.cam.core.domain;
 
 import org.cam.core.cache.Copyable;
 
@@ -83,5 +83,14 @@ public class Role implements Serializable,Copyable{
         r.setName(this.name);
         r.setUserCriteria(this.userCriteria);
         return r;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", userCriteria='" + userCriteria + '\'' +
+                '}';
     }
 }

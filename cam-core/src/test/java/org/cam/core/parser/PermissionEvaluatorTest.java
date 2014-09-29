@@ -3,7 +3,7 @@ package org.cam.core.parser;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.cam.core.annotation.ExecutableType;
-import org.cam.core.meta.domain.Permission;
+import org.cam.core.domain.Permission;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
