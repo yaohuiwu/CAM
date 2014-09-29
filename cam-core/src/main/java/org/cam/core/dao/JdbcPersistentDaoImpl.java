@@ -5,9 +5,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.cam.core.ObjectUtils;
-import org.cam.core.ScriptHelper;
+import org.cam.core.ScriptRunner;
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;
 import org.cam.core.domain.Role;
@@ -74,7 +73,16 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
             return ;
         }
         LOG.info("Initializing CAM schema.");
-        ScriptHelper.runScript(dataSource,"cam_schema.sql");
+        Connection con = null;
+        try{
+            con = dataSource.getConnection();
+            ScriptRunner scriptRunner = new ScriptRunner(con);
+            scriptRunner.runScript(getClass().getClassLoader().getResource("cam_schema.sql"));
+        }catch (SQLException sqlE){
+            LOG.error("",sqlE);
+        }finally {
+            DbUtils.closeQuietly(con);
+        }
         LOG.info("Initializing CAM schema successfully.");
     }
 

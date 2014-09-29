@@ -1,9 +1,7 @@
 package org.cam.core;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.net.URL;
 import java.sql.*;
 
 /**
@@ -250,6 +248,30 @@ public class ScriptRunner {
         if (errorLogWriter != null) {
             errorLogWriter.println(o);
             errorLogWriter.flush();
+        }
+    }
+
+    //------------------- added by Yaohui Wu at 2014.9.29 19:20 ------------------------//
+
+    public void runScript(URL url){
+        if(url==null){
+            throw new IllegalArgumentException("url must not be null.");
+        }
+        FileInputStream fi = null;
+        try{
+            fi = new FileInputStream(url.getFile());
+            Reader reader = new InputStreamReader(fi,"UTF-8");
+            runScript(reader);
+        }catch (IOException ioe){
+            throw new RuntimeException("error create reader for file "+url,ioe.getCause());
+        }
+        finally {
+            if(fi!=null){
+                try{
+                    fi.close();
+                }catch (IOException e){
+                }
+            }
         }
     }
 }

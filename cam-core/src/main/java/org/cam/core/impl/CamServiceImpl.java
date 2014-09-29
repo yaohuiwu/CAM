@@ -60,6 +60,7 @@ public class CamServiceImpl implements CamService {
         return camDao.getPermissionsOfRoles(cachedRoleSet,action,objectType);
     }
 
+    @SuppressWarnings("unchecked")
     private Set<String> calculateRolesOfUser(User user){
         //TODO calculateRolesOfUser
 
