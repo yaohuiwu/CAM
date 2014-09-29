@@ -34,7 +34,8 @@
             timeToLiveSeconds="120"
             maxElementsOnDisk="10000000"
             diskExpiryThreadIntervalSeconds="120"
-            memoryStoreEvictionPolicy="LRU">
+            memoryStoreEvictionPolicy="LRU"
+            >
         <persistence strategy="localTempSwap"/>
     </defaultCache>
 
@@ -43,7 +44,25 @@
            maxElementsInMemory="1800"
            overflowToDisk="false"
            eternal="true"
-           memoryStoreEvictionPolicy="LRU">
+           memoryStoreEvictionPolicy="LRU"
+           cacheLoaderTimeoutMillis="5000">
+
+        <cacheLoaderFactory class="org.cam.core.cache.CamCacheLoaderFactory"/>
+
+        <cacheWriter writeMode="write-through"
+                     notifyListenersOnException="false"
+                     maxWriteDelay="0"
+                     rateLimitPerSecond="0"
+                     writeCoalescing="false"
+                     writeBatching="false"
+                     writeBatchSize="1"
+                     retryAttempts="0"
+                     retryAttemptDelaySeconds="0">
+            <cacheWriterFactory class="org.cam.core.cache.CamWTCacheWriterFactory"/>
+        </cacheWriter>
+
+        <copyStrategy class="org.cam.core.cache.CloneCopyStrategy"/>
+
         <persistence strategy="none"/>
     </cache>
 
@@ -52,7 +71,25 @@
            maxElementsInMemory="10000"
            eternal="true"
            overflowToDisk="false"
-           memoryStoreEvictionPolicy="LRU">
+           memoryStoreEvictionPolicy="LRU"
+           cacheLoaderTimeoutMillis="5000">
+
+        <cacheLoaderFactory class="org.cam.core.cache.CamCacheLoaderFactory"/>
+
+        <cacheWriter writeMode="write-through"
+                     notifyListenersOnException="false"
+                     maxWriteDelay="0"
+                     rateLimitPerSecond="0"
+                     writeCoalescing="false"
+                     writeBatching="false"
+                     writeBatchSize="1"
+                     retryAttempts="0"
+                     retryAttemptDelaySeconds="0">
+            <cacheWriterFactory class="org.cam.core.cache.CamWTCacheWriterFactory"/>
+        </cacheWriter>
+
+        <copyStrategy class="org.cam.core.cache.CloneCopyStrategy"/>
+
         <persistence strategy="none"/>
     </cache>
 
