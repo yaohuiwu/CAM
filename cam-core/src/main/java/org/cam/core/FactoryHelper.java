@@ -35,4 +35,8 @@ public class FactoryHelper {
     public static String getUserType(){
         return currentUser().getClass().getSimpleName();
     }
+
+    public static UserBehavior currentBehavior(final Invokable invokable){
+        return new UserBehavior(FactoryHelper.currentUser(),Action.toAction(invokable));
+    }
 }

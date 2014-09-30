@@ -33,7 +33,6 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
 
     public JdbcPersistentDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
-        initializeSor(null);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
     }
 
     @Override
-    public void initializeSor(Properties properties) {
+    public void initializeSor() {
         if(isSorPrepared()){
             LOG.info("CAM schema is already prepared. Nothing will be done");
             return ;
@@ -79,7 +78,7 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
         try{
             con = dataSource.getConnection();
             ScriptRunner scriptRunner = new ScriptRunner(con);
-            scriptRunner.runScript(getClass().getClassLoader().getResource("cam_schema.sql"));
+            scriptRunner.runScript(getClass().getClassLoader().getResourceAsStream("cam_schema.sql"));
         }catch (SQLException sqlE){
             LOG.error("",sqlE);
         }finally {

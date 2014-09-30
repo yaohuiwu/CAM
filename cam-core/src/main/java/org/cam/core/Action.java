@@ -29,4 +29,8 @@ public class Action implements Executable{
                 ", objects=" + Arrays.toString(objects) +
                 '}';
     }
+
+    public static Action toAction(Invokable invokable){
+        return new Action(invokable.getMethod().getName(),invokable.getArguments());
+    }
 }

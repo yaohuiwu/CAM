@@ -38,7 +38,7 @@ public class JdbcPersistentDaoImplTest {
         dataSource = new SimpleDateSource("com.mysql.jdbc.Driver","jdbc:mysql://192.168.8.172/test","root","pekall1234");
         persistentDao = new JdbcPersistentDaoImpl(dataSource);
 
-        persistentDao.initializeSor(null);
+        persistentDao.initializeSor();
 
         //prepare test data
         ScriptRunner.runScript(dataSource,getClass().getClassLoader().getResource("dataTest.sql"));

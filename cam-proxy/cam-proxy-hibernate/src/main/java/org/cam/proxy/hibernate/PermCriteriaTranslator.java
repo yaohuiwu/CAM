@@ -123,7 +123,7 @@ public class PermCriteriaTranslator extends AbstractPermissionEvaluator{
             if(ctx.STAR()==null){
                 return visit(ctx.condition());
             }else{
-                return null;
+                return Restrictions.eq("1","1");
             }
         }
     }

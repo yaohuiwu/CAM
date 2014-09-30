@@ -13,7 +13,7 @@
        default-lazy-init="true">
 
     <!--CAM system configuration-->
-    <bean id="persistentDao" class="org.cam.core.dao.JdbcPersistentDaoImpl">
+    <bean id="persistentDao" class="org.cam.core.dao.JdbcPersistentDaoImpl" init-method="initializeSor">
         <constructor-arg ref="dataSource"/>
     </bean>
 

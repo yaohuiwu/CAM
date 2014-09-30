@@ -5,6 +5,7 @@ import org.cam.core.FactoryHelper;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.cam.core.exception.ActionNotAllowedException;
+import org.cam.core.exception.UserBehaviorException;
 import org.cam.proxy.hibernate.PermCriteriaTranslator;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -67,7 +68,13 @@ public class CriteriaInvocationHandler implements InvocationHandler{
         mdToAuthorize.add("uniqueResult");
 
         if(mdToAuthorize.contains(method.getName())){
-            Criterion criterion = createSecurityView();
+            Criterion criterion = null ;
+            try{
+                criterion = createSecurityView();
+            }catch (UserBehaviorException e){
+                LOG.warn("No Security view found for {} on entry[{}]",FactoryHelper.currentUser(),entityName);
+                return result;
+            }
             LOG.debug("security criterion view: [{}]",criterion);
             criteria.add(criterion);
         }

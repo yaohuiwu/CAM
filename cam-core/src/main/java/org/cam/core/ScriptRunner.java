@@ -254,6 +254,7 @@ public class ScriptRunner {
 
     //------------------- added by Yaohui Wu at 2014.9.29 19:20 ------------------------//
 
+    @Deprecated
     public void runScript(URL url){
         if(url==null){
             throw new IllegalArgumentException("url must not be null.");
@@ -270,6 +271,26 @@ public class ScriptRunner {
             if(fi!=null){
                 try{
                     fi.close();
+                }catch (IOException e){
+                }
+            }
+        }
+    }
+
+    public void runScript(InputStream in){
+        if(in==null){
+            throw new IllegalArgumentException("InputStream must not be null.");
+        }
+        try{
+            Reader reader = new InputStreamReader(in,"UTF-8");
+            runScript(reader);
+        }catch (IOException ioe){
+            throw new RuntimeException("error create reader from "+in);
+        }
+        finally {
+            if(in!=null){
+                try{
+                    in.close();
                 }catch (IOException e){
                 }
             }

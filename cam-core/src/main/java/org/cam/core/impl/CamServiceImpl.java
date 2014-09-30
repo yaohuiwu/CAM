@@ -54,11 +54,10 @@ public class CamServiceImpl implements CamService {
     @Override
     public List<Permission> getPermissionOfUser(User user, String action, String objectType) {
         Set<String> cachedRoleSet =  camDao.getCachedRolesOfUser(user);
-        if(cachedRoleSet==null){
+        //isEmpty does not mean miss hit.
+        if(cachedRoleSet == null){
             LOG.debug("'user_role' Cache miss hit for user {}",user);
             cachedRoleSet = calculateRolesOfUser(user);
-        }else{
-            LOG.debug("roles of {} found in cache.",user);
         }
         return camDao.getPermissionsOfRoles(cachedRoleSet,action,objectType);
     }
@@ -75,6 +74,6 @@ public class CamServiceImpl implements CamService {
             }
         }
         camDao.cacheRolesOfUser(user,roleSet);
-        return Collections.EMPTY_SET;
+        return roleSet;
     }
 }

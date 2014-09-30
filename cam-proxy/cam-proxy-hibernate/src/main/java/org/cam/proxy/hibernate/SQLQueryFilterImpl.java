@@ -10,6 +10,7 @@ import org.cam.core.ObjectUtils;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.cam.core.domain.User;
+import org.cam.core.exception.ActionNotAllowedException;
 import org.cam.core.parser.DefaultPermissionEvaluator;
 import org.cam.core.parser.ParserUtil;
 import org.cam.core.parser.PermissionEvaluator;
@@ -45,8 +46,9 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
     private CamService camService ;
     private PermissionEvaluator evaluator;
 
-    public SQLQueryFilterImpl(CamService camService) {
+    public SQLQueryFilterImpl() {
         evaluator = new DefaultPermissionEvaluator();
+        camService = FactoryHelper.factory().getService();
     }
 
     @Override
@@ -65,6 +67,9 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
             PersistentClass pClass = getPersistClassByTable(table.getName(), cfg);
             List<Permission> permissions = camService.getPermissionOfUser(
                     currentUser, ExecutableType.VIEW.toString(), pClass.getEntityName());
+            if(permissions.isEmpty()){
+                throw new ActionNotAllowedException("");
+            }
 
             //TODO put in cache later.
             Map<String,String> fieldColumnMap = Maps.newHashMap();

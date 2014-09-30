@@ -1,7 +1,9 @@
 package org.cam.proxy.hibernate.handler;
 
+import org.cam.core.CamException;
 import org.cam.core.FactoryHelper;
 import org.cam.core.Invokable;
+import org.cam.core.UserBehavior;
 import org.cam.core.exception.UserBehaviorException;
 import org.cam.core.impl.JdkProxyInvokable;
 import org.cam.proxy.hibernate.QueryFilter;
@@ -31,7 +33,7 @@ public class SessionInvocationHandler implements InvocationHandler{
 
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
-        sqlQueryFilter = new SQLQueryFilterImpl(FactoryHelper.factory().getService());
+        sqlQueryFilter = new SQLQueryFilterImpl();
     }
 
     /**
@@ -49,61 +51,70 @@ public class SessionInvocationHandler implements InvocationHandler{
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-        Object result=null;
+        Object result= null;
+
         Invokable invokable = new JdkProxyInvokable(method,session,args);
+        //main action flow
+//        if(notInvokingFramework(invokable)){
+//            try{
+//                result = FactoryHelper.flow().handleFlow(invokable);
+//            }catch (UserBehaviorException e){
+//                LOG.warn("{} not allowed.",FactoryHelper.currentBehavior(invokable));
+//                return result;
+//            }
+//        }else{
+        result = invokable.invoke();
+//        }
+
+        //query flow
         try{
-            result = FactoryHelper.flow().handleFlow(invokable);
+            if("createCriteria".equals(method.getName())){
+                if(args.length < 1){
+                    throw new IllegalStateException("Bad argument length of createCriteria -- at least one. ");
+                }
+                // ====== start
+                String entityName = null ;
+                if(args[0] instanceof Class){
+                    entityName = ((Class)args[0]).getName();
+                }else if(args[0] instanceof String){
+                    entityName = (String)args[0];
+                }else{
+                    throw new IllegalStateException("Can't find entity name from method [createCriteria] ");
+                }
+                // ====== end
+                CriteriaInvocationHandler criteriaProxy = new CriteriaInvocationHandler(session,entityName);
+                return criteriaProxy.bind((Criteria)result);
+            }
+            else if("createQuery".equals(method.getName())){
+                if(args.length < 1){
+                    throw new IllegalStateException("Bad argument length of createQuery -- must be one. ");
+                }
+                Query proxiedQuery = session.createQuery(queryFilter.filterQueryString(session,(String)args[0]));
+                QueryWrapper wrapper = new QueryWrapper(proxiedQuery);
+                QueryWrapperInvocationHandler queryProxy = new QueryWrapperInvocationHandler(session,(Query)result);
+                return queryProxy.bind(wrapper);
+            }
+            else if("createSQLQuery".equals(method.getName())){
+                SQLQuery newSqlQuery = session.createSQLQuery(sqlQueryFilter.filterQueryString(session,(String)args[0]));
+                SQLQueryInvocationHandler queryProxy = new SQLQueryInvocationHandler(session,(SQLQuery)result);
+                return queryProxy.bind(newSqlQuery);
+            }
         }catch (UserBehaviorException e){
-            return result;
+
+            UserBehavior currentUserBehavior  = FactoryHelper.currentBehavior(invokable);
+            LOG.warn("{} not allowed.",currentUserBehavior);
+            throw new UserBehaviorException("当前用户没有权限",currentUserBehavior);
         }
 
-        if("createCriteria".equals(method.getName())){
-            if(args.length < 1){
-                throw new IllegalStateException("Bad argument length of createCriteria -- at least one. " +
-                        "Check method createCriteria in SharedSessionContract!");
-            }
-            //TODO create a entity name resolver for future using.
-            // ====== start
-            String entityName = null ;
-            if(args[0] instanceof Class){
-                entityName = ((Class)args[0]).getName();
-            }else if(args[0] instanceof String){
-                entityName = (String)args[0];
-            }else{
-                throw new IllegalStateException("Can't find entity name from method [createCriteria] " +
-                        "from SharedSessionContract.Maybe your hibernate version is older than 4.3.5.Final!");
-            }
-            // ====== end
-            /**
-             * CriteriaProxy will take over control all methods of Criteria.
-             */
-            CriteriaInvocationHandler criteriaProxy = new CriteriaInvocationHandler(session,entityName);
-            return criteriaProxy.bind((Criteria)result);
-        }
-        else if("createQuery".equals(method.getName())){
-            if(args.length < 1){
-                throw new IllegalStateException("Bad argument length of createQuery -- must be one. " +
-                        "Check method createQuery in SharedSessionContract!");
-            }
-            Query proxiedQuery = session.createQuery(queryFilter.filterQueryString(session,(String)args[0]));
-            QueryWrapper wrapper = new QueryWrapper(proxiedQuery);
-            /**
-             * QueryWrapperInvocationHandler will take over control all methods of QueryWrapper.
-             * Then, QueryWrapper will take care all methods of Query, implemented in static proxy manner.
-              */
-            QueryWrapperInvocationHandler queryProxy = new QueryWrapperInvocationHandler(session,(Query)result);
-            return queryProxy.bind(wrapper);
-
-        }
-        else if("createSQLQuery".equals(method.getName())){
-            /**
-             * SQLQueryInvocationHandler will take over control all methods of SQLQuery.
-             */
-            SQLQuery newSqlQuery = session.createSQLQuery(sqlQueryFilter.filterQueryString(session,(String)args[0]));
-            SQLQueryInvocationHandler queryProxy = new SQLQueryInvocationHandler(session,(SQLQuery)result);
-            return queryProxy.bind(newSqlQuery);
-        }
         return result;
+    }
+
+    private boolean notInvokingFramework(Invokable invokable){
+        Object target = invokable.getTarget();
+        if(target instanceof Session || target instanceof Query || target instanceof Criteria){
+            return false;
+        }
+        return true;
     }
 
 

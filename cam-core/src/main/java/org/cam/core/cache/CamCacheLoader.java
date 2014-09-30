@@ -59,10 +59,16 @@ public class CamCacheLoader implements CacheLoader{
                 //key is role id , value is PermissionSet
                 PermissionSet permSet = persistentDao.getPermissionOfRole((String)key);
                 loadedObject = permSet;
+                if(LOG.isTraceEnabled()){
+                    LOG.trace("{} loaded from sor into '{}' cache",permSet,InnerCache.authorization.toString());
+                }
                 break;
             case permission:
                 //key is permission id
                 loadedObject = persistentDao.getSinglePermission((String)key);
+                if(LOG.isTraceEnabled()){
+                    LOG.trace("{} loaded from sor into '{}' cache",loadedObject,InnerCache.permission.toString());
+                }
                 break;
             default:
                 throw new CamException("No loader method for cache "+cacheType);
@@ -93,6 +99,9 @@ public class CamCacheLoader implements CacheLoader{
                         permIdSet.add(ait.next().getPermissionId());
                     }
                     loadedMap.put(entry.getKey(),new PermissionSet(permIdSet));
+                }
+                if(LOG.isTraceEnabled()){
+                    LOG.trace("{} loaded from sor into '{}' cache",loadedMap,InnerCache.authorization.toString());
                 }
                 break;
             case permission:

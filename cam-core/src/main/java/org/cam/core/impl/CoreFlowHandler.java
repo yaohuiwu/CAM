@@ -24,7 +24,7 @@ public class CoreFlowHandler implements FlowHandler {
         Object value = null;
         //translate proxy method name to standard name.
 
-        UserBehavior userBehavior = new UserBehavior(FactoryHelper.currentUser(),toAction(invokable));
+        UserBehavior userBehavior = FactoryHelper.currentBehavior(invokable);
         /**
          * Cancel execution by throws an ActionNotAllowedException if user behavior is nor allowed.
          */
@@ -72,7 +72,4 @@ public class CoreFlowHandler implements FlowHandler {
         return returnValue;
     }
 
-    private static Action toAction(Invokable invokable){
-        return new Action(invokable.getMethod().getName(),invokable.getArguments());
-    }
 }

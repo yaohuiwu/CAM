@@ -14,7 +14,7 @@ public interface PersistentDao {
 
     public boolean isSorPrepared();
 
-    public void initializeSor(Properties properties);
+    public void initializeSor();
 
     /**
      * Ger all roles.
