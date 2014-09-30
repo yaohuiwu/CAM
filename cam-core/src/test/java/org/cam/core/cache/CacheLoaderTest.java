@@ -21,7 +21,7 @@ public class CacheLoaderTest {
 
     @Before
     public void setUp() throws Exception {
-        ehcache = CacheManager.getInstance().getEhcache("permission");
+        ehcache = CacheManager.getInstance().getEhcache(InnerCache.permission.toString());
         ehcache.removeAll();
     }
 

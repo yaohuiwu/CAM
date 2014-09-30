@@ -23,7 +23,7 @@ public class PermCacheTest {
     @Before
     public void setUp() throws Exception {
         CacheManager cacheMgr = CacheManager.getInstance();
-        permCache = cacheMgr.getEhcache("permission");
+        permCache = cacheMgr.getEhcache(InnerCache.permission.toString());
         assertNotNull(permCache);
 
         permCache.removeAll();

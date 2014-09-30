@@ -21,7 +21,7 @@ public class CacheDataAccessorTest {
 
     @Before
     public void setUp() throws Exception {
-        Ehcache ehcache = CacheManager.getInstance().getEhcache("permission");
+        Ehcache ehcache = CacheManager.getInstance().getEhcache(InnerCache.permission.toString());
         accessor = new CacheDataAccessor<>(ehcache);
         ehcache.removeAll();
     }
