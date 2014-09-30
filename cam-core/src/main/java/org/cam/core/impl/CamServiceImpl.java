@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -62,10 +63,15 @@ public class CamServiceImpl implements CamService {
 
     @SuppressWarnings("unchecked")
     private Set<String> calculateRolesOfUser(User user){
+        Set<Role> allRole = camDao.getAllRoleFromSor();
+        Set<String> roleSet = Sets.newHashSet();
         //TODO calculateRolesOfUser
+        Iterator<Role> it = allRole.iterator();
+        while(it.hasNext()){
 
+        }
 
-        camDao.cacheRolesOfUser(user,Collections.EMPTY_SET);
+        camDao.cacheRolesOfUser(user,roleSet);
         return Collections.EMPTY_SET;
     }
 }
