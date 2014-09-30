@@ -1,6 +1,7 @@
 package org.cam.core;
 
 import org.cam.core.dao.CamDao;
+import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
 
 /**
@@ -12,7 +13,7 @@ public interface CamFactory {
 
     public User getCurrentUser();
 
-//    public CoreDAO getCoreDao();
-//    public CamDao getCamDao();
     public CamService getService();
+
+    public PersistentDao getPersistentDao();
 }

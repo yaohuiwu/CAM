@@ -1,5 +1,7 @@
 package org.cam.core.domain;
 
+import org.cam.core.FactoryHelper;
+import org.cam.core.annotation.ExecutableType;
 import org.cam.core.cache.Copyable;
 
 import java.io.Serializable;
@@ -93,4 +95,14 @@ public class Role implements Serializable,Copyable{
                 ", userCriteria='" + userCriteria + '\'' +
                 '}';
     }
+
+    /**
+     * Role can be seen as the permission of user.
+     *
+     * @return
+     */
+    public Permission toPermission(){
+        return new Permission(ExecutableType.VIEW.toString(), FactoryHelper.getUserType(),getUserCriteria());
+    }
+
 }

@@ -31,4 +31,8 @@ public class FactoryHelper {
     public static FlowHandler flow(){
         return factory().getFlowHandler();
     }
+
+    public static String getUserType(){
+        return currentUser().getClass().getSimpleName();
+    }
 }

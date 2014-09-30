@@ -9,6 +9,7 @@ import org.cam.core.ObjectUtils;
 import org.cam.core.ScriptRunner;
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;
+import org.cam.core.domain.PermissionSet;
 import org.cam.core.domain.Role;
 import org.cam.core.exception.DataException;
 import org.slf4j.Logger;
@@ -181,5 +182,37 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
         }
 
         return perms;
+    }
+
+    @Override
+    public Permission getSinglePermission(String permissionId) {
+
+        Permission perm = null;
+
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        try{
+            con = dataSource.getConnection();
+            st = con.createStatement();
+            rs = st.executeQuery("select * from cam_permission where id = '"+permissionId+"'");
+
+            if(rs.next()){
+                perm = new Permission(rs.getString("action"),rs.getString("object_type"),rs.getString("criteria"));
+                perm.setId(rs.getString("id"));
+            }
+        }catch (SQLException sqlE){
+            throw new RuntimeException("error getting",sqlE.getCause());
+        }
+        finally {
+            DbUtils.closeQuietly(con,st,rs);
+        }
+        return perm;
+    }
+
+    @Override
+    public PermissionSet getPermissionOfRole(String roleId) {
+        return null;
     }
 }

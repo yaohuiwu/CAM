@@ -3,6 +3,7 @@ package org.cam.core;
 import org.cam.core.dao.CamDao;
 import org.cam.core.dao.CamDaoImpl;
 import org.cam.core.dao.JdbcPersistentDaoImpl;
+import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
 import org.cam.core.impl.CamServiceImpl;
 import org.cam.core.impl.CoreFlowHandler;
@@ -21,8 +22,9 @@ public class CoreFactory implements CamFactory{
     public CoreFactory(){
         DataSource ds = null;
         CamDao camDao = new CamDaoImpl(new JdbcPersistentDaoImpl(ds));
+//        UserManagerProvider userManagerProvider = null;
         CamService service = new CamServiceImpl(new DefaultPermissionEvaluator(),camDao);
-        FlowHandler flowHandler = new CoreFlowHandler(service,null);
+        _flowHandler = new CoreFlowHandler(service,null);
         FactoryHelper.register(this);
     }
 
@@ -51,6 +53,11 @@ public class CoreFactory implements CamFactory{
 
     @Override
     public CamService getService() {
+        return null;
+    }
+
+    @Override
+    public PersistentDao getPersistentDao() {
         return null;
     }
 }

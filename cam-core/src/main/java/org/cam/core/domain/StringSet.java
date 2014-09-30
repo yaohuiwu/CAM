@@ -33,4 +33,11 @@ public class StringSet implements Copyable{
     public static Set<String> safeGet(StringSet set){
         return set !=null ? set.getIdSet() : null;
     }
+
+    @Override
+    public String toString() {
+        return "StringSet{" +
+                "idSet=" + idSet +
+                '}';
+    }
 }

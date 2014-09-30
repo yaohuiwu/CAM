@@ -64,7 +64,7 @@ public class CamDaoImpl implements CamDao{
 
     @Override
     public Set<String> getPermissionIdsOfRole(String roleId) {
-        Element ele = Caches.getWithDefaultLoader(roleId,null, authCache);
+        Element ele = Caches.getWithDefaultLoader(roleId,InnerCache.authorization, authCache);
         PermissionSet permSet = Caches.extractValue(ele,PermissionSet.class);
         return PermissionSet.safeGet(permSet);
     }
@@ -73,7 +73,7 @@ public class CamDaoImpl implements CamDao{
     @SuppressWarnings("unchecked")
     public Map<String, Set<String>> getPermissionsIdOfRoles(Set<String> roleSet) {
         Map<String,Set<String>> mp = Maps.newHashMap();
-        Map rolePermMap = authCache.getAllWithLoader(roleSet,null);
+        Map rolePermMap = authCache.getAllWithLoader(roleSet,InnerCache.authorization);
         Iterator<Map.Entry<String,PermissionSet>> iterator = rolePermMap.entrySet().iterator();
         while(iterator.hasNext()){
             Map.Entry<String,PermissionSet> entry = iterator.next();
@@ -84,7 +84,7 @@ public class CamDaoImpl implements CamDao{
 
     @Override
     public Permission getSinglePermission(String permissionId) {
-        Element element = Caches.getWithDefaultLoader(permissionId,permCache);
+        Element element = Caches.getWithDefaultLoader(permissionId,InnerCache.permission,permCache);
         return Caches.extractValue(element,Permission.class);
     }
 
@@ -97,7 +97,7 @@ public class CamDaoImpl implements CamDao{
             Set<String> permSet = iterator.next();
             Iterator<String> permIt = permSet.iterator();
             while(permIt.hasNext()){
-                Element element = Caches.getWithDefaultLoader(permIt.next(),null,permCache);
+                Element element = Caches.getWithDefaultLoader(permIt.next(),InnerCache.permission,permCache);
                 Permission perm = Caches.extractValue(element,Permission.class);
                 if(perm!=null){
                     if(action.equals(perm.getAction()) && objectType.equals(perm.getObjectType())){

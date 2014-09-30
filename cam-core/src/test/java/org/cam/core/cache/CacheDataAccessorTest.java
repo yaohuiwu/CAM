@@ -6,6 +6,7 @@ import net.sf.ehcache.Ehcache;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import static org.junit.Assert.*;
 /**
  * Created by wuyaohui on 14-9-29.
  */
+@Ignore
 public class CacheDataAccessorTest {
 
     CacheDataAccessor<String,Permission> accessor ;

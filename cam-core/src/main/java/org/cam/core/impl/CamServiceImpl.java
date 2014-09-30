@@ -26,10 +26,12 @@ public class CamServiceImpl implements CamService {
 
     private PermissionEvaluator evaluator;
     private CamDao camDao;
+//    private UserManagerProvider userManagerProvider;
 
     public CamServiceImpl(PermissionEvaluator evaluator, CamDao dao){
         this.evaluator = evaluator;
         this.camDao = dao;
+//        this.userManagerProvider = userManagerProvider;
     }
 
     @Override
@@ -65,12 +67,13 @@ public class CamServiceImpl implements CamService {
     private Set<String> calculateRolesOfUser(User user){
         Set<Role> allRole = camDao.getAllRoleFromSor();
         Set<String> roleSet = Sets.newHashSet();
-        //TODO calculateRolesOfUser
         Iterator<Role> it = allRole.iterator();
         while(it.hasNext()){
-
+            Role role = it.next();
+            if(evaluator.isPermit(user,role.toPermission().toString())){
+                roleSet.add(role.getId());
+            }
         }
-
         camDao.cacheRolesOfUser(user,roleSet);
         return Collections.EMPTY_SET;
     }

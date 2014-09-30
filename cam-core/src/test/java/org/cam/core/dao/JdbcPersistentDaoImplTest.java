@@ -3,6 +3,7 @@ package org.cam.core.dao;
 import com.google.common.collect.Sets;
 import org.cam.core.ObjectUtilsTest;
 import org.cam.core.ScriptRunner;
+import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;
 import org.cam.core.domain.Role;
@@ -68,6 +69,17 @@ public class JdbcPersistentDaoImplTest {
         List<Permission> permissions = persistentDao.getPermissions(Sets.newHashSet("p1","p2"));
         ObjectUtilsTest.printlnList(permissions);
         assertEquals(2,permissions.size());
+    }
+
+    @Test
+    public void testGetSinglePermission() throws Exception {
+        Permission perm = persistentDao.getSinglePermission("p1");
+        assertNotNull(perm);
+        
+        System.out.println(perm);
+        
+        Permission expected = new Permission(ExecutableType.VIEW.toString(),"com.pekall.mdm.Document","uploadBy = 'tom'");
+        assertEquals(expected,perm);
     }
 
     @After

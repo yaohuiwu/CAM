@@ -2,6 +2,7 @@ package org.cam.core.dao;
 
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;
+import org.cam.core.domain.PermissionSet;
 import org.cam.core.domain.Role;
 
 import java.util.List;
@@ -36,5 +37,21 @@ public interface PersistentDao {
      * @return
      */
     public List<Permission> getPermissions(Set<String> permissionIdSet);
+
+    /**
+     * Single permission.
+     *
+     * @param permissionId
+     * @return
+     */
+    public Permission getSinglePermission(String permissionId);
+
+    /**
+     * Get permission set of role with give role id.
+     *
+     * @param roleId
+     * @return
+     */
+    public PermissionSet getPermissionOfRole(String roleId);
 
 }

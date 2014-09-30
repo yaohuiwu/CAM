@@ -61,7 +61,7 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
         Configuration cfg = HibernateHelper.getConfiguration();
         User currentUser = FactoryHelper.currentUser();
         while(it.hasNext()){
-            TableSegment table = it.next();//有无别名？
+            TableSegment table = it.next();
             PersistentClass pClass = getPersistClassByTable(table.getName(), cfg);
             List<Permission> permissions = camService.getPermissionOfUser(
                     currentUser, ExecutableType.VIEW.toString(), pClass.getEntityName());

@@ -6,6 +6,7 @@ import net.sf.ehcache.Element;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,6 +14,7 @@ import static org.junit.Assert.*;
 /**
  * Created by wuyaohui on 14-9-30.
  */
+@Ignore
 public class EhcacheHelperTest {
 
     Ehcache ehcache;

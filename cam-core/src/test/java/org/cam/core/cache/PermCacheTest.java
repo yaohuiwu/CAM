@@ -6,6 +6,7 @@ import net.sf.ehcache.Element;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import static org.junit.Assert.*;
 /**
  * Created by wuyaohui on 14-9-28.
  */
+@Ignore
 public class PermCacheTest {
     private static final Logger LOG = LoggerFactory.getLogger(PermCacheTest.class);
 
