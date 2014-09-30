@@ -33,6 +33,7 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
 
     public JdbcPersistentDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
+        initializeSor(null);
     }
 
     @Override
