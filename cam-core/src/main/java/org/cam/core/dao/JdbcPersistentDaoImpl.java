@@ -119,9 +119,9 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
         Map<String,Set<Authorization>> results = Maps.newHashMap();
 
         StringBuilder s = new StringBuilder();
-        s.append("select a.* from cam_authorization a where a.role_id in ('");
+        s.append("select a.* from cam_authorization a where a.role_id in (");
         s.append(ObjectUtils.joinAsSqlIn(roleIdSet));
-        s.append("')");
+        s.append(")");
 
         Connection con = null;
         Statement st = null;

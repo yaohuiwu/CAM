@@ -2,7 +2,7 @@ package org.cam.core.dao;
 
 import com.google.common.collect.Sets;
 import org.cam.core.ObjectUtilsTest;
-import org.cam.core.ScriptHelper;
+import org.cam.core.ScriptRunner;
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;
 import org.cam.core.domain.Role;
@@ -12,6 +12,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.sql.DataSource;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +30,8 @@ public class JdbcPersistentDaoImplTest {
 
     PersistentDao persistentDao;
 
+//    ScriptRunner scriptRunner;
+
     @Before
     public void setUp() throws Exception {
         dataSource = new SimpleDateSource("com.mysql.jdbc.Driver","jdbc:mysql://192.168.8.172/test","root","pekall1234");
@@ -37,7 +40,7 @@ public class JdbcPersistentDaoImplTest {
         persistentDao.initializeSor(null);
 
         //prepare test data
-        ScriptHelper.runScript(dataSource,this.getClass().getClassLoader().getResource("dataTest.sql"));
+        ScriptRunner.runScript(dataSource,getClass().getClassLoader().getResource("dataTest.sql"));
     }
 
     @Test
@@ -69,7 +72,10 @@ public class JdbcPersistentDaoImplTest {
 
     @After
     public void tearDown() throws Exception {
-        System.out.println("");
-        ScriptHelper.runScript(dataSource,this.getClass().getClassLoader().getResource("dataClear.sql"));
+        ScriptRunner.runScript(dataSource, getResource("dataClear.sql"));
+    }
+
+    private URL getResource(String scriptName){
+        return getClass().getClassLoader().getResource(scriptName);
     }
 }

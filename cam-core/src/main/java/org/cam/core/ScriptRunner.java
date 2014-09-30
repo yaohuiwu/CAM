@@ -1,5 +1,6 @@
 package org.cam.core;
 
+import javax.sql.DataSource;
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
@@ -272,6 +273,47 @@ public class ScriptRunner {
                 }catch (IOException e){
                 }
             }
+        }
+    }
+
+    public static void runScript(DataSource dataSource,URL scriptUrl){
+        Connection con = null;
+        ScriptRunner runner = null;
+        try{
+            con = dataSource.getConnection();
+            runner = new ScriptRunner(con);
+            runner.runScript(scriptUrl);
+        }catch (SQLException sqlE){
+            throw new RuntimeException("error getting",sqlE.getCause());
+        }
+        finally {
+            closeQuietly(con);
+        }
+    }
+
+    /**
+     * Close a <code>Connection</code>, avoid closing if null and hide
+     * any SQLExceptions that occur.
+     *
+     * @param conn Connection to close.
+     */
+    public static void closeQuietly(Connection conn) {
+        try {
+            close(conn);
+        } catch (SQLException e) { // NOPMD
+            // quiet
+        }
+    }
+
+    /**
+     * Close a <code>Connection</code>, avoid closing if null.
+     *
+     * @param conn Connection to close.
+     * @throws SQLException if a database access error occurs
+     */
+    public static void close(Connection conn) throws SQLException {
+        if (conn != null) {
+            conn.close();
         }
     }
 }

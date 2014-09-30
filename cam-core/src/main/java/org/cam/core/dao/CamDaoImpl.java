@@ -1,5 +1,7 @@
 package org.cam.core.dao;
 
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
 import org.cam.core.domain.Permission;
 import org.cam.core.domain.Role;
 import org.cam.core.domain.User;
@@ -14,6 +16,8 @@ import java.util.Set;
  */
 public class CamDaoImpl implements CamDao{
 
+    private CacheManager cacheMgr;
+
     private PersistentDao persistentDao;
 
     public CamDaoImpl() {
@@ -21,6 +25,7 @@ public class CamDaoImpl implements CamDao{
 
     public CamDaoImpl(PersistentDao persistentDao) {
         this.persistentDao = persistentDao;
+        cacheMgr = cacheMgr.getInstance();
     }
 
     @Override
