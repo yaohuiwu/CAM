@@ -29,22 +29,35 @@ criteria
         | STAR
         ;
 
+query : 'select' idAlias 'from' idAlias 'where' condition ;
+
+idAlias : ID ( 'as' ID )? ;
+
 //SQL where clause like condition
 condition
         : ID op=('>' | '>=' | '=' | '!=' | '<' | '<=' | 'like') value			#compExpr
-        | ID 'in' '(' value (','value)* ')'	                        #inExpr
+        | ID 'in' '(' list ')'	                        #inExpr
         | condition  'and' condition	                            #andExpr
         | condition  'or' condition		                            #orExpr
         | '(' condition ')'			                                #parentExpr
         ;
+// 列表（字面，子查询）
+list : value (','value)* ;
 
-value 
-	: STRING 
-	| INT 
+
+value
+	: ID // 如果是ID类型，则必须能在对象类型中找到相关属性
+	| scalarVar
+	| STRING
+	| INT
 	| FLOAT
 	| boo=( 'true' | 'false')
-	| 'null'
+	| NULL
 	;
+
+// 变量
+scalarVar : '$' ID;
+
 STAR : '*';
 
 GT:'>';
@@ -57,6 +70,7 @@ LIKE:'like';
 
 TRUE:'true';
 FALSE:'false';
+NULL:'null';
 
 ID : ID_LETTER (ID_LETTER|DIGIT)*;
 

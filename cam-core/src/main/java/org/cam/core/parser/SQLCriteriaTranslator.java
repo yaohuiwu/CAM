@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by wuyaohui on 14-9-27.
  */
-public class SQLCriteriaTranslator extends PermissionBaseVisitor<String> {
+public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
 
     private Map<String,String> fieldColumnMap;
 
@@ -79,7 +79,7 @@ public class SQLCriteriaTranslator extends PermissionBaseVisitor<String> {
         s.append(column);
         s.append(" in ");
         s.append("(");
-        Iterator<PermissionParser.ValueContext>  it = ctx.value().iterator();
+        Iterator<PermissionParser.ValueContext>  it = ctx.list().value().iterator();
         while(it.hasNext()){
             PermissionParser.ValueContext valContext = it.next();
             s.append(valContext.getText());

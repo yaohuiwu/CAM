@@ -9,6 +9,17 @@ import org.cam.core.parser.antlr.PermissionParser;
  */
 public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisitor<T>{
 
+    /**
+     * 获取变量的值。
+     *
+     * @param varName
+     * @return
+     */
+    protected Variable getVarValue(String varName){
+
+        return null;
+    }
+
     protected Object toValueObject(PermissionParser.ValueContext ctx){
         String text = ctx.getText();
         if(isInt(ctx)){
@@ -43,5 +54,17 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
 
     protected boolean isBoolean(PermissionParser.ValueContext ctx){
         return ctx.boo!=null;
+    }
+
+    protected boolean isId(PermissionParser.ValueContext ctx){
+        return ctx.ID()!=null;
+    }
+
+    protected boolean isScalarVar(PermissionParser.ValueContext ctx){
+        return ctx.scalarVar()!=null;
+    }
+
+    protected boolean isNull(PermissionParser.ValueContext ctx){
+        return ctx.scalarVar()!=null;
     }
 }

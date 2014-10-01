@@ -1,5 +1,4 @@
 // Generated from /home/wuyaohui/code/github/CBAM/cam-core/src/main/antlr/Permission.g4 by ANTLR 4.4.1-dev
-package org.cam.core.parser.antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -17,15 +16,15 @@ public class PermissionParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__12=1, T__11=2, T__10=3, T__9=4, T__8=5, T__7=6, T__6=7, T__5=8, T__4=9, 
-		T__3=10, T__2=11, T__1=12, T__0=13, STAR=14, GT=15, GE=16, EQ=17, NE=18, 
-		LT=19, LE=20, LIKE=21, TRUE=22, FALSE=23, NULL=24, ID=25, STRING=26, FLOAT=27, 
+		T__13=1, T__12=2, T__11=3, T__10=4, T__9=5, T__8=6, T__7=7, T__6=8, T__5=9, 
+		T__4=10, T__3=11, T__2=12, T__1=13, T__0=14, STAR=15, GT=16, GE=17, EQ=18, 
+		NE=19, LT=20, LE=21, LIKE=22, TRUE=23, FALSE=24, ID=25, STRING=26, FLOAT=27, 
 		INT=28, WS=29;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'from'", "'select'", "'.'", "'in'", "')'", "','", "'or'", 
-		"':'", "'('", "'as'", "'and'", "'where'", "'$'", "'*'", "'>'", "'>='", 
-		"'='", "'!='", "'<'", "'<='", "'like'", "'true'", "'false'", "'null'", 
-		"ID", "STRING", "FLOAT", "INT", "WS"
+		"':'", "'('", "'as'", "'null'", "'and'", "'where'", "'$'", "'*'", "'>'", 
+		"'>='", "'='", "'!='", "'<'", "'<='", "'like'", "'true'", "'false'", "ID", 
+		"STRING", "FLOAT", "INT", "WS"
 	};
 	public static final int
 		RULE_permission = 0, RULE_action = 1, RULE_objectType = 2, RULE_criteria = 3, 
@@ -91,9 +90,9 @@ public class PermissionParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(20); action();
-			setState(21); match(T__5);
+			setState(21); match(T__6);
 			setState(22); objectType();
-			setState(23); match(T__5);
+			setState(23); match(T__6);
 			setState(24); criteria();
 			}
 		}
@@ -195,10 +194,10 @@ public class PermissionParser extends Parser {
 				setState(33);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__10) {
+				while (_la==T__11) {
 					{
 					{
-					setState(29); match(T__10);
+					setState(29); match(T__11);
 					setState(30); match(ID);
 					}
 					}
@@ -259,7 +258,7 @@ public class PermissionParser extends Parser {
 		try {
 			setState(41);
 			switch (_input.LA(1)) {
-			case T__4:
+			case T__5:
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
@@ -322,9 +321,9 @@ public class PermissionParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43); match(T__11);
+			setState(43); match(T__12);
 			setState(44); idAlias();
-			setState(45); match(T__12);
+			setState(45); match(T__13);
 			setState(46); idAlias();
 			setState(47); match(T__1);
 			setState(48); condition(0);
@@ -375,9 +374,9 @@ public class PermissionParser extends Parser {
 			setState(50); match(ID);
 			setState(53);
 			_la = _input.LA(1);
-			if (_la==T__3) {
+			if (_la==T__4) {
 				{
-				setState(51); match(T__3);
+				setState(51); match(T__4);
 				setState(52); match(ID);
 				}
 			}
@@ -552,10 +551,10 @@ public class PermissionParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(59); match(ID);
-				setState(60); match(T__9);
-				setState(61); match(T__4);
+				setState(60); match(T__10);
+				setState(61); match(T__5);
 				setState(62); list();
-				setState(63); match(T__8);
+				setState(63); match(T__9);
 				}
 				break;
 			case 3:
@@ -563,9 +562,9 @@ public class PermissionParser extends Parser {
 				_localctx = new ParentExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(65); match(T__4);
+				setState(65); match(T__5);
 				setState(66); condition(0);
-				setState(67); match(T__8);
+				setState(67); match(T__9);
 				}
 				break;
 			}
@@ -596,7 +595,7 @@ public class PermissionParser extends Parser {
 						pushNewRecursionContext(_localctx, _startState, RULE_condition);
 						setState(74);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(75); match(T__6);
+						setState(75); match(T__7);
 						setState(76); condition(3);
 						}
 						break;
@@ -657,10 +656,10 @@ public class PermissionParser extends Parser {
 			setState(87);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__7) {
+			while (_la==T__8) {
 				{
 				{
-				setState(83); match(T__7);
+				setState(83); match(T__8);
 				setState(84); value();
 				}
 				}
@@ -686,7 +685,6 @@ public class PermissionParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(PermissionParser.FLOAT, 0); }
 		public TerminalNode INT() { return getToken(PermissionParser.INT, 0); }
 		public TerminalNode ID() { return getToken(PermissionParser.ID, 0); }
-		public TerminalNode NULL() { return getToken(PermissionParser.NULL, 0); }
 		public TerminalNode STRING() { return getToken(PermissionParser.STRING, 0); }
 		public ScalarVarContext scalarVar() {
 			return getRuleContext(ScalarVarContext.class,0);
@@ -760,10 +758,10 @@ public class PermissionParser extends Parser {
 				consume();
 				}
 				break;
-			case NULL:
+			case T__3:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(96); match(NULL);
+				setState(96); match(T__3);
 				}
 				break;
 			default:
@@ -845,25 +843,25 @@ public class PermissionParser extends Parser {
 		"\78\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bH\n"+
 		"\b\3\b\3\b\3\b\3\b\3\b\3\b\7\bP\n\b\f\b\16\bS\13\b\3\t\3\t\3\t\7\tX\n"+
 		"\t\f\t\16\t[\13\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\nd\n\n\3\13\3\13\3\13"+
-		"\3\13\2\3\16\f\2\4\6\b\n\f\16\20\22\24\2\5\4\2\20\20\33\33\3\2\21\27\3"+
-		"\2\30\31m\2\26\3\2\2\2\4\34\3\2\2\2\6\'\3\2\2\2\b+\3\2\2\2\n-\3\2\2\2"+
+		"\3\13\2\3\16\f\2\4\6\b\n\f\16\20\22\24\2\5\4\2\21\21\33\33\3\2\22\30\3"+
+		"\2\31\32m\2\26\3\2\2\2\4\34\3\2\2\2\6\'\3\2\2\2\b+\3\2\2\2\n-\3\2\2\2"+
 		"\f\64\3\2\2\2\16G\3\2\2\2\20T\3\2\2\2\22c\3\2\2\2\24e\3\2\2\2\26\27\5"+
 		"\4\3\2\27\30\7\n\2\2\30\31\5\6\4\2\31\32\7\n\2\2\32\33\5\b\5\2\33\3\3"+
 		"\2\2\2\34\35\t\2\2\2\35\5\3\2\2\2\36#\7\33\2\2\37 \7\5\2\2 \"\7\33\2\2"+
-		"!\37\3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$(\3\2\2\2%#\3\2\2\2&(\7\20"+
-		"\2\2\'\36\3\2\2\2\'&\3\2\2\2(\7\3\2\2\2),\5\16\b\2*,\7\20\2\2+)\3\2\2"+
+		"!\37\3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$(\3\2\2\2%#\3\2\2\2&(\7\21"+
+		"\2\2\'\36\3\2\2\2\'&\3\2\2\2(\7\3\2\2\2),\5\16\b\2*,\7\21\2\2+)\3\2\2"+
 		"\2+*\3\2\2\2,\t\3\2\2\2-.\7\4\2\2./\5\f\7\2/\60\7\3\2\2\60\61\5\f\7\2"+
-		"\61\62\7\16\2\2\62\63\5\16\b\2\63\13\3\2\2\2\64\67\7\33\2\2\65\66\7\f"+
+		"\61\62\7\17\2\2\62\63\5\16\b\2\63\13\3\2\2\2\64\67\7\33\2\2\65\66\7\f"+
 		"\2\2\668\7\33\2\2\67\65\3\2\2\2\678\3\2\2\28\r\3\2\2\29:\b\b\1\2:;\7\33"+
 		"\2\2;<\t\3\2\2<H\5\22\n\2=>\7\33\2\2>?\7\6\2\2?@\7\13\2\2@A\5\20\t\2A"+
 		"B\7\7\2\2BH\3\2\2\2CD\7\13\2\2DE\5\16\b\2EF\7\7\2\2FH\3\2\2\2G9\3\2\2"+
-		"\2G=\3\2\2\2GC\3\2\2\2HQ\3\2\2\2IJ\f\5\2\2JK\7\r\2\2KP\5\16\b\6LM\f\4"+
+		"\2G=\3\2\2\2GC\3\2\2\2HQ\3\2\2\2IJ\f\5\2\2JK\7\16\2\2KP\5\16\b\6LM\f\4"+
 		"\2\2MN\7\t\2\2NP\5\16\b\5OI\3\2\2\2OL\3\2\2\2PS\3\2\2\2QO\3\2\2\2QR\3"+
 		"\2\2\2R\17\3\2\2\2SQ\3\2\2\2TY\5\22\n\2UV\7\b\2\2VX\5\22\n\2WU\3\2\2\2"+
 		"X[\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z\21\3\2\2\2[Y\3\2\2\2\\d\7\33\2\2]d\5\24"+
-		"\13\2^d\7\34\2\2_d\7\36\2\2`d\7\35\2\2ad\t\4\2\2bd\7\32\2\2c\\\3\2\2\2"+
+		"\13\2^d\7\34\2\2_d\7\36\2\2`d\7\35\2\2ad\t\4\2\2bd\7\r\2\2c\\\3\2\2\2"+
 		"c]\3\2\2\2c^\3\2\2\2c_\3\2\2\2c`\3\2\2\2ca\3\2\2\2cb\3\2\2\2d\23\3\2\2"+
-		"\2ef\7\17\2\2fg\7\33\2\2g\25\3\2\2\2\13#\'+\67GOQYc";
+		"\2ef\7\20\2\2fg\7\33\2\2g\25\3\2\2\2\13#\'+\67GOQYc";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

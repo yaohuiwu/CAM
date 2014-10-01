@@ -70,7 +70,7 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
         String attrName = ctx.ID().getText();
         Object value = getFromObject(attrName);
 
-        List<PermissionParser.ValueContext> valCtxList = ctx.value();
+        List<PermissionParser.ValueContext> valCtxList = ctx.list().value();//TODO TBD
         for(PermissionParser.ValueContext valCtx : valCtxList){
             if(isInt(valCtx)){
                 valueIn = Integer.valueOf(valCtx.getText()).equals((Integer)value);
@@ -80,6 +80,11 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
             }else if(isString(valCtx)){
                 String inStr= StringUtils.strip(valCtx.getText(),SINGLE_QUOTE);
                 valueIn = inStr.equals((String)value);
+            }else if(isId(valCtx)){
+               //暂时不支持
+            }else if(isScalarVar(valCtx)){
+                //从变量注册中心得到变量值
+
             }
             if(valueIn){
                 break;

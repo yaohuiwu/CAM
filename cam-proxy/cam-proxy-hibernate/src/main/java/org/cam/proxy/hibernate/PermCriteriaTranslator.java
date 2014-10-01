@@ -79,7 +79,7 @@ public class PermCriteriaTranslator extends AbstractPermissionEvaluator{
         @Override
         public Criterion visitInExpr(@NotNull PermissionParser.InExprContext ctx) {
             List<Object> values = Lists.newArrayList();
-            for(PermissionParser.ValueContext valueContext : ctx.value()){
+            for(PermissionParser.ValueContext valueContext : ctx.list().value()){
                 values.add(toValueObject(valueContext));
             }
             return Restrictions.in(ctx.ID().getText(), values);

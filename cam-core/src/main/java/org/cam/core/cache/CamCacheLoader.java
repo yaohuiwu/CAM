@@ -16,13 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by wuyaohui on 14-9-29.
- */
 public class CamCacheLoader implements CacheLoader{
 
     private static final Logger LOG = LoggerFactory.getLogger(CamCacheLoader.class);
@@ -52,7 +48,7 @@ public class CamCacheLoader implements CacheLoader{
         if(!(argument instanceof InnerCache)){
             throw new CamException("Argument of getWithLoader must be instance of org.cam.cache.InnerCache");
         }
-        Object loadedObject = null ;
+        Object loadedObject;
         InnerCache cacheType = (InnerCache)argument;
         switch (cacheType){
             case authorization:
@@ -77,6 +73,7 @@ public class CamCacheLoader implements CacheLoader{
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Map loadAll(Collection keys, Object argument) {
         if(!(argument instanceof InnerCache)){
             throw new CamException("Argument of getWithLoader must be instance of org.cam.cache.InnerCache");
@@ -89,14 +86,10 @@ public class CamCacheLoader implements CacheLoader{
                 Set<String> roleSet = Sets.newHashSet();
                 roleSet.addAll(keys);
                 Map<String,Set<Authorization>> authMap = persistentDao.getAuthorizationByRoles(roleSet);
-                Iterator<Map.Entry<String,Set<Authorization>>> it = authMap.entrySet().iterator();
-                while(it.hasNext()){
-                    Map.Entry<String,Set<Authorization>> entry = it.next();
+                for(Map.Entry<String,Set<Authorization>> entry : authMap.entrySet()){
                     Set<String> permIdSet = Sets.newHashSet();
-                    Set<Authorization> aSet = entry.getValue();
-                    Iterator<Authorization> ait = aSet.iterator();
-                    while(ait.hasNext()){
-                        permIdSet.add(ait.next().getPermissionId());
+                    for(Authorization au : entry.getValue()){
+                        permIdSet.add(au.getPermissionId());
                     }
                     loadedMap.put(entry.getKey(),new PermissionSet(permIdSet));
                 }
