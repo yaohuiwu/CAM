@@ -55,7 +55,7 @@ public class DefaultPermissionEvaluator extends AbstractPermissionEvaluator impl
                 if(ParserUtil.isAll(sqlCri)){
                     return ParserUtil.ALL;
                 }
-                s.append(translator.visit(pt));
+                s.append(sqlCri);
                 if(iterator.hasNext()){
                     s.append(" or ");
                 }

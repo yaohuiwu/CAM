@@ -20,9 +20,22 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
 
     protected static final String VAR_USER = "user";
 
+    protected String objectType = null;
+
     protected EntityMapping currentEntityMapping;
 //    protected EntityTableMapping entityTableMapping;
 
+    protected void switchCurrentEntity(String entityName){
+        EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
+        LOG.trace("Switch current entity to {}",entityName);
+        currentEntityMapping = entityTableMapping.getEntity(entityName);
+    }
+
+    protected void switchBack(){
+        if(objectType!=null){
+            switchCurrentEntity(objectType);
+        }
+    }
 
 
     protected String getTableByEntity(String entityName){
@@ -71,7 +84,7 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
             return Integer.valueOf(text);
         }
         else if(isFloat(ctx)){
-            return Float.valueOf(text);
+            return Double.valueOf(text);
         }
         else if(isBoolean(ctx)){
             return Boolean.valueOf(text);
@@ -126,6 +139,7 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
 
     @Override
     public T visitObjectType(@NotNull PermissionParser.ObjectTypeContext ctx) {
+        objectType = ctx.getText();
         EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
         currentEntityMapping = entityTableMapping.getEntity(ctx.getText());
         if(currentEntityMapping==null){

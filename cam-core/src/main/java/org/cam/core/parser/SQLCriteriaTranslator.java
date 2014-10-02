@@ -102,6 +102,8 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
 
     @Override
     public String visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
+        switchCurrentEntity(ctx.entity().getText());
+
         StringBuilder s = new StringBuilder();
         s.append("select");
         s.append(" ");
@@ -121,6 +123,7 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
             s.append(" where ");
             s.append(visit(ctx.condition()));
         }
+        switchBack();
         return s.toString();
     }
 
@@ -128,6 +131,8 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
     public String visitCompExpr(@NotNull PermissionParser.CompExprContext ctx) {
         StringBuilder s = new StringBuilder();
         String field = ctx.ID().getText();
+
+        //Attention ! current entity may be changed to queryList context.
         String column = getColumnByField(field);
 
         s.append(column);
