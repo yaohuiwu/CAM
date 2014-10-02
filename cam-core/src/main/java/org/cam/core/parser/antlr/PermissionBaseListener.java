@@ -41,13 +41,13 @@ public class PermissionBaseListener implements PermissionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQuery(@NotNull PermissionParser.QueryContext ctx) { }
+	@Override public void enterInnerObject(@NotNull PermissionParser.InnerObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQuery(@NotNull PermissionParser.QueryContext ctx) { }
+	@Override public void exitInnerObject(@NotNull PermissionParser.InnerObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -72,6 +72,18 @@ public class PermissionBaseListener implements PermissionListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitList(@NotNull PermissionParser.ListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLiteralList(@NotNull PermissionParser.LiteralListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -125,13 +137,25 @@ public class PermissionBaseListener implements PermissionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScalarVar(@NotNull PermissionParser.ScalarVarContext ctx) { }
+	@Override public void enterScalarVariable(@NotNull PermissionParser.ScalarVariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScalarVar(@NotNull PermissionParser.ScalarVarContext ctx) { }
+	@Override public void exitScalarVariable(@NotNull PermissionParser.ScalarVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterQueryList(@NotNull PermissionParser.QueryListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQueryList(@NotNull PermissionParser.QueryListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

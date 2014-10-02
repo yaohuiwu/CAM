@@ -6,7 +6,12 @@ Version : 1.0
 Author: Yaohui Wu
 
 Examples:
+1. example
     create : User : org_id = 100 and ( age > 18 or height > 1.75) and name = '中 文'
+2. 查看子孙机构的所有文档
+    VIEW : com.pekall.mdm.document.model.MdmDocumentInfo : orgId in ( select descendantCode from MdmOrgTreePath where ancestorCode = ${user.orgId} and ancestorCode != descendantCode)
+3. 查看祖先机构的所有文档
+    VIEW : com.pekall.mdm.document.model.MdmDocumentInfo : orgId in ( select ancestorCode from MdmOrgTreePath where descendantCode = ${user.orgId} and ancestorCode != descendantCode)
 */
 grammar Permission ;
 
@@ -29,8 +34,6 @@ criteria
         | STAR
         ;
 
-query : 'select' idAlias 'from' idAlias 'where' condition ;
-
 idAlias : ID ( 'as' ID )? ;
 
 //SQL where clause like condition
@@ -42,12 +45,15 @@ condition
         | '(' condition ')'			                                #parentExpr
         ;
 // 列表（字面，子查询）
-list : value (','value)* ;
+list : literalList | queryList ;
 
+literalList : value (','value)* ;
+
+queryList : 'select' idAlias 'from' idAlias 'where' condition ;
 
 value
 	: ID // 如果是ID类型，则必须能在对象类型中找到相关属性
-	| scalarVar
+	| scalarVariable
 	| STRING
 	| INT
 	| FLOAT
@@ -56,7 +62,9 @@ value
 	;
 
 // 变量
-scalarVar : '$' ID;
+scalarVariable : '${' innerObject '.' ID '}';
+
+innerObject : 'user' ;
 
 STAR : '*';
 

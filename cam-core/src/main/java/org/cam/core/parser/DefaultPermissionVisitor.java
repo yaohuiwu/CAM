@@ -70,28 +70,52 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
         String attrName = ctx.ID().getText();
         Object value = getFromObject(attrName);
 
-        List<PermissionParser.ValueContext> valCtxList = ctx.list().value();//TODO TBD
-        for(PermissionParser.ValueContext valCtx : valCtxList){
-            if(isInt(valCtx)){
-                valueIn = Integer.valueOf(valCtx.getText()).equals((Integer)value);
-            }else if(isFloat(valCtx)){
-                LOG.warn("Float value {} is not allow here",Float.valueOf(ctx.getText()));
-                //ignore
-            }else if(isString(valCtx)){
-                String inStr= StringUtils.strip(valCtx.getText(),SINGLE_QUOTE);
-                valueIn = inStr.equals((String)value);
-            }else if(isId(valCtx)){
-               //暂时不支持
-            }else if(isScalarVar(valCtx)){
-                //从变量注册中心得到变量值
+        PermissionParser.ListContext listCtx = ctx.list();
+        //literalList
+        if(listCtx.literalList()!=null){
+            List<PermissionParser.ValueContext> valCtxList = ctx.list().literalList().value();
+            for(PermissionParser.ValueContext valCtx : valCtxList){
+                if(isInt(valCtx)){
+                    valueIn = Integer.valueOf(valCtx.getText()).equals((Integer)value);
+                }else if(isFloat(valCtx)){
+                    LOG.warn("Float value {} is not allow here",Float.valueOf(ctx.getText()));
+                    //ignore
+                }else if(isString(valCtx)){
+                    String inStr= StringUtils.strip(valCtx.getText(),SINGLE_QUOTE);
+                    valueIn = inStr.equals((String)value);
+                }else if(isId(valCtx)){
+                    //暂时不支持
+                }else if(isScalarVar(valCtx)){
+                    //从变量注册中心得到变量值
 
+                }
+                if(valueIn){
+                    break;
+                }
             }
-            if(valueIn){
-                break;
-            }
+        }else{//queryList
+            PermissionParser.QueryListContext queryListCtx = listCtx.queryList();
+            PermissionParser.IdAliasContext attrCtx = queryListCtx.idAlias(0);
+            PermissionParser.IdAliasContext entityCtx = queryListCtx.idAlias(1);
+
+            //对表达式进行求值
+            //visit(queryListCtx.condition());
+
+            //todo 对queryList进行求值
         }
+
         return valueIn;
     }
+
+//    @Override
+//    public Boolean visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) {
+//        return super.visitLiteralList(ctx);
+//    }
+//
+//    @Override
+//    public Boolean visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
+//        return super.visitQueryList(ctx);
+//    }
 
     @Override
     public Boolean visitCompExpr(@NotNull PermissionParser.CompExprContext ctx) {

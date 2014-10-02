@@ -1,6 +1,11 @@
 package org.cam.core.parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import org.cam.core.CamException;
+import org.cam.core.FactoryHelper;
+import org.cam.core.ObjectUtils;
+import org.cam.core.exception.ParserException;
 import org.cam.core.parser.antlr.PermissionBaseVisitor;
 import org.cam.core.parser.antlr.PermissionParser;
 
@@ -79,15 +84,65 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
         s.append(column);
         s.append(" in ");
         s.append("(");
-        Iterator<PermissionParser.ValueContext>  it = ctx.list().value().iterator();
+
+        s.append(visit(ctx.list()));
+//        Iterator<PermissionParser.ValueContext>  it = ctx.list().value().iterator();
+//        while(it.hasNext()){
+//            PermissionParser.ValueContext valContext = it.next();
+//            s.append(valContext.getText());
+//            if(it.hasNext()){
+//                s.append(",");
+//            }
+//        }
+        s.append(")");
+        return s.toString();
+    }
+
+    @Override
+    public String visitList(@NotNull PermissionParser.ListContext ctx) {
+        if(ctx.literalList()!=null){
+            return visit(ctx.literalList());
+        }else{
+            return visit(ctx.queryList());
+        }
+    }
+
+    @Override
+    public String visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) {
+        StringBuilder s = new StringBuilder();
+
+        Iterator<PermissionParser.ValueContext>  it = ctx.value().iterator();
         while(it.hasNext()){
             PermissionParser.ValueContext valContext = it.next();
-            s.append(valContext.getText());
+            if(isScalarVar(valContext)){
+                s.append(visit(valContext.scalarVariable()));
+            }else{
+                s.append(valContext.getText());
+            }
             if(it.hasNext()){
                 s.append(",");
             }
         }
-        s.append(")");
+        return s.toString();
+    }
+
+    @Override
+    public String visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
+        StringBuilder s = new StringBuilder();
+        s.append("select");
+        s.append(" ");
+
+        PermissionParser.IdAliasContext attrCtx = ctx.idAlias(0);
+        String columnName = fieldColumnMap.get(attrCtx.ID(0).getText());
+        s.append(columnName);
+        if(attrCtx.ID(1)!=null){
+            s.append(" as ");
+            s.append(attrCtx.ID(1).getText());
+        }
+        s.append(" from ");
+        // entity to table
+        s.append("");
+        s.append(visit(ctx.condition()));
         return s.toString();
     }
 
@@ -101,9 +156,30 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
         s.append(" ");
         s.append(ctx.op.getText());
         s.append(" ");
-        s.append(ctx.value().getText());
+
+        PermissionParser.ValueContext valCtx = ctx.value();
+
+        if(isScalarVar(valCtx)){
+            visit(valCtx.scalarVariable());
+        }else{
+            s.append(valCtx.getText());
+        }
 
         return s.toString();
+    }
+
+    @Override
+    public String visitScalarVariable(@NotNull PermissionParser.ScalarVariableContext ctx) {
+        String innerObjectName = ctx.innerObject().getText();
+        String innerAttribute = ctx.ID().getText();
+        if("user".equals(innerObjectName)){
+            Object attrValue = ObjectUtils.getter(FactoryHelper.currentUser(),innerAttribute);
+            if(attrValue!=null){
+                return toValueString(attrValue);
+            }
+            throw new ParserException("引用的对象变量"+ctx.getText()+"不能为空");
+        }
+        throw new ParserException("不能识别的对象 "+innerObjectName);
     }
 
     @Override

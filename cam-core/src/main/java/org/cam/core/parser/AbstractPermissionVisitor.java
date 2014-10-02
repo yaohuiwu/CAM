@@ -39,6 +39,14 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
         }
     }
 
+    protected String toValueString(Object value){
+        if(value instanceof String){
+            return ObjectUtils.toSqlString((String)value);
+        }else{
+            return value.toString();
+        }
+    }
+
 
     protected boolean isFloat(PermissionParser.ValueContext ctx){
         return ctx.FLOAT()!=null;
@@ -61,10 +69,10 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
     }
 
     protected boolean isScalarVar(PermissionParser.ValueContext ctx){
-        return ctx.scalarVar()!=null;
+        return ctx.scalarVariable()!=null;
     }
 
     protected boolean isNull(PermissionParser.ValueContext ctx){
-        return ctx.scalarVar()!=null;
+        return ctx.NULL()!=null;
     }
 }

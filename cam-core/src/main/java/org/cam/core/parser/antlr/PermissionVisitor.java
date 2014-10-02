@@ -25,11 +25,11 @@ public interface PermissionVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCriteria(@NotNull PermissionParser.CriteriaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PermissionParser#query}.
+	 * Visit a parse tree produced by {@link PermissionParser#innerObject}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitQuery(@NotNull PermissionParser.QueryContext ctx);
+	T visitInnerObject(@NotNull PermissionParser.InnerObjectContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PermissionParser#permission}.
 	 * @param ctx the parse tree
@@ -42,6 +42,12 @@ public interface PermissionVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitList(@NotNull PermissionParser.ListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PermissionParser#literalList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code parentExpr}
 	 * labeled alternative in {@link PermissionParser#condition}.
@@ -70,11 +76,17 @@ public interface PermissionVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdAlias(@NotNull PermissionParser.IdAliasContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PermissionParser#scalarVar}.
+	 * Visit a parse tree produced by {@link PermissionParser#scalarVariable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitScalarVar(@NotNull PermissionParser.ScalarVarContext ctx);
+	T visitScalarVariable(@NotNull PermissionParser.ScalarVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PermissionParser#queryList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQueryList(@NotNull PermissionParser.QueryListContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PermissionParser#value}.
 	 * @param ctx the parse tree

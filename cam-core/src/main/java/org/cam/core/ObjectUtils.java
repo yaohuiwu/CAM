@@ -140,4 +140,8 @@ public class ObjectUtils {
          .append("'").toString();
     }
 
+    public static String toSqlString(String s){
+        return new StringBuilder().append("'").append(s).append("'").toString();
+    }
+
 }

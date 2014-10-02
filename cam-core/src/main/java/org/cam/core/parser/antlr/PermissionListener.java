@@ -31,15 +31,15 @@ public interface PermissionListener extends ParseTreeListener {
 	 */
 	void exitCriteria(@NotNull PermissionParser.CriteriaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PermissionParser#query}.
+	 * Enter a parse tree produced by {@link PermissionParser#innerObject}.
 	 * @param ctx the parse tree
 	 */
-	void enterQuery(@NotNull PermissionParser.QueryContext ctx);
+	void enterInnerObject(@NotNull PermissionParser.InnerObjectContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PermissionParser#query}.
+	 * Exit a parse tree produced by {@link PermissionParser#innerObject}.
 	 * @param ctx the parse tree
 	 */
-	void exitQuery(@NotNull PermissionParser.QueryContext ctx);
+	void exitInnerObject(@NotNull PermissionParser.InnerObjectContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PermissionParser#permission}.
 	 * @param ctx the parse tree
@@ -60,6 +60,16 @@ public interface PermissionListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitList(@NotNull PermissionParser.ListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PermissionParser#literalList}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteralList(@NotNull PermissionParser.LiteralListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PermissionParser#literalList}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteralList(@NotNull PermissionParser.LiteralListContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code parentExpr}
 	 * labeled alternative in {@link PermissionParser#condition}.
@@ -107,15 +117,25 @@ public interface PermissionListener extends ParseTreeListener {
 	 */
 	void exitIdAlias(@NotNull PermissionParser.IdAliasContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PermissionParser#scalarVar}.
+	 * Enter a parse tree produced by {@link PermissionParser#scalarVariable}.
 	 * @param ctx the parse tree
 	 */
-	void enterScalarVar(@NotNull PermissionParser.ScalarVarContext ctx);
+	void enterScalarVariable(@NotNull PermissionParser.ScalarVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PermissionParser#scalarVar}.
+	 * Exit a parse tree produced by {@link PermissionParser#scalarVariable}.
 	 * @param ctx the parse tree
 	 */
-	void exitScalarVar(@NotNull PermissionParser.ScalarVarContext ctx);
+	void exitScalarVariable(@NotNull PermissionParser.ScalarVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PermissionParser#queryList}.
+	 * @param ctx the parse tree
+	 */
+	void enterQueryList(@NotNull PermissionParser.QueryListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PermissionParser#queryList}.
+	 * @param ctx the parse tree
+	 */
+	void exitQueryList(@NotNull PermissionParser.QueryListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PermissionParser#value}.
 	 * @param ctx the parse tree

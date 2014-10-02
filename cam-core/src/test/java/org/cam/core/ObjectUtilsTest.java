@@ -15,6 +15,7 @@ public class ObjectUtilsTest {
 
         assertEquals("name",ObjectUtils.getterField("getName"));
         assertEquals("isAlive",ObjectUtils.getterField("isAlive"));
+        assertEquals("123",new Integer(123).toString());
     }
 
 
