@@ -34,8 +34,6 @@ criteria
         | STAR
         ;
 
-idAlias : ID ( 'as' ID )? ;
-
 //SQL where clause like condition
 condition
         : ID op=('>' | '>=' | '=' | '!=' | '<' | '<=' | 'like') value			#compExpr
@@ -49,7 +47,11 @@ list : literalList | queryList ;
 
 literalList : value (','value)* ;
 
-queryList : 'select' idAlias 'from' idAlias 'where' condition ;
+queryList : 'select' idAlias 'from' entity ('as' ID)? 'where' condition ;
+
+idAlias : ID ('as' ID)? ;
+
+entity : ID ( '.' ID )* ;
 
 value
 	: ID // 如果是ID类型，则必须能在对象类型中找到相关属性

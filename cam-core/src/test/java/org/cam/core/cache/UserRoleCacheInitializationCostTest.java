@@ -194,7 +194,7 @@ public class UserRoleCacheInitializationCostTest {
         for(Role role : roles){
 
             Permission p = toPermission(role);
-            String sql = "select count(id) from t_user where "+evaluator.toSqlCriteria(fieldColumnMap, Collections.singletonList(p));
+            String sql = "select count(id) from t_user where "+evaluator.toSqlCriteria(Collections.singletonList(p));
 
             LOG.info("query [{}]",sql);
             rs = st.executeQuery(sql);

@@ -7,6 +7,7 @@ import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
 import org.cam.core.impl.CamServiceImpl;
 import org.cam.core.impl.CoreFlowHandler;
+import org.cam.core.mapping.EntityTableMapping;
 import org.cam.core.parser.DefaultPermissionEvaluator;
 
 import javax.sql.DataSource;
@@ -58,6 +59,11 @@ public class CoreFactory implements CamFactory{
 
     @Override
     public PersistentDao getPersistentDao() {
+        return null;
+    }
+
+    @Override
+    public EntityTableMapping getEntityTableMapping() {
         return null;
     }
 }

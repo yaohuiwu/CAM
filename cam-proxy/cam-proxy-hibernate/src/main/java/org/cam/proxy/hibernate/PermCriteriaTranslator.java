@@ -6,14 +6,10 @@ import org.cam.core.domain.Permission;
 import org.cam.core.parser.AbstractPermissionEvaluator;
 import org.cam.core.parser.AbstractPermissionVisitor;
 import org.cam.core.parser.antlr.PermissionParser;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 
 import java.util.List;
 
-/**
- * Created by wuyaohui on 14-9-27.
- */
 public class PermCriteriaTranslator extends AbstractPermissionEvaluator{
 
     public List<Criterion> toCriterion(List<Permission> permissionList){
@@ -78,11 +74,33 @@ public class PermCriteriaTranslator extends AbstractPermissionEvaluator{
 
         @Override
         public Criterion visitInExpr(@NotNull PermissionParser.InExprContext ctx) {
-            List<Object> values = Lists.newArrayList();
-            for(PermissionParser.ValueContext valueContext : ctx.list().value()){
-                values.add(toValueObject(valueContext));
+            PermissionParser.ListContext listCtx = ctx.list();
+            if(listCtx.literalList()!=null){
+                List<Object> values = Lists.newArrayList();
+                for(PermissionParser.ValueContext valueContext : listCtx.literalList().value()){
+                    values.add(toValueObject(valueContext));
+                }
+                return Restrictions.in(ctx.ID().getText(), values);
+            }else{
+                PermissionParser.QueryListContext queryListCtx = listCtx.queryList();
+                String field = getId(queryListCtx.idAlias());
+                String entity = queryListCtx.entity().getText();
+                //构建子查询
+                DetachedCriteria detachedCriteria = DetachedCriteria.forEntityName(entity);
+                detachedCriteria.setProjection(Property.forName(field));
+                detachedCriteria.add(visit(queryListCtx.condition()));
+                return Subqueries.propertyIn(ctx.ID().getText(), detachedCriteria);
             }
-            return Restrictions.in(ctx.ID().getText(), values);
+        }
+
+        @Override
+        public Criterion visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) {
+            return super.visitLiteralList(ctx);
+        }
+
+        @Override
+        public Criterion visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
+            return super.visitQueryList(ctx);
         }
 
         @Override

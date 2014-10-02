@@ -5,6 +5,8 @@ import org.cam.core.*;
 import org.cam.core.dao.CamDao;
 import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
+import org.cam.core.mapping.EntityTableMapping;
+import org.cam.proxy.hibernate.HibernateEntityTableMappingImpl;
 import org.cam.proxy.hibernate.HibernateHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,8 @@ public class SpringCamFactory implements ApplicationContextAware,CamFactory{
     private static final Logger LOG = LoggerFactory.getLogger(SpringCamFactory.class);
 
     private ApplicationContext context;
+
+    private EntityTableMapping entityTableMapping;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -46,6 +50,9 @@ public class SpringCamFactory implements ApplicationContextAware,CamFactory{
 
         LocalSessionFactoryBean configBean = (LocalSessionFactoryBean) (context.getBean("&sessionFactory"));
         HibernateHelper.registerConfiguration(configBean.getConfiguration());
+
+        //初始化 EntityTableMapping
+        entityTableMapping = new HibernateEntityTableMappingImpl(configBean.getConfiguration());
     }
 
     @Override
@@ -80,5 +87,10 @@ public class SpringCamFactory implements ApplicationContextAware,CamFactory{
     @Override
     public PersistentDao getPersistentDao() {
         return getBean("persistentDao",PersistentDao.class);
+    }
+
+    @Override
+    public EntityTableMapping getEntityTableMapping() {
+        return entityTableMapping;
     }
 }

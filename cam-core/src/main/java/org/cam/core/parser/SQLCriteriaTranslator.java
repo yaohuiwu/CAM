@@ -1,26 +1,17 @@
 package org.cam.core.parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import org.cam.core.CamException;
-import org.cam.core.FactoryHelper;
-import org.cam.core.ObjectUtils;
 import org.cam.core.exception.ParserException;
-import org.cam.core.parser.antlr.PermissionBaseVisitor;
 import org.cam.core.parser.antlr.PermissionParser;
 
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by wuyaohui on 14-9-27.
  */
 public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
 
-    private Map<String,String> fieldColumnMap;
-
-    public SQLCriteriaTranslator(final Map<String,String> fieldColumnMap){
-        this.fieldColumnMap = fieldColumnMap;
+    public SQLCriteriaTranslator(){
     }
 
     @Override
@@ -79,32 +70,15 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
     public String visitInExpr(@NotNull PermissionParser.InExprContext ctx) {
         StringBuilder s = new StringBuilder();
         String field = ctx.ID().getText();
-        String column = fieldColumnMap.get(field);
+
+        String column = getColumnByField(field);
 
         s.append(column);
         s.append(" in ");
         s.append("(");
-
         s.append(visit(ctx.list()));
-//        Iterator<PermissionParser.ValueContext>  it = ctx.list().value().iterator();
-//        while(it.hasNext()){
-//            PermissionParser.ValueContext valContext = it.next();
-//            s.append(valContext.getText());
-//            if(it.hasNext()){
-//                s.append(",");
-//            }
-//        }
         s.append(")");
         return s.toString();
-    }
-
-    @Override
-    public String visitList(@NotNull PermissionParser.ListContext ctx) {
-        if(ctx.literalList()!=null){
-            return visit(ctx.literalList());
-        }else{
-            return visit(ctx.queryList());
-        }
     }
 
     @Override
@@ -132,17 +106,21 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
         s.append("select");
         s.append(" ");
 
-        PermissionParser.IdAliasContext attrCtx = ctx.idAlias(0);
-        String columnName = fieldColumnMap.get(attrCtx.ID(0).getText());
+        PermissionParser.IdAliasContext attrCtx = ctx.idAlias();
+        String columnName = getColumnByField(attrCtx.ID(0).getText());
         s.append(columnName);
         if(attrCtx.ID(1)!=null){
             s.append(" as ");
             s.append(attrCtx.ID(1).getText());
         }
         s.append(" from ");
-        // entity to table
-        s.append("");
-        s.append(visit(ctx.condition()));
+
+        s.append(getTableByEntity(ctx.entity().getText()));
+
+        if(ctx.condition()!=null){
+            s.append(" where ");
+            s.append(visit(ctx.condition()));
+        }
         return s.toString();
     }
 
@@ -150,7 +128,7 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
     public String visitCompExpr(@NotNull PermissionParser.CompExprContext ctx) {
         StringBuilder s = new StringBuilder();
         String field = ctx.ID().getText();
-        String column = fieldColumnMap.get(field);
+        String column = getColumnByField(field);
 
         s.append(column);
         s.append(" ");
@@ -170,16 +148,11 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
 
     @Override
     public String visitScalarVariable(@NotNull PermissionParser.ScalarVariableContext ctx) {
-        String innerObjectName = ctx.innerObject().getText();
-        String innerAttribute = ctx.ID().getText();
-        if("user".equals(innerObjectName)){
-            Object attrValue = ObjectUtils.getter(FactoryHelper.currentUser(),innerAttribute);
-            if(attrValue!=null){
-                return toValueString(attrValue);
-            }
-            throw new ParserException("引用的对象变量"+ctx.getText()+"不能为空");
+        Object attrValue = getScalarValue(ctx);
+        if(attrValue!=null){
+            return toValueString(attrValue);
         }
-        throw new ParserException("不能识别的对象 "+innerObjectName);
+        throw new ParserException("引用的对象变量"+ctx.getText()+"不能为空");
     }
 
     @Override

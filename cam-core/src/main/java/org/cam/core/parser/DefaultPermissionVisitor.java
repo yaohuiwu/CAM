@@ -95,27 +95,26 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
             }
         }else{//queryList
             PermissionParser.QueryListContext queryListCtx = listCtx.queryList();
-            PermissionParser.IdAliasContext attrCtx = queryListCtx.idAlias(0);
-            PermissionParser.IdAliasContext entityCtx = queryListCtx.idAlias(1);
+
 
             //对表达式进行求值
             //visit(queryListCtx.condition());
 
-            //todo 对queryList进行求值
+            //todo 对表达式进行求值
         }
 
         return valueIn;
     }
 
-//    @Override
-//    public Boolean visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) {
-//        return super.visitLiteralList(ctx);
-//    }
-//
-//    @Override
-//    public Boolean visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
-//        return super.visitQueryList(ctx);
-//    }
+    @Override
+    public Boolean visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) {
+        return super.visitLiteralList(ctx);
+    }
+
+    @Override
+    public Boolean visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
+        return super.visitQueryList(ctx);
+    }
 
     @Override
     public Boolean visitCompExpr(@NotNull PermissionParser.CompExprContext ctx) {

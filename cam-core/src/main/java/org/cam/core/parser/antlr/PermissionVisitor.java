@@ -25,6 +25,12 @@ public interface PermissionVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCriteria(@NotNull PermissionParser.CriteriaContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PermissionParser#entity}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEntity(@NotNull PermissionParser.EntityContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PermissionParser#innerObject}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

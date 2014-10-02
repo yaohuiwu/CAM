@@ -2,6 +2,7 @@ package org.cam.core.parser;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cam.core.Executable;
+import org.cam.core.FactoryHelper;
 import org.cam.core.Logs;
 import org.cam.core.domain.Permission;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class DefaultPermissionEvaluator extends AbstractPermissionEvaluator impl
     }
 
     @Override
-    public String toSqlCriteria(Map<String, String> fieldColumnMap, List<Permission> permissions) {
+    public String toSqlCriteria(List<Permission> permissions) {
         StringBuilder s = new StringBuilder();
         if(permissions!=null){
             Iterator<Permission> iterator = permissions.iterator();
@@ -48,7 +49,7 @@ public class DefaultPermissionEvaluator extends AbstractPermissionEvaluator impl
                 Logs.debugIfEnabled(LOG, "{}", perm);
 
                 ParseTree pt = createParseTree(perm.toString());
-                SQLCriteriaTranslator translator = new SQLCriteriaTranslator(fieldColumnMap);
+                SQLCriteriaTranslator translator = new SQLCriteriaTranslator();
 
                 String sqlCri = translator.visit(pt);
                 if(ParserUtil.isAll(sqlCri)){

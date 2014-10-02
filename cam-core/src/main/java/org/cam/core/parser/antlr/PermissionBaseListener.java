@@ -41,6 +41,18 @@ public class PermissionBaseListener implements PermissionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterEntity(@NotNull PermissionParser.EntityContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEntity(@NotNull PermissionParser.EntityContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInnerObject(@NotNull PermissionParser.InnerObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}

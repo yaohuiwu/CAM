@@ -32,6 +32,13 @@ public class PermissionBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitEntity(@NotNull PermissionParser.EntityContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitInnerObject(@NotNull PermissionParser.InnerObjectContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

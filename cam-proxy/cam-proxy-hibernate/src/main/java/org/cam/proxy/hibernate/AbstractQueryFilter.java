@@ -1,5 +1,8 @@
 package org.cam.proxy.hibernate;
 
+import org.cam.core.FactoryHelper;
+import org.cam.core.domain.User;
+import org.cam.core.mapping.EntityTableMapping;
 import org.hibernate.Session;
 
 import java.util.Iterator;
@@ -35,5 +38,14 @@ public abstract class AbstractQueryFilter implements QueryFilter{
             }
         }
         return tmp;
+    }
+
+    protected String getEntityNameByTable(String tableName){
+        EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
+        return entityTableMapping.getEntityNameByTable(tableName);
+    }
+
+    protected User getCurrentUser(){
+        return FactoryHelper.currentUser();
     }
 }

@@ -31,6 +31,16 @@ public interface PermissionListener extends ParseTreeListener {
 	 */
 	void exitCriteria(@NotNull PermissionParser.CriteriaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PermissionParser#entity}.
+	 * @param ctx the parse tree
+	 */
+	void enterEntity(@NotNull PermissionParser.EntityContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PermissionParser#entity}.
+	 * @param ctx the parse tree
+	 */
+	void exitEntity(@NotNull PermissionParser.EntityContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PermissionParser#innerObject}.
 	 * @param ctx the parse tree
 	 */

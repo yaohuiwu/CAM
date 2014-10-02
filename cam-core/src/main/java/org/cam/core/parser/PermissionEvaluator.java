@@ -45,10 +45,9 @@ public interface PermissionEvaluator {
     /**
      * Convert permissions to sql criteria.
      *
-     * @param fieldColumnMap
      * @param permissions
      * @return
      */
-    public String toSqlCriteria(Map<String,String> fieldColumnMap , List<Permission> permissions);
+    public String toSqlCriteria(List<Permission> permissions);
 
 }

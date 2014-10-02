@@ -2,8 +2,10 @@ package org.cam.core.parser;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.cam.core.FactoryHelper;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,12 @@ import java.util.Map;
 public class PermissionEvaluatorTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(PermissionEvaluatorTest.class);
+
+
+    @Before
+    public void setUp() throws Exception {
+        FactoryHelper.register(new TestCamFactory());
+    }
 
     @Test
     public void testToSqlCriteria() throws Exception {
@@ -40,7 +48,7 @@ public class PermissionEvaluatorTest {
         permList.add(p1);
 
         PermissionEvaluator evaluator = new DefaultPermissionEvaluator();
-        String sqlCriteria = evaluator.toSqlCriteria(map, permList);
+        String sqlCriteria = evaluator.toSqlCriteria(permList);
         LOG.debug("sqlCriteria: [{}]",sqlCriteria);
         assertEquals("c_country = 'China' and (c_city like '%jing' or c_city like '%zhou') or c_city like '%jing'",sqlCriteria);
     }
