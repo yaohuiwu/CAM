@@ -29,29 +29,25 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
 
     private static final Logger LOG = LoggerFactory.getLogger(SQLQueryFilterImpl.class);
 
-//    private static final String FROM_REG = "from\\s+((\\w+)(\\s+(\\w+)?!where)?(,(\\w+)(\\s+(\\w+)?!where)?)*)";
-    private static final String FROM_PATTERN_STRING = "from(\\s+\\w+(\\s+\\w+)?(\\s*,\\s*\\w+(\\s+\\w+)?)*)";
-    private static final Pattern FROM_PATTERN = Pattern.compile(FROM_PATTERN_STRING);
-
     private CamService camService ;
     private PermissionEvaluator evaluator;
+    private SqlTableExtractor extractor;
 
     public SQLQueryFilterImpl() {
         evaluator = new DefaultPermissionEvaluator();
         camService = FactoryHelper.factory().getService();
+        extractor = new SqlTableExtractor();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public String filterQueryString(Session session, String source) {
 
-        Set<TableSegment> tableSet = extractTableIdentities(source);
+        Set<TableSegment> tableSet = extractor.extractTableIdentities(source);
         LOG.debug("Table {} found in sql [{}]",tableSet,source);
         Iterator<TableSegment> it = tableSet.iterator();
 
         String tmp = source;
-//        EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
-//        User currentUser = FactoryHelper.currentUser();
         while(it.hasNext()){
             TableSegment table = it.next();
             String entityName = getEntityNameByTable(table.getName());
@@ -75,55 +71,6 @@ public class SQLQueryFilterImpl extends AbstractQueryFilter {
         }
         LOG.debug("query with security view [{}]",tmp);
         return tmp;
-    }
-
-    /**
-     * Extract tables mentioned in source sql.
-     *
-     * @param sourceSql
-     * @return
-     */
-    protected Set<TableSegment> extractTableIdentities(String sourceSql){
-//        String tmp = StringUtils.replacePattern(sourceSql,"\\s*,\\s*",",");
-        Set<TableSegment> tableSet = Sets.newHashSet();
-
-        Matcher m = FROM_PATTERN.matcher(sourceSql);
-        while(m.find()){
-            // examples :
-            // t_doc where
-            // t_doc  d,t_user,t_app where
-            // t_doc t
-            if(m.group(1)==null){
-                break;
-            }
-            String tmp = StringUtils.trim(m.group(1));
-            tmp = StringUtils.removeEndIgnoreCase(tmp, "where");
-            // t_doc |
-            // t_doc  d,t_user,t_app |
-            // t_doc t|
-            tmp = StringUtils.trim(tmp);
-            // first split by ,
-            String[] splits_1 = StringUtils.split(tmp,",");
-            if(splits_1.length == 0){
-                LOG.error("pattern {} broken, fix it!", FROM_PATTERN_STRING);
-                continue;
-            }
-            for(String split_1 : splits_1){
-                String[] splits_2 = StringUtils.split(StringUtils.trim(split_1));
-                if(splits_2.length==0){
-                    LOG.error("pattern {} broken, fix it!",FROM_PATTERN_STRING);
-                    continue;
-                }
-                TableSegment tableSeg = new TableSegment();
-                tableSeg.setName(splits_2[0]);
-                if(splits_2.length > 1){
-                    tableSeg.setAlias(splits_2[1]);
-                }
-                // equals method already override.
-                tableSet.add(tableSeg);
-            }
-        }
-        return tableSet;
     }
 
     protected String toSecurityView(TableSegment table,String sqlCriteria){

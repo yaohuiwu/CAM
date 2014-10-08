@@ -23,6 +23,9 @@ public class SqlFromExtractTest {
     String sql2 = "select * from ( select * from t_doc where t.user_id = 'mock_user') d  where d.name like 'tom_cat'";
     String sql3 = "select * from ( select * from t_doc where t.user_id = 'mock_user') d  where d.name in (select * from names )";
 
+    // sql from real world
+    String rw01 = "select r.id as contact_rel_id,c.id, c.contact_name, r.tenant_name, r.update_time from mdm_contact_group_relation r, mdm_contacts_info c where (r.target_id = ? and r.target_type = ? and r.contact_id = c.id)";
+
     String[] sqls = {sql,sql1,sql10,sql11,sql2,sql3};
     String sqlTablePatten = "from(\\s+\\w+(\\s+\\w+)?(\\s*,\\s*\\w+(\\s+\\w+)?)*)";
     @Test
