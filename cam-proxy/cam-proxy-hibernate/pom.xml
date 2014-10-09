@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.cam</groupId>
         <artifactId>cam-proxy</artifactId>
-        <version>1.0b</version>
+        <version>1.0.0.beta</version>
 		<relativePath>../pom.xml</relativePath>
     </parent>
 
