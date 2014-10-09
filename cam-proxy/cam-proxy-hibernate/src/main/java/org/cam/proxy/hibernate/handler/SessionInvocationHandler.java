@@ -1,14 +1,13 @@
 package org.cam.proxy.hibernate.handler;
 
 import org.cam.core.FactoryHelper;
-import org.cam.core.action.Invokable;
 import org.cam.core.UserBehavior;
+import org.cam.core.action.Invokable;
 import org.cam.core.exception.UserBehaviorException;
 import org.cam.core.impl.JdkProxyInvokable;
 import org.cam.proxy.hibernate.QueryFilter;
 import org.cam.proxy.hibernate.QueryFilterImpl;
 import org.cam.proxy.hibernate.QueryWrapper;
-import org.cam.proxy.hibernate.SQLQueryFilterImpl;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -28,11 +27,11 @@ public class SessionInvocationHandler implements InvocationHandler{
     private Session session;
 
     private QueryFilter queryFilter;
-    private QueryFilter sqlQueryFilter;
+//    private QueryFilter sqlQueryFilter;
 
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
-        sqlQueryFilter = new SQLQueryFilterImpl();
+//        sqlQueryFilter = new SQLQueryFilterImpl();
     }
 
     /**
