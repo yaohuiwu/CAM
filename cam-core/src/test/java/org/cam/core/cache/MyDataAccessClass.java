@@ -16,6 +16,7 @@ import java.util.Collection;
 /**
  * Created by wuyaohui on 14-9-28.
  */
+@SuppressWarnings("unchecked")
 public class MyDataAccessClass<K,V> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CacheDataAccessor.class);
