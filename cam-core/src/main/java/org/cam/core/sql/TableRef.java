@@ -1,31 +1,23 @@
 package org.cam.core.sql;
 
+import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
+import org.cam.core.parser.ParserUtil;
 
 /**
  * Reference a table in sql statement.
  */
-public class TableRef {
-
-    private String originalString;
+public class TableRef{
 
     private String name ;
     private String as ;
     private String alias ;
-    private int index ;
 
-    public TableRef() {
-    }
+    private String securityView ;
 
-    public TableRef(String originalString, int index) {
+    public TableRef(String originalString) {
 
-        if(originalString==null || index < 0){
-            throw new IllegalArgumentException("null originalString or negative index.");
-        }
-        this.originalString = originalString;
-        this.index = index ;
-
-        String[] splits = StringUtils.split(originalString);
+        String[] splits = StringUtils.split(StringUtils.trim(originalString));
         if(splits.length==0){
             throw new IllegalArgumentException("empty originalString");
         }
@@ -41,9 +33,6 @@ public class TableRef {
         }
     }
 
-    public String getOriginalString() {
-        return originalString;
-    }
 
     public String getName() {
         return name;
@@ -57,11 +46,65 @@ public class TableRef {
         return alias;
     }
 
-    public int getIndex() {
-        return index;
+    public String getSecurityView() {
+        return securityView;
     }
 
-    public int getLength(){
-        return StringUtils.length(this.originalString);
+    public void setSecurityView(String securityView) {
+        if(Strings.isNullOrEmpty(securityView)){
+            throw new IllegalArgumentException("null securityView");
+        }
+
+        if(ParserUtil.isAll(securityView)) {
+            this.securityView = toOriginalString();
+            return ;
+        }
+        StringBuilder s = new StringBuilder();
+        s.append("(select * from ");
+
+        s.append(this.name);
+        s.append(" where ");
+        s.append(securityView);
+        s.append(")");
+        s.append(getAliasString());
+        this.securityView = s.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "TableRef{" +
+                "name='" + name + '\'' +
+                ", as='" + as + '\'' +
+                ", alias='" + alias + '\'' +
+                ", securityView='" + securityView + '\'' +
+                '}';
+    }
+
+    public String toOriginalString(){
+        StringBuilder s = new StringBuilder();
+        s.append(this.name);
+        if(this.alias!=null){
+            if(this.as!=null){
+                s.append(" ");
+                s.append(this.as);
+            }
+            s.append(" ");
+            s.append(this.alias);
+        }
+        return s.toString();
+    }
+
+    public String getAliasString(){
+        StringBuilder s = new StringBuilder();
+        if(!Strings.isNullOrEmpty(this.alias)){
+            if(!Strings.isNullOrEmpty(this.as)){
+                s.append(this.as);
+            }
+            s.append(this.alias);
+        }else{
+            s.append(this.name);
+            s.append("_alias");
+        }
+        return s.toString();
     }
 }

@@ -88,13 +88,15 @@ public class SessionInvocationHandler implements InvocationHandler{
                 if(args.length < 1){
                     throw new IllegalStateException("Bad argument length of createQuery -- must be one. ");
                 }
-                Query proxiedQuery = session.createQuery(queryFilter.filterQueryString(session,(String)args[0]));
+//                Query proxiedQuery = session.createQuery(queryFilter.filterQueryString(session,(String)args[0]));
+                Query proxiedQuery = session.createQuery((String)args[0]);
                 QueryWrapper wrapper = new QueryWrapper(proxiedQuery);
                 QueryWrapperInvocationHandler queryProxy = new QueryWrapperInvocationHandler(session,(Query)result);
                 return queryProxy.bind(wrapper);
             }
             else if("createSQLQuery".equals(method.getName())){
-                SQLQuery newSqlQuery = session.createSQLQuery(sqlQueryFilter.filterQueryString(session,(String)args[0]));
+//                SQLQuery newSqlQuery = session.createSQLQuery(sqlQueryFilter.filterQueryString(session,(String)args[0]));
+                SQLQuery newSqlQuery = session.createSQLQuery((String)args[0]);
                 SQLQueryInvocationHandler queryProxy = new SQLQueryInvocationHandler(session,(SQLQuery)result);
                 return queryProxy.bind(newSqlQuery);
             }

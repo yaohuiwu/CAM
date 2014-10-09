@@ -1,6 +1,7 @@
 package org.cam.core.util;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -142,6 +144,39 @@ public class ObjectUtils {
 
     public static String toSqlString(String s){
         return new StringBuilder().append("'").append(s).append("'").toString();
+    }
+
+    public static Matcher getMatcher(String s,String regexString){
+        return Pattern.compile(regexString).matcher(s);
+    }
+
+    public static String innerWhitespace(String s){
+        if(s==null){
+            return null;
+        }
+        String tmp = StringUtils.trim(s);
+        String[] splits = StringUtils.split(tmp);
+        if(splits.length != 2){
+            throw new IllegalArgumentException("string must contain whitespace like 'abc def'");
+        }
+        return StringUtils.substring(tmp,splits[0].length(),tmp.indexOf(splits[1]));
+    }
+
+    public static String endWhitespace(String s){
+        if(s==null){
+            return null;
+        }
+        char[] chars = s.toCharArray();
+
+        StringBuilder b = new StringBuilder();
+        for(int i= chars.length-1;i>=0;i--){
+            if(Character.isWhitespace(chars[i])){
+                b.append(chars[i]);
+            }else{
+                break;
+            }
+        }
+        return b.toString();
     }
 
 }

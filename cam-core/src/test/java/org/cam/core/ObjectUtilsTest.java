@@ -19,6 +19,23 @@ public class ObjectUtilsTest {
         assertEquals("123",new Integer(123).toString());
     }
 
+    @Test
+    public void testInnerWhitespace() throws Exception {
+        String string = "abc  def";
+        assertEquals("  ",ObjectUtils.innerWhitespace(string));
+
+        String string1 = "  abc   def  ";
+        assertEquals("   ",ObjectUtils.innerWhitespace(string1));
+
+    }
+
+    @Test
+    public void testEndWhitespace() throws Exception {
+        String string = "s  ";
+        assertEquals("  ",ObjectUtils.endWhitespace(string));
+        String string1 = "  ";
+        assertEquals("  ",ObjectUtils.endWhitespace(string1));
+    }
 
     public class A{
         private String name;
@@ -59,4 +76,5 @@ public class ObjectUtilsTest {
             System.out.println("list is null");
         }
     }
+
 }
