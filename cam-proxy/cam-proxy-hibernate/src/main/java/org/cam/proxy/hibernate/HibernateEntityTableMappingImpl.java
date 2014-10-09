@@ -18,6 +18,7 @@ import java.util.Iterator;
 /**
  * Created by wuyaohui on 14-10-2.
  */
+@SuppressWarnings("unchecked")
 public class HibernateEntityTableMappingImpl extends AbstractEntityTableMappings{
 
     private static final Logger LOG = LoggerFactory.getLogger(HibernateEntityTableMappingImpl.class);
