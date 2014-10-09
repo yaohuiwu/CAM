@@ -1,4 +1,4 @@
-package org.cam.proxy.hibernate;
+package org.cam.core.sql;
 
 /**
  * Created by wuyaohui on 14-9-26.

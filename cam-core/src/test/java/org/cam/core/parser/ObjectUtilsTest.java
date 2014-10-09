@@ -1,7 +1,7 @@
 package org.cam.core.parser;
 
 import org.apache.commons.lang3.StringUtils;
-import org.cam.core.ObjectUtils;
+import org.cam.core.util.ObjectUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

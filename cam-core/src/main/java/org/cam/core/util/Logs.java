@@ -1,4 +1,4 @@
-package org.cam.core;
+package org.cam.core.util;
 
 import org.slf4j.Logger;
 

@@ -1,6 +1,6 @@
 package org.cam.proxy.hibernate.handler;
 
-import org.cam.core.Logs;
+import org.cam.core.util.Logs;
 import org.cam.proxy.hibernate.QueryWrapper;
 import org.hibernate.Query;
 import org.hibernate.Session;

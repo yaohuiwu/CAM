@@ -6,6 +6,7 @@ import org.cam.core.FlowHandler;
 import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
 import org.cam.core.mapping.EntityTableMapping;
+import org.cam.core.sql.SqlInterceptor;
 
 /**
  * Created by wuyaohui on 14-10-2.
@@ -33,6 +34,11 @@ public class CamFactoryAdapter implements CamFactory{
 
     @Override
     public EntityTableMapping getEntityTableMapping() {
+        return null;
+    }
+
+    @Override
+    public SqlInterceptor getSqlInterceptor() {
         return null;
     }
 }

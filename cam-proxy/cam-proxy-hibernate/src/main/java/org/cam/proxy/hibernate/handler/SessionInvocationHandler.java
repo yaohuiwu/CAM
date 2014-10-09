@@ -1,8 +1,7 @@
 package org.cam.proxy.hibernate.handler;
 
-import org.cam.core.CamException;
 import org.cam.core.FactoryHelper;
-import org.cam.core.Invokable;
+import org.cam.core.action.Invokable;
 import org.cam.core.UserBehavior;
 import org.cam.core.exception.UserBehaviorException;
 import org.cam.core.impl.JdkProxyInvokable;

@@ -5,8 +5,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.apache.commons.dbutils.DbUtils;
-import org.cam.core.ObjectUtils;
-import org.cam.core.ScriptRunner;
+import org.cam.core.util.ObjectUtils;
+import org.cam.core.util.ScriptRunner;
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;
 import org.cam.core.domain.PermissionSet;
@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 public class JdbcPersistentDaoImpl implements PersistentDao{

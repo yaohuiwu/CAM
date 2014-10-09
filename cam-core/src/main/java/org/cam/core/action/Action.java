@@ -1,8 +1,8 @@
-package org.cam.core;
+package org.cam.core.action;
 
 import java.util.Arrays;
 
-public class Action implements Executable{
+public class Action implements Executable {
 
     private final String name;
     private Object[] objects;

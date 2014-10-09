@@ -1,4 +1,4 @@
-package org.cam.core;
+package org.cam.core.action;
 
 import java.lang.reflect.Method;
 

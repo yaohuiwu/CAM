@@ -5,7 +5,9 @@ import org.cam.core.*;
 import org.cam.core.dao.CamDao;
 import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
+import org.cam.core.impl.CamFactoryAdapter;
 import org.cam.core.mapping.EntityTableMapping;
+import org.cam.core.sql.SqlInterceptor;
 import org.cam.proxy.hibernate.HibernateEntityTableMappingImpl;
 import org.cam.proxy.hibernate.HibernateHelper;
 import org.slf4j.Logger;
@@ -20,7 +22,7 @@ import javax.sql.DataSource;
 /**
  * Created by wuyaohui on 14-9-26.
  */
-public class SpringCamFactory implements ApplicationContextAware,CamFactory{
+public class SpringCamFactory extends CamFactoryAdapter implements ApplicationContextAware{
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringCamFactory.class);
 
@@ -92,5 +94,10 @@ public class SpringCamFactory implements ApplicationContextAware,CamFactory{
     @Override
     public EntityTableMapping getEntityTableMapping() {
         return entityTableMapping;
+    }
+
+    @Override
+    public SqlInterceptor getSqlInterceptor() {
+        return getBean("camSqlInterceptor",SqlInterceptor.class);
     }
 }

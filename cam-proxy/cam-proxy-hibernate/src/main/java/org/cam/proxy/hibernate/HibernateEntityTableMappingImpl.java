@@ -1,6 +1,6 @@
 package org.cam.proxy.hibernate;
 
-import org.cam.core.ObjectUtils;
+import org.cam.core.util.ObjectUtils;
 import org.cam.core.mapping.AbstractEntityTableMappings;
 import org.cam.core.mapping.EntityMapping;
 import org.hibernate.cfg.Configuration;

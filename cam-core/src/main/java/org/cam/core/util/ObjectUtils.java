@@ -1,4 +1,4 @@
-package org.cam.core;
+package org.cam.core.util;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;

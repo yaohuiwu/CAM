@@ -1,5 +1,7 @@
 package org.cam.core;
 
+import org.cam.core.action.Action;
+import org.cam.core.action.Invokable;
 import org.cam.core.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,6 @@ public class FactoryHelper {
     }
 
     public static UserBehavior currentBehavior(final Invokable invokable){
-        return new UserBehavior(FactoryHelper.currentUser(),Action.toAction(invokable));
+        return new UserBehavior(FactoryHelper.currentUser(), Action.toAction(invokable));
     }
 }

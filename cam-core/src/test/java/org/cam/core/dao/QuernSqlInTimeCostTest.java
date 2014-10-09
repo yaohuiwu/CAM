@@ -1,27 +1,15 @@
 package org.cam.core.dao;
 
-import com.google.common.collect.Sets;
 import org.apache.commons.dbutils.DbUtils;
-import org.cam.core.ObjectUtilsTest;
-import org.cam.core.ScriptRunner;
-import org.cam.core.annotation.ExecutableType;
-import org.cam.core.domain.Authorization;
-import org.cam.core.domain.Permission;
-import org.cam.core.domain.Role;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.sql.DataSource;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -2,7 +2,7 @@ package org.cam.core.parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.apache.commons.lang3.StringUtils;
-import org.cam.core.ObjectUtils;
+import org.cam.core.util.ObjectUtils;
 import org.cam.core.parser.antlr.PermissionParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

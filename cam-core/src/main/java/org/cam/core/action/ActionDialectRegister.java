@@ -1,4 +1,4 @@
-package org.cam.core;
+package org.cam.core.action;
 
 /**
  * A action register center for different data action.

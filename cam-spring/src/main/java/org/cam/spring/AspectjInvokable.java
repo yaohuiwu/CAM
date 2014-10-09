@@ -3,7 +3,7 @@ package org.cam.spring;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.cam.core.Invokable;
+import org.cam.core.action.Invokable;
 
 import java.lang.reflect.Method;
 

@@ -1,6 +1,7 @@
 package org.cam.proxy.hibernate;
 
-import com.google.common.collect.Sets;
+import org.cam.core.sql.SqlTableExtractor;
+import org.cam.core.sql.TableSegment;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

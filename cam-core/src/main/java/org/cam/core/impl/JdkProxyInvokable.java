@@ -1,6 +1,6 @@
 package org.cam.core.impl;
 
-import org.cam.core.Invokable;
+import org.cam.core.action.Invokable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

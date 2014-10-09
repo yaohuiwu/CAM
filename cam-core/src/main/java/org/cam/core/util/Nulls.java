@@ -1,4 +1,4 @@
-package org.cam.core;
+package org.cam.core.util;
 
 /**
  * Created by wuyaohui on 14-9-30.

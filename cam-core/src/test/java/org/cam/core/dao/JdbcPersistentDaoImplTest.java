@@ -2,7 +2,7 @@ package org.cam.core.dao;
 
 import com.google.common.collect.Sets;
 import org.cam.core.ObjectUtilsTest;
-import org.cam.core.ScriptRunner;
+import org.cam.core.util.ScriptRunner;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;

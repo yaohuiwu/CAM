@@ -1,4 +1,4 @@
-package org.cam.proxy.hibernate;
+package org.cam.core.sql;
 
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;

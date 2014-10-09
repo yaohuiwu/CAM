@@ -1,5 +1,6 @@
 package org.cam.core;
 
+import org.cam.core.util.ObjectUtils;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class ObjectUtilsTest {
     @Test
     public void testGetterField() throws Exception {
 
-        assertEquals("name",ObjectUtils.getterField("getName"));
+        assertEquals("name", ObjectUtils.getterField("getName"));
         assertEquals("isAlive",ObjectUtils.getterField("isAlive"));
         assertEquals("123",new Integer(123).toString());
     }

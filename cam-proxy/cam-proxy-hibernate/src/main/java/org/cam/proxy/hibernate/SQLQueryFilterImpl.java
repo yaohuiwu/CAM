@@ -1,11 +1,12 @@
 package org.cam.proxy.hibernate;
 
-import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.cam.core.CamException;
 import org.cam.core.CamService;
 import org.cam.core.FactoryHelper;
-import org.cam.core.ObjectUtils;
+import org.cam.core.sql.SqlTableExtractor;
+import org.cam.core.sql.TableSegment;
+import org.cam.core.util.ObjectUtils;
 import org.cam.core.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.cam.core.exception.ActionNotAllowedException;
@@ -19,8 +20,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by wuyaohui on 14-9-24.

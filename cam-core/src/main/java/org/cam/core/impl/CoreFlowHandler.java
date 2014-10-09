@@ -1,6 +1,7 @@
 package org.cam.core.impl;
 
 import org.cam.core.*;
+import org.cam.core.action.Invokable;
 import org.cam.core.exception.UserBehaviorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

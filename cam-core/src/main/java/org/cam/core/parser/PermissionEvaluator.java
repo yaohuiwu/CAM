@@ -1,10 +1,9 @@
 package org.cam.core.parser;
 
-import org.cam.core.Executable;
+import org.cam.core.action.Executable;
 import org.cam.core.domain.Permission;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by yaohui on 14-9-21.

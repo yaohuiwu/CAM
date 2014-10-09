@@ -2,7 +2,7 @@ package org.cam.core.parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.cam.core.FactoryHelper;
-import org.cam.core.ObjectUtils;
+import org.cam.core.util.ObjectUtils;
 import org.cam.core.exception.ParserException;
 import org.cam.core.mapping.EntityMapping;
 import org.cam.core.mapping.EntityTableMapping;

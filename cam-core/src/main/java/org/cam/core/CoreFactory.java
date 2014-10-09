@@ -5,6 +5,7 @@ import org.cam.core.dao.CamDaoImpl;
 import org.cam.core.dao.JdbcPersistentDaoImpl;
 import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
+import org.cam.core.impl.CamFactoryAdapter;
 import org.cam.core.impl.CamServiceImpl;
 import org.cam.core.impl.CoreFlowHandler;
 import org.cam.core.mapping.EntityTableMapping;
@@ -15,7 +16,7 @@ import javax.sql.DataSource;
 /**
  * Factory for entire CBAM system , which is much like a spring BeanFactory.
  */
-public class CoreFactory implements CamFactory{
+public class CoreFactory extends CamFactoryAdapter{
 
     private  UserContextProvider _userContextProvider;
     private  FlowHandler _flowHandler;
