@@ -1,5 +1,7 @@
-package org.cam.core.parser;
+package org.cam.core;
 
+import org.cam.core.domain.User;
+import org.cam.core.domain.UserImpl;
 import org.cam.core.impl.CamFactoryAdapter;
 import org.cam.core.mapping.AbstractEntityTableMappings;
 import org.cam.core.mapping.EntityMapping;
@@ -9,6 +11,8 @@ import org.cam.core.mapping.EntityTableMapping;
  * Created by wuyaohui on 14-10-2.
  */
 public class TestCamFactory extends CamFactoryAdapter {
+
+    private static final User USER = new UserImpl("mock_user","mock_user");
 
     @Override
     public EntityTableMapping getEntityTableMapping() {
@@ -28,5 +32,10 @@ public class TestCamFactory extends CamFactoryAdapter {
 
             entityMappingMap.put(entityMapping.getName(),entityMapping);
         }
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return USER;
     }
 }

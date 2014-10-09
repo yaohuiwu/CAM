@@ -3,7 +3,7 @@ package org.cam.core.sql;
 import org.cam.core.CamException;
 import org.cam.core.CamService;
 import org.cam.core.FactoryHelper;
-import org.cam.core.annotation.ExecutableType;
+import org.cam.core.action.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.cam.core.exception.ActionNotAllowedException;
 import org.cam.core.mapping.EntityTableMapping;

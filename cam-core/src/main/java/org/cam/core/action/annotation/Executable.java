@@ -1,4 +1,4 @@
-package org.cam.core.annotation;
+package org.cam.core.action.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

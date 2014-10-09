@@ -1,5 +1,7 @@
 package org.cam.core.annotation;
 
+import org.cam.core.action.annotation.Executable;
+import org.cam.core.action.annotation.ExecutableType;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

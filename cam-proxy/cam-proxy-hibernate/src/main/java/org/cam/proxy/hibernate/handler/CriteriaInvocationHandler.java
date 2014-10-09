@@ -2,7 +2,7 @@ package org.cam.proxy.hibernate.handler;
 
 import org.cam.core.CamService;
 import org.cam.core.FactoryHelper;
-import org.cam.core.annotation.ExecutableType;
+import org.cam.core.action.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.cam.core.exception.ActionNotAllowedException;
 import org.cam.core.exception.UserBehaviorException;
@@ -63,21 +63,21 @@ public class CriteriaInvocationHandler implements InvocationHandler{
         Object result=null;
         LOG.trace("Criteria {} start",method.getName());
 
-        List<String> mdToAuthorize = new ArrayList<String>();
-        mdToAuthorize.add("list");
-        mdToAuthorize.add("uniqueResult");
-
-        if(mdToAuthorize.contains(method.getName())){
-            Criterion criterion = null ;
-            try{
-                criterion = createSecurityView();
-            }catch (UserBehaviorException e){
-                LOG.warn("No Security view found for {} on entry[{}]",FactoryHelper.currentUser(),entityName);
-                return result;
-            }
-            LOG.debug("security criterion view: [{}]",criterion);
-            criteria.add(criterion);
-        }
+//        List<String> mdToAuthorize = new ArrayList<String>();
+//        mdToAuthorize.add("list");
+//        mdToAuthorize.add("uniqueResult");
+//
+//        if(mdToAuthorize.contains(method.getName())){
+//            Criterion criterion = null ;
+//            try{
+//                criterion = createSecurityView();
+//            }catch (UserBehaviorException e){
+//                LOG.warn("No Security view found for {} on entry[{}]",FactoryHelper.currentUser(),entityName);
+//                return result;
+//            }
+//            LOG.debug("security criterion view: [{}]",criterion);
+//            criteria.add(criterion);
+//        }
 
         //执行方法
         result=method.invoke(criteria, args);

@@ -52,6 +52,8 @@
 
     <bean id="camFactory" class="org.cam.spring.SpringCamFactory" lazy-init="false"/>
 
-    <bean id="camSqlInterceptor" class="org.cam.core.sql.DefaultSqlInterceptor" />
+    <bean id="camSqlInterceptor" class="org.cam.core.sql.DefaultSqlInterceptor" >
+        <constructor-arg ref="camService" />
+    </bean>
 
 </beans>

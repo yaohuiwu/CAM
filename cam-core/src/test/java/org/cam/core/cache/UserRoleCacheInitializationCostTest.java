@@ -3,7 +3,7 @@ package org.cam.core.cache;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.dbutils.DbUtils;
-import org.cam.core.annotation.ExecutableType;
+import org.cam.core.action.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.cam.core.domain.Role;
 import org.cam.core.parser.DefaultPermissionEvaluator;

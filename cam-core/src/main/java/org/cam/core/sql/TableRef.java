@@ -66,6 +66,7 @@ public class TableRef{
         s.append(" where ");
         s.append(securityView);
         s.append(")");
+        s.append(" ");
         s.append(getAliasString());
         this.securityView = s.toString();
     }

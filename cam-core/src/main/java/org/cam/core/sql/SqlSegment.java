@@ -42,4 +42,8 @@ public class SqlSegment {
                 ", originalString='" + originalString + '\'' +
                 '}';
     }
+
+    public String toSqlString(){
+        return getOriginalString();
+    }
 }

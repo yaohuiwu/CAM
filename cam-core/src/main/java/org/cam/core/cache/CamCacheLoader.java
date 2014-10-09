@@ -7,7 +7,7 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Status;
 import net.sf.ehcache.loader.CacheLoader;
 import org.cam.core.CamException;
-import org.cam.core.annotation.ExecutableType;
+import org.cam.core.action.annotation.ExecutableType;
 import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.Authorization;
 import org.cam.core.domain.Permission;

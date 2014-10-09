@@ -7,7 +7,7 @@ import org.cam.core.FactoryHelper;
 import org.cam.core.sql.SqlTableExtractor;
 import org.cam.core.sql.TableSegment;
 import org.cam.core.util.ObjectUtils;
-import org.cam.core.annotation.ExecutableType;
+import org.cam.core.action.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.cam.core.exception.ActionNotAllowedException;
 import org.cam.core.parser.DefaultPermissionEvaluator;

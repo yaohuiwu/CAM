@@ -1,7 +1,7 @@
 package org.cam.core.domain;
 
 import org.cam.core.FactoryHelper;
-import org.cam.core.annotation.ExecutableType;
+import org.cam.core.action.annotation.ExecutableType;
 import org.cam.core.cache.Copyable;
 
 import java.io.Serializable;

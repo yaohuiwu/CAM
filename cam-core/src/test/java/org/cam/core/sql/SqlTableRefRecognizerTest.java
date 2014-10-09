@@ -44,6 +44,7 @@ public class SqlTableRefRecognizerTest {
     public void testRecognize() throws Exception {
 
         List<SqlSegment> segs = tableRefRecognizer.analyze(sql0);
+        TestUtil.printlnList(segs);
         assertNotNull(segs);
         assertEquals(3,segs.size());
 

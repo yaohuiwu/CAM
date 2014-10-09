@@ -17,16 +17,7 @@ public class SqlBuilder {
             LOG.warn("null sqlSegment");
             return this ;
         }
-        if(sqlSegment instanceof TableRefsSegment){
-            TableRefsSegment tableRef = (TableRefsSegment)sqlSegment;
-            if(tableRef.getSecurityView()!=null){
-                s.append(tableRef.getSecurityView());
-            }else{
-                throw new IllegalStateException("TableRefsSegment "+tableRef+" has not been prepared.");
-            }
-        }else{
-            s.append(sqlSegment.getOriginalString());
-        }
+        s.append(sqlSegment.toSqlString());
         return this ;
     }
 

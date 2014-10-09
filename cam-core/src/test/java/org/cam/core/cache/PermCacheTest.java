@@ -3,7 +3,7 @@ package org.cam.core.cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import org.cam.core.annotation.ExecutableType;
+import org.cam.core.action.annotation.ExecutableType;
 import org.cam.core.domain.Permission;
 import org.junit.Before;
 import org.junit.Ignore;

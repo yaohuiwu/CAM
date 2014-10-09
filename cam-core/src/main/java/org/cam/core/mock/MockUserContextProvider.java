@@ -15,6 +15,6 @@ public class MockUserContextProvider implements UserContextProvider{
 //
 //        Permission per = new Permission(action,objectType,"country = 'USA'");
 //        permList.add(per);
-        return new UserImpl("mock_user");
+        return new UserImpl("mock_user","mock_user");
     }
 }

@@ -1,4 +1,4 @@
-package org.cam.core.annotation;
+package org.cam.core.action.annotation;
 
 /**
  * Contract between developer and CBAM system.

@@ -45,8 +45,8 @@ public class CoreFlowHandler implements FlowHandler {
             throwable.printStackTrace();
             throw new RuntimeException(throwable.getCause());
         }
-//        LOG.debug("After {} .. return {}",userBehavior,value);
-        LOG.debug("After {} ",userBehavior);
+        LOG.debug("After {} .. return {}",userBehavior,value);
+//        LOG.debug("After {} ",userBehavior);
         return after(userBehavior,value);
     }
 

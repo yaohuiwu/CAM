@@ -10,9 +10,9 @@ public class UserImpl implements User,Copyable{
     private String id;
     private String name;
 
-    public UserImpl(String id) {
-        this.id = id;
-    }
+//    public UserImpl(String id) {
+//        this.id = id;
+//    }
 
     public UserImpl(String id, String name) {
         this.id = id;
@@ -48,5 +48,25 @@ public class UserImpl implements User,Copyable{
     @Override
     public UserImpl copy() {
         return new UserImpl(this.id,this.name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserImpl user = (UserImpl) o;
+
+        if (!id.equals(user.id)) return false;
+        if (!name.equals(user.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }
