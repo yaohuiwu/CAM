@@ -93,6 +93,26 @@ public class SqlTableRefRecognizerTest {
     }
 
     @Test
+    public void testRecognizeSingleFrom() throws Exception {
+        String sql1 = "SELECT * FROM mdm_org";
+        List<SqlSegment> segments = tableRefRecognizer.analyze(sql1);
+        TestUtil.printlnList(segments);
+
+        assertNotNull(segments);
+        assertEquals(2,segments.size());
+    }
+
+     @Test
+    public void testRecognizeSingleFromWithWhere() throws Exception {
+        String sql1 = "SELECT * FROM mdm_org where 1=1 ";
+        List<SqlSegment> segments = tableRefRecognizer.analyze(sql1);
+        TestUtil.printlnList(segments);
+
+        assertNotNull(segments);
+        assertEquals(3,segments.size());
+    }
+
+    @Test
     public void testRecognizeMultipleFrom() throws Exception {
         String sql1 = "SELECT * FROM mdm_org WHERE org_code IN " +
                 "(SELECT descendant_code FROM mdm_org_tree_path WHERE ancestor_code = :orgCode)";
@@ -101,9 +121,6 @@ public class SqlTableRefRecognizerTest {
 
         assertNotNull(segments);
         assertEquals(5,segments.size());
-
-
-
     }
 
     @Test

@@ -58,8 +58,10 @@ public class SqlTableRefRecognizer {
 
                 lastMatchIndex = end;
             }
-            String endString = StringUtils.substring(sql,lastMatchIndex);
-            segments.add(new SqlSegment(endString,lastMatchIndex));
+            if(lastMatchIndex < sql.length()){
+                String endString = StringUtils.substring(sql,lastMatchIndex);
+                segments.add(new SqlSegment(endString,lastMatchIndex));
+            }
         }
         return segments;
     }
