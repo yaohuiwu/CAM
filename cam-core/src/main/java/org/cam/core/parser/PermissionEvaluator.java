@@ -45,7 +45,7 @@ public interface PermissionEvaluator {
      * Convert permissions to sql criteria.
      *
      * @param permissions
-     * @return
+     * @return ParserUtil.ALL if any permission in permissions list match '*'.
      */
     public String toSqlCriteria(List<Permission> permissions);
 

@@ -1,5 +1,6 @@
 package org.cam.core.impl;
 
+import org.cam.core.CamConfiguration;
 import org.cam.core.CamFactory;
 import org.cam.core.CamService;
 import org.cam.core.FlowHandler;
@@ -39,6 +40,11 @@ public class CamFactoryAdapter implements CamFactory{
 
     @Override
     public SqlInterceptor getSqlInterceptor() {
+        return null;
+    }
+
+    @Override
+    public CamConfiguration getConfiguration() {
         return null;
     }
 }

@@ -2,6 +2,7 @@ package org.cam.core.sql;
 
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
+import org.cam.core.FactoryHelper;
 import org.cam.core.parser.ParserUtil;
 
 /**
@@ -52,7 +53,9 @@ public class TableRef{
 
     public void setSecurityView(String securityView) {
         if(Strings.isNullOrEmpty(securityView)){
-            throw new IllegalArgumentException("null securityView");
+            this.securityView = toOriginalString();
+            return ;
+//                throw new IllegalArgumentException("null securityView");
         }
 
         if(ParserUtil.isAll(securityView)) {

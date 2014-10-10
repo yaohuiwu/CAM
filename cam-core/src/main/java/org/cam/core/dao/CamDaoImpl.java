@@ -6,9 +6,11 @@ import com.google.common.collect.Sets;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+import org.cam.core.CamException;
 import org.cam.core.cache.Caches;
 import org.cam.core.cache.InnerCache;
 import org.cam.core.domain.*;
+import org.cam.core.parser.ParserUtil;
 
 import java.util.Iterator;
 import java.util.List;
@@ -90,6 +92,10 @@ public class CamDaoImpl implements CamDao{
 
     @Override
     public List<Permission> getPermissionsOfRoles(Set<String> roleIdSet, String action, String objectType) {
+
+        if(ParserUtil.isAll(action) || ParserUtil.isAll(objectType)){
+            throw new CamException("action and objectType must be specified explicitly.");
+        }
         List<Permission> permList = Lists.newArrayList();
         Map<String, Set<String>> rolePermMap = getPermissionsIdOfRoles(roleIdSet);
         Iterator<Set<String>>  iterator = rolePermMap.values().iterator();
@@ -99,11 +105,12 @@ public class CamDaoImpl implements CamDao{
             while(permIt.hasNext()){
                 Element element = Caches.getWithDefaultLoader(permIt.next(),InnerCache.permission,permCache);
                 Permission perm = Caches.extractValue(element,Permission.class);
-                if(perm!=null){
-                    if(action.equals(perm.getAction()) && objectType.equals(perm.getObjectType())){
-                        permList.add(perm);
-                    }
+                if(ParserUtil.typeMatch(action,objectType,perm)){
+                    permList.add(perm);
                 }
+//                    if(action.equals(perm.getAction()) && objectType.equals(perm.getObjectType())){
+//                        permList.add(perm);
+//                    }
             }
         }
         return permList;

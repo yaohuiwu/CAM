@@ -44,7 +44,23 @@ public class DefaultSqlInterceptor implements SqlInterceptor{
                 if(tableRefs != null){
                     for(TableRef ref : tableRefs){
                         String entityName = entityTableMapping.getEntityNameByTable(ref.getName());
-                        String sqlCriteria = getSqlCriteria(entityName);
+
+                        List<Permission> permissions = camService.getPermissionOfUser(
+                                FactoryHelper.currentUser(), ExecutableType.VIEW.toString(), entityName);
+                        if(permissions.isEmpty()){
+                            if(FactoryHelper.configuration().isPassWithNoPermission()){
+                                ref.setSecurityView(null);
+                            }else{
+                                throw new ActionNotAllowedException("Action["+ExecutableType.VIEW.toString()+"]" +
+                                        " objectType["+entityName+"]" +
+                                        " of user["+FactoryHelper.currentUser()+"] is not allowed");
+                            }
+                        }
+                        String sqlCriteria = evaluator.toSqlCriteria(permissions);
+                        if(sqlCriteria==null){
+                            throw new CamException("security criteria view can't be null");
+                        }
+//                        String sqlCriteria = getSqlCriteria(entityName);
                         ref.setSecurityView(sqlCriteria);
                     }
                 }

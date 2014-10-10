@@ -42,4 +42,8 @@ public class FactoryHelper {
     public static UserBehavior currentBehavior(final Invokable invokable){
         return new UserBehavior(FactoryHelper.currentUser(), Action.toAction(invokable));
     }
+
+    public static CamConfiguration configuration(){
+        return factory().getConfiguration();
+    }
 }

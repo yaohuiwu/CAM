@@ -56,4 +56,6 @@
         <constructor-arg ref="camService" />
     </bean>
 
+    <bean id="camConfiguration" class="org.cam.core.CamConfiguration" />
+
 </beans>

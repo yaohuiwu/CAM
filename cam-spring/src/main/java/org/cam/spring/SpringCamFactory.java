@@ -100,4 +100,9 @@ public class SpringCamFactory extends CamFactoryAdapter implements ApplicationCo
     public SqlInterceptor getSqlInterceptor() {
         return getBean("camSqlInterceptor",SqlInterceptor.class);
     }
+
+    @Override
+    public CamConfiguration getConfiguration() {
+        return getBean("camConfiguration",CamConfiguration.class);
+    }
 }

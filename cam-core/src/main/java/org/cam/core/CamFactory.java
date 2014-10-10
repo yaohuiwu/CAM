@@ -22,4 +22,6 @@ public interface CamFactory {
     public EntityTableMapping getEntityTableMapping();
 
     public SqlInterceptor getSqlInterceptor();
+
+    public CamConfiguration getConfiguration();
 }
