@@ -1,8 +1,8 @@
 package org.cam.proxy.hibernate;
 
-import org.cam.core.util.ObjectUtils;
 import org.cam.core.mapping.AbstractEntityTableMappings;
 import org.cam.core.mapping.EntityMapping;
+import org.cam.core.util.ObjectUtils;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.mapping.Column;
 import org.hibernate.mapping.PersistentClass;
@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Member;
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -41,6 +42,11 @@ public class HibernateEntityTableMappingImpl extends AbstractEntityTableMappings
                 Property p = iterator.next();
                 Getter getter = p.getGetter(pClass.getMappedClass());
                 Member member = getter.getMember();
+                //ignore the collection field
+                if(Collection.class.isAssignableFrom(getter.getReturnType())){
+                    LOG.debug("ignore collection member :{}",member);
+                    continue;
+                }
 
                 Iterator<Selectable> colIt = p.getColumnIterator();
                 Selectable selectable = colIt.next();
@@ -49,7 +55,7 @@ public class HibernateEntityTableMappingImpl extends AbstractEntityTableMappings
                     entityMapping.getFieldColumnMap().put(ObjectUtils.getterField(member.getName()), col.getName());
                 }
             }
-            entityTableMap.put(entityMapping.getName(),pClass.getTable().getName());
+            entityTableMap.put(entityMapping.getName(), pClass.getTable().getName());
             entityMappingMap.put(entityMapping.getName(),entityMapping);
         }
 

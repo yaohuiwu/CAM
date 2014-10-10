@@ -15,6 +15,7 @@
         <module>cam-web</module>
         <module>cam-spring</module>
         <module>cam-proxy</module>
+	<module>cam-bom</module>
     </modules>
 
 	<properties>
