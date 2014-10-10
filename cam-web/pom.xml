@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.cam</groupId>
+        <artifactId>cam-aggregator</artifactId>
+        <version>1.0.0.beta</version>
+		<relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>cam-web</artifactId>
+    <description>Provide easy integration with web application.</description>
+
+    <properties>
+        <version.spring>4.0.0.RELEASE</version.spring>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.cam</groupId>
+            <artifactId>cam-core</artifactId>
+            <version>1.0.0.beta</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

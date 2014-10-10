@@ -3,6 +3,7 @@ package org.cam.core;
 import org.cam.core.action.Action;
 import org.cam.core.action.Invokable;
 import org.cam.core.domain.User;
+import org.cam.core.domain.UserImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

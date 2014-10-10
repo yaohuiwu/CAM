@@ -7,6 +7,8 @@ import org.cam.core.cache.Copyable;
  */
 public class UserImpl implements User,Copyable{
 
+    public static final User ANONYMOUS_USER = new UserImpl("anonymous_user","anonymous_user");
+
     private String id;
     private String name;
 

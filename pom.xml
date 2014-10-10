@@ -12,6 +12,7 @@
 
     <modules>
         <module>cam-core</module>
+        <module>cam-web</module>
         <module>cam-spring</module>
         <module>cam-proxy</module>
     </modules>
