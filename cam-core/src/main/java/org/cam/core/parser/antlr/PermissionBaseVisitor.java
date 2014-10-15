@@ -1,4 +1,4 @@
-// Generated from /home/wuyaohui/code/github/CBAM/cam-core/src/main/antlr/Permission.g4 by ANTLR 4.4.1-dev
+// Generated from /home/wuyaohui/code/pekall/server/CBAM/cam-core/src/main/antlr/Permission.g4 by ANTLR 4.4.1-dev
 package org.cam.core.parser.antlr;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;

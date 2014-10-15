@@ -42,7 +42,7 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
 
     @Override
     public Boolean visitPermission(@NotNull PermissionParser.PermissionContext ctx) {
-        LOG.debug("action :{} , objectType : {}",ctx.action().getText(),ctx.objectType().getText());
+        LOG.trace("action :{} , objectType : {}",ctx.action().getText(),ctx.objectType().getText());
 //        visit(ctx.action());
 //        visit(ctx.objectType());
 
@@ -206,7 +206,7 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
             default: break;
         }
 
-        LOG.debug("attrValue {},value of {} is {} ",value,ctx.toStringTree(),r);
+        LOG.trace("attrValue {},value of {} is {} ",value,ctx.toStringTree(),r);
         return r;
     }
 
@@ -215,7 +215,7 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
         boolean left = visit(ctx.condition(0));
         boolean right = visit(ctx.condition(1));
 
-        LOG.debug("visit or ,left:{} , right:{}",left,right);
+        LOG.trace("visit or ,left:{} , right:{}",left,right);
         return left || right;
     }
 

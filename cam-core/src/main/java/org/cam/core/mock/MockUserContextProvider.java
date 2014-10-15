@@ -17,4 +17,9 @@ public class MockUserContextProvider implements UserContextProvider{
 //        permList.add(per);
         return new UserImpl("mock_user","mock_user");
     }
+
+    @Override
+    public void setCurrentUser(User user) {
+
+    }
 }

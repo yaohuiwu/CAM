@@ -139,4 +139,37 @@ public class SqlTableRefRecognizerTest {
         assertEquals(" WHERE ancestor_code = :orgCode)",segments.get(4).getOriginalString());
 
     }
+
+    @Test
+    public void testRecognizeSqlContainsJoin() throws Exception {
+        String sql = "select mdmenterpr0_.id as id1_57_1_, mdmenterpr0_.account as account2_57_1_, " +
+                "mdmenterpr0_.com_id as com_id3_57_1_, mdmenterpr0_.create_time as create_t4_57_1_, " +
+                "mdmenterpr0_.create_user_id as create_u5_57_1_, mdmenterpr0_.email as email6_57_1_, " +
+                "mdmenterpr0_.key_128 as key_7_57_1_, mdmenterpr0_.key_256 as key_8_57_1_, " +
+                "mdmenterpr0_.mobile_phone as mobile_p9_57_1_, mdmenterpr0_.name as name10_57_1_, " +
+                "mdmenterpr0_.org_code as org_cod11_57_1_, mdmenterpr0_.password as passwor12_57_1_, " +
+                "mdmenterpr0_.police_id as police_13_57_1_, mdmenterpr0_.source as source14_57_1_, " +
+                "mdmenterpr0_.status as status15_57_1_, mdmenterpr0_.telephone as telepho16_57_1_, " +
+                "mdmenterpr0_.update_time as update_17_57_1_, mdmenterpr0_.update_user_id as update_18_57_1_, " +
+                "groupset1_.user_id as user_id1_57_3_, mdmusergro2_.id as group_id2_33_3_, " +
+                "mdmusergro2_.id as id1_58_0_, mdmusergro2_.is_auto_invite_user_register_device as is_auto_2_58_0_, " +
+                "mdmusergro2_.com_id as com_id3_58_0_, mdmusergro2_.create_time as create_t4_58_0_, " +
+                "mdmusergro2_.create_user_id as create_u5_58_0_, mdmusergro2_.description as descript6_58_0_, " +
+                "mdmusergro2_.invite_register_device_param as invite_r7_58_0_, mdmusergro2_.name as name8_58_0_, " +
+                "mdmusergro2_.org_code as org_code9_58_0_, mdmusergro2_.status as status10_58_0_, " +
+                "mdmusergro2_.type as type11_58_0_, mdmusergro2_.update_time as update_12_58_0_, " +
+                "mdmusergro2_.update_user_id as update_13_58_0_ " +
+                "from mdm_user mdmenterpr0_ " +
+                "left outer join mdm_group_user groupset1_ on mdmenterpr0_.id=groupset1_.user_id " +
+                "left outer join mdm_user_group mdmusergro2_ on groupset1_.group_id=mdmusergro2_.id " +
+                "where mdmenterpr0_.id=?";
+
+        List<SqlSegment> segments = tableRefRecognizer.analyze(sql);
+        TestUtil.printlnList(segments);
+
+        assertNotNull(segments);
+        assertEquals(7,segments.size());
+
+
+    }
 }

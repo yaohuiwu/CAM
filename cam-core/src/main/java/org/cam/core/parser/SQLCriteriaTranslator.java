@@ -143,8 +143,16 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
         PermissionParser.ValueContext valCtx = ctx.value();
 
         if(isScalarVar(valCtx)){
-            visit(valCtx.scalarVariable());
-        }else{
+            s.append(visit(valCtx.scalarVariable()));
+        }
+        else if(isId(valCtx)){
+            String valueColumn = getColumnByField(valCtx.getText());
+            if(valueColumn==null){
+                throw new ParserException("No column defined for field "+valCtx.getText() +" of entity "+currentEntityMapping.getName());
+            }
+            s.append(valueColumn);
+        }
+        else{
             s.append(valCtx.getText());
         }
 

@@ -22,14 +22,14 @@ public class ServiceAroundAspect {
         Object result = null;
         Invokable invokable = new AspectjInvokable(joinPoint);
 
-        Logs.debugIfEnabled(LOG,"Flow Control is handing over from Spring to CBAM system (FlowHandler).");
+        LOG.trace("Flow Control is handing over from Spring to CBAM system (FlowHandler).");
         try{
             result = flowHandler.handleFlow(invokable);
         }catch (UserBehaviorException e){
-            Logs.warnIfEnabled(LOG,"UserBehaviorException occurs. {}",e.getUserBehavior());
+            LOG.warn("UserBehaviorException occurs. {}",e.getUserBehavior());
             return result;
         }
-        Logs.debugIfEnabled(LOG,"Flow Control return back to Spring. Everything is ok!");
+        LOG.trace("Flow Control return back to Spring. Everything is ok!");
         return result;
     }
 }

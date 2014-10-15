@@ -43,7 +43,7 @@ public class UserBehavior {
     @Override
     public String toString() {
         return "UserBehavior{" +
-                "user=" + user +
+                "user=" + user.getName() +
                 " executable=" + executable +
                 '}';
     }

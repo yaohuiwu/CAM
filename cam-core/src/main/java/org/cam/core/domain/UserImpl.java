@@ -1,11 +1,9 @@
 package org.cam.core.domain;
 
-import org.cam.core.cache.Copyable;
-
 /**
  * Created by wuyaohui on 14-9-23.
  */
-public class UserImpl implements User,Copyable{
+public class UserImpl implements User{
 
     public static final User ANONYMOUS_USER = new UserImpl("anonymous_user","anonymous_user");
 

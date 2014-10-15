@@ -122,5 +122,19 @@
         <persistence strategy="none"/>
     </cache>
 
+    <!--当前登录用户缓存-->
+    <cache name="cam_current_user"
+           maxElementsInMemory="1000"
+           overflowToDisk="false"
+           eternal="false"
+           timeToLiveSeconds="3600"
+           timeToIdleSeconds="3600"
+           copyOnRead="false"
+           copyOnWrite="true"
+           memoryStoreEvictionPolicy="LRU">
+        <copyStrategy class="org.cam.core.cache.CloneCopyStrategy"/>
+        <persistence strategy="none"/>
+    </cache>
+
 
 </ehcache>

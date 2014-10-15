@@ -57,7 +57,7 @@ public class HibernateHelper {
     public static void registerConfiguration(Configuration configuration){
         _configuration = configuration;
         if(_configuration!=null){
-            LOG.info("Hibernate Configuration has been registered.");
+            LOG.debug("Hibernate Configuration has been registered.");
         }
     }
 

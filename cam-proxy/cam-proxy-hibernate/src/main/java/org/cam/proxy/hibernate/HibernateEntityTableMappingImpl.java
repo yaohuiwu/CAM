@@ -44,7 +44,7 @@ public class HibernateEntityTableMappingImpl extends AbstractEntityTableMappings
                 Member member = getter.getMember();
                 //ignore the collection field
                 if(Collection.class.isAssignableFrom(getter.getReturnType())){
-                    LOG.debug("ignore collection member :{}",member);
+                    LOG.trace("ignore collection member :{}",member);
                     continue;
                 }
 
@@ -59,7 +59,7 @@ public class HibernateEntityTableMappingImpl extends AbstractEntityTableMappings
             entityMappingMap.put(entityMapping.getName(),entityMapping);
         }
 
-        LOG.info("{} entities detected",entityMappingMap.size());
+        LOG.debug("{} entities detected",entityMappingMap.size());
     }
 
 }

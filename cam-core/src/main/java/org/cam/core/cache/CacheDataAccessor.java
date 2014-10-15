@@ -53,7 +53,16 @@ public class CacheDataAccessor<K,V> {
         cache.putWithWriter(new Element(key, value));
     }
 
+    public void put(K key, V value)
+    {
+        cache.put(new Element(key, value));
+    }
+
     public void delete(K key){
         cache.removeWithWriter(key);
+    }
+
+    public void remove(K key){
+        cache.remove(key);
     }
 }

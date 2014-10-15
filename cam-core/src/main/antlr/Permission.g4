@@ -66,7 +66,7 @@ value
 // 变量
 scalarVariable : '${' innerObject '.' ID '}';
 
-innerObject : 'user' ;
+innerObject : 'User' ;
 
 STAR : '*';
 

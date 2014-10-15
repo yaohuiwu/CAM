@@ -58,4 +58,8 @@
 
     <bean id="camConfiguration" class="org.cam.core.CamConfiguration" />
 
+    <bean id="userContextProvider" class="org.cam.core.impl.UserContextProviderImpl" />
+
+    <bean id="camHbnInterceptor" class="org.cam.proxy.hibernate.CamHbnInterceptor" />
+
 </beans>

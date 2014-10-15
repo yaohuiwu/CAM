@@ -44,7 +44,7 @@ public class DefaultPermissionEvaluator extends AbstractPermissionEvaluator impl
             Iterator<Permission> iterator = permissions.iterator();
             while(iterator.hasNext()){
                 Permission perm = iterator.next();
-                Logs.debugIfEnabled(LOG, "{}", perm);
+//                Logs.debugIfEnabled(LOG, "{}", perm);
 
                 ParseTree pt = createParseTree(perm.toString());
                 SQLCriteriaTranslator translator = new SQLCriteriaTranslator();

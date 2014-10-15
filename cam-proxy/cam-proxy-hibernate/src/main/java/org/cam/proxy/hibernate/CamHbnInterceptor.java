@@ -11,8 +11,8 @@ public class CamHbnInterceptor extends EmptyInterceptor {
 
     @Override
     public String onPrepareStatement(String sql) {
-        if(LOG.isTraceEnabled()){
-            LOG.trace("onPrepareStatement():{}",sql);
+        if(LOG.isDebugEnabled()){
+            LOG.debug(sql);
         }
         return FactoryHelper.factory().getSqlInterceptor().intercept(sql);
     }

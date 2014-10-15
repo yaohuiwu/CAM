@@ -18,7 +18,7 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractPermissionVisitor.class);
 
-    protected static final String VAR_USER = "user";
+    protected static final String VAR_USER = "User";
 
     protected String objectType = null;
 

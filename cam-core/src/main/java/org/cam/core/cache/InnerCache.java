@@ -18,5 +18,10 @@ public enum InnerCache {
     /**
      * permission
      */
-    permission
+    permission,
+
+    /**
+     * current user
+     */
+    cam_current_user
 }

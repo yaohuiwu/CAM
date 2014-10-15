@@ -14,13 +14,6 @@ public abstract class WebUserContextProvider extends ThreadLocalUserContext impl
 
     private static final Logger LOG = LoggerFactory.getLogger(WebUserContextProvider.class);
 
-        @Override
-    public User getCurrentUser() {
-        User user = getThreadUser();
-        //如果当前线程没有绑定用户，则认为是匿名用户
-        return user!= null ? user : UserImpl.ANONYMOUS_USER;
-    }
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -58,7 +51,6 @@ public abstract class WebUserContextProvider extends ThreadLocalUserContext impl
         }
         return user ;
     }
-
 
 
     protected abstract User getUser(final HttpServletRequest request) throws RuntimeException;

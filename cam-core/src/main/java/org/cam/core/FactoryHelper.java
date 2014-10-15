@@ -19,7 +19,7 @@ public class FactoryHelper {
     public static void register(CamFactory factory){
         _factory = factory;
         if(_factory!=null){
-            LOG.info("CamFactory has been registered.");
+            LOG.info("CamFactory {} has been registered.",factory);
         }
     }
 

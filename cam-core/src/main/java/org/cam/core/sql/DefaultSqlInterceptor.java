@@ -37,6 +37,9 @@ public class DefaultSqlInterceptor implements SqlInterceptor{
         EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
 
         List<SqlSegment> sqlSegments = tableRefRecognizer.analyze(originalSql);
+
+        org.cam.core.CamConfiguration camConfiguration = FactoryHelper.configuration();
+
         for(SqlSegment sqlSegment : sqlSegments){
             if(sqlSegment instanceof TableRefsSegment){
                 TableRefsSegment tableRefsSegment = (TableRefsSegment)sqlSegment;
@@ -44,6 +47,19 @@ public class DefaultSqlInterceptor implements SqlInterceptor{
                 if(tableRefs != null){
                     for(TableRef ref : tableRefs){
                         String entityName = entityTableMapping.getEntityNameByTable(ref.getName());
+                        if(entityName==null){
+                            if(camConfiguration.isAllowNoEntityOfTable()){
+                                ref.setSecurityView(null);
+                                LOG.trace("No entity related to table {}, create no security view.",
+                                        ref.getName());
+                                continue;
+                            }else{
+                                throw new ActionNotAllowedException("No entity related to table "
+                                        +ref.getName()+", throws exception according to " +
+                                        "'allowNoEntityOfTable' property["+ camConfiguration.isAllowNoEntityOfTable()
+                                        +"] of CamConfiguration");
+                            }
+                        }
 
                         List<Permission> permissions = camService.getPermissionOfUser(
                                 FactoryHelper.currentUser(), ExecutableType.VIEW.toString(), entityName);
@@ -67,7 +83,7 @@ public class DefaultSqlInterceptor implements SqlInterceptor{
             }
             sqlBuilder.append(sqlSegment);
         }
-        LOG.debug("intercept(): {}",sqlBuilder);
+        LOG.debug("{}",sqlBuilder);
         return sqlBuilder.toString();
 
     }

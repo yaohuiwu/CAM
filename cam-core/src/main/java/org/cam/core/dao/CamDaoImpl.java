@@ -79,7 +79,10 @@ public class CamDaoImpl implements CamDao{
         Iterator<Map.Entry<String,PermissionSet>> iterator = rolePermMap.entrySet().iterator();
         while(iterator.hasNext()){
             Map.Entry<String,PermissionSet> entry = iterator.next();
-            mp.put(entry.getKey(), PermissionSet.safeGet(entry.getValue()));
+            PermissionSet permSet = entry.getValue();
+            if(permSet!=null){//ignore empty value.
+                mp.put(entry.getKey(), PermissionSet.safeGet(entry.getValue()));
+            }
         }
         return mp;
     }

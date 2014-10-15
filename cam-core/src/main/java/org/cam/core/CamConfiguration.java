@@ -18,6 +18,7 @@ public class CamConfiguration {
 
     private String configFile ;
     private boolean passWithNoPermission ;
+    private boolean allowNoEntityOfTable ;
 
     public CamConfiguration() {
         this(CFG_FILE);
@@ -39,9 +40,14 @@ public class CamConfiguration {
         LOG.debug("camConfiguration:{}",prop);
 
         passWithNoPermission = Boolean.valueOf(prop.getProperty("pass_with_no_permission","false"));
+        allowNoEntityOfTable = Boolean.valueOf(prop.getProperty("allow_no_entity_of_table","false"));
     }
 
     public boolean isPassWithNoPermission() {
         return passWithNoPermission;
+    }
+
+    public boolean isAllowNoEntityOfTable() {
+        return allowNoEntityOfTable;
     }
 }
