@@ -1,0 +1,309 @@
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_user-------------12 54 38 37
+21   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=12, result=31}
+75   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=54, result=31}
+114  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=38, result=31}
+151  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=37, result=31}
+151  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+151  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_action_history-------------1 2182 35 48
+
+153  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=1, result=1780}
+2335 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=2182, result=1780}
+2370 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=35, result=1780}
+2419 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=48, result=1780}
+2419 DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+2419 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------2 30 48 74
+
+2422 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=2, result=9941}
+2453 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=30, result=9941}
+2501 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=48, result=9941}
+2575 DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=74, result=9941}
+2576 DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================9000==========================================================================
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------14  30 48 74
+
+23   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=14, result=9000}
+53   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=30, result=9000}
+102  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=48, result=9000}
+177  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=74, result=9000}
+177  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+2    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------29  5 39 81
+
+39   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=29, result=list size:20}
+45   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=5, result=list size:20}
+85   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=39, result=list size:20}
+166  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=81, result=list size:20}
+166  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+
+======================================================8000==========================================================================
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------22 31 53 72
+
+31   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=22, result=8000}
+62   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=31, result=8000}
+115  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=53, result=8000}
+188  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=72, result=8000}
+188  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+No Order by:
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------30 6 39 70
+
+40   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=30, result=list size:20}
+46   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=6, result=list size:20}
+85   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=39, result=list size:20}
+155  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=70, result=list size:20}
+
+With Order by:
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+3    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------25 96 39 82
+
+36   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=25, result=list size:20}
+133  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=96, result=list size:20}
+172  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=39, result=list size:20}
+254  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=82, result=list size:20}
+254  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+
+======================================================7000==========================================================================
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------13   31 46 70
+
+23   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=13, result=7000}
+54   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=31, result=7000}
+101  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=46, result=7000}
+171  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=70, result=7000}
+172  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------25 81 41 72
+
+34   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=25, result=list size:20}
+115  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=81, result=list size:20}
+157  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=41, result=list size:20}
+230  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=72, result=list size:20}
+231  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================6000==========================================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+2    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------15 31 43 64
+
+25   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=15, result=6000}
+56   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=31, result=6000}
+100  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=43, result=6000}
+164  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=64, result=6000}
+165  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+236  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+236  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------13  77 39 68
+
+250  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=13, result=list size:20}
+327  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=77, result=list size:20}
+366  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=39, result=list size:20}
+434  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=68, result=list size:20}
+434  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================5000==========================================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+2    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------14 30 42 56
+
+28   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=14, result=5000}
+59   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=30, result=5000}
+101  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=42, result=5000}
+158  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=56, result=5000}
+159  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+234  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+234  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------13 71 40 65
+
+249  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=13, result=list size:20}
+320  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=71, result=list size:20}
+360  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=40, result=list size:20}
+426  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=65, result=list size:20}
+426  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================4000==========================================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------13   31 42 53
+
+22   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=13, result=4000}
+54   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=31, result=4000}
+96   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=42, result=4000}
+150  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=53, result=4000}
+150  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+226  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+226  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------13   66  37  56
+
+240  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=13, result=list size:20}
+307  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=66, result=list size:20}
+346  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=37, result=list size:20}
+403  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=56, result=list size:20}
+403  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+
+======================================================3000==========================================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+27   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=18, result=3000}
+57   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=30, result=3000}
+98   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=41, result=3000}
+149  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=51, result=3000}
+149  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+224  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+225  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+237  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=12, result=list size:20}
+293  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=55, result=list size:20}
+333  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=40, result=list size:20}
+387  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=53, result=list size:20}
+387  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================2000==========================================================================
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+28   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=13, result=2000}
+58   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=30, result=2000}
+97   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=38, result=2000}
+142  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=44, result=2000}
+143  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+214  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+214  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+228  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=14, result=list size:20}
+280  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=52, result=list size:20}
+320  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=40, result=list size:20}
+368  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=48, result=list size:20}
+368  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================1000==========================================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+2    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+23   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=13, result=1000}
+52   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=29, result=1000}
+90   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=38, result=1000}
+131  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=40, result=1000}
+132  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+203  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+204  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+220  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=16, result=list size:20}
+263  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=42, result=list size:20}
+301  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=38, result=list size:20}
+345  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=43, result=list size:20}
+346  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================500==========================================================================
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+25   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=15, result=500}
+52   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=26, result=500}
+90   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=38, result=500}
+131  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=40, result=500}
+131  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+195  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+197  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+214  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=17, result=list size:20}
+253  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=38, result=list size:20}
+292  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=39, result=list size:20}
+335  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=43, result=list size:20}
+335  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+
+======================================================100==========================================================================
+
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+29   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=16, result=99}
+58   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=29, result=99}
+91   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=33, result=99}
+131  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=39, result=99}
+132  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+197  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+198  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+211  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=13, result=list size:20}
+246  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=35, result=list size:20}
+286  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=39, result=list size:20}
+324  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=38, result=list size:20}
+325  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================50==========================================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+28   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=17, result=49}
+53   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=25, result=49}
+90   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=36, result=49}
+128  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=38, result=49}
+129  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+198  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+199  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+214  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=15, result=list size:20}
+247  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=32, result=list size:20}
+287  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=39, result=list size:20}
+327  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=40, result=list size:20}
+327  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+======================================================6==========================================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+1    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+21   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=12, result=6}
+44   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=22, result=6}
+79   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=35, result=6}
+114  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=35, result=6}
+115  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+173  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+174  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_org-------------
+
+187  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=13, result=list size:6}
+216  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=28, result=list size:6}
+251  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=35, result=list size:6}
+291  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=39, result=list size:6}
+291  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+===========================================================31==============================================================
+0    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+2    DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_user-------------
+22   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original count', cost(ms)=12, result=31}
+77   DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join count', cost(ms)=54, result=31}
+113  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect count', cost(ms)=35, result=31}
+150  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 count', cost(ms)=37, result=31}
+150  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
+
+213  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - version of mysql : 5.6.20
+213  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - -------------mdm_user-------------
+236  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='original list', cost(ms)=23, result=list size:20}
+398  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='join list', cost(ms)=162, result=list size:20}
+444  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect list', cost(ms)=46, result=list size:20}
+487  DEBUG org.cam.core.performance.CriteriaPerformanceTest     - QueryReporter{name='subselect2 list', cost(ms)=42, result=list size:20}
+487  DEBUG org.cam.core.performance.CriteriaPerformanceTest     -
