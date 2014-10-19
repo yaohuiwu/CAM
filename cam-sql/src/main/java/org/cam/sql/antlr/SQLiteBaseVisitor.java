@@ -1,4 +1,4 @@
-// Generated from /home/wuyaohui/code/pekall/server/CBAM/cam-sql/src/main/antlr/SQLite.g4 by ANTLR 4.4.1-dev
+// Generated from /home/yaohui/code/github/CBAM/cam-sql/src/main/antlr/v1/SQLite.g4 by ANTLR 4.4.1-dev
 package org.cam.sql.antlr;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
@@ -229,6 +229,13 @@ public class SQLiteBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitTable_alias(@NotNull SQLiteParser.Table_aliasContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

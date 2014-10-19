@@ -29,6 +29,8 @@ public class QueryParserTest {
 
         File selectDir = new File(selectDirUrl.getFile());
         File[] files = selectDir.listFiles();
+        System.out.println("sql file num:"+files.length);
+
         for(File f : files){
             System.out.println(f.getName());
             try(FileInputStream fi = new FileInputStream(f);)

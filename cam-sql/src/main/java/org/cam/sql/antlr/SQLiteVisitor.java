@@ -1,4 +1,4 @@
-// Generated from /home/wuyaohui/code/pekall/server/CBAM/cam-sql/src/main/antlr/SQLite.g4 by ANTLR 4.4.1-dev
+// Generated from /home/yaohui/code/github/CBAM/cam-sql/src/main/antlr/v1/SQLite.g4 by ANTLR 4.4.1-dev
 package org.cam.sql.antlr;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -197,6 +197,12 @@ public interface SQLiteVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTable_alias(@NotNull SQLiteParser.Table_aliasContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SQLiteParser#outer_join_type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SQLiteParser#module_name}.
 	 * @param ctx the parse tree
