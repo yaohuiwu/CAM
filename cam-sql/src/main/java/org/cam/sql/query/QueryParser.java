@@ -10,9 +10,4 @@ import org.cam.sql.SqlParser;
  */
 public class QueryParser extends SqlParser{
 
-    public <T> T parseQuery(String queryStatement,SQLiteVisitor<T> visitor){
-        SQLiteParser parser = createParser(queryStatement);
-        ParseTree pst = parser.select_stmt();
-        return visitParseTree(pst,visitor);
-    }
 }

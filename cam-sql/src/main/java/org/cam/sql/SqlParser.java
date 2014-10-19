@@ -7,16 +7,37 @@ import org.cam.sql.antlr.SQLiteLexer;
 import org.cam.sql.antlr.SQLiteParser;
 import org.cam.sql.antlr.SQLiteVisitor;
 
-public abstract class SqlParser {
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
-    protected SQLiteParser createParser(String sqlStatement){
-        ANTLRInputStream antIn = new ANTLRInputStream(sqlStatement);
-        SQLiteLexer lexer = new SQLiteLexer(antIn);
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        return new SQLiteParser(tokenStream);
+public class SqlParser {
+
+    public ParseTree parse(String input){
+        return parse(new ANTLRInputStream(input));
     }
 
-    protected  <T> T visitParseTree(ParseTree pst,SQLiteVisitor<T> visitor){
+    public ParseTree parse(InputStream fi){
+        return parse(createANTLRInput(fi));
+    }
+
+    public ParseTree parse(ANTLRInputStream antIn){
+        SQLiteLexer lexer = new SQLiteLexer(antIn);
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        SQLiteParser parser = new SQLiteParser(tokenStream);
+
+        return parser.parse();
+    }
+
+    public ANTLRInputStream createANTLRInput(InputStream input){
+        try{
+            return new ANTLRInputStream(input);
+        }catch (IOException e){
+            throw new RuntimeException();
+        }
+    }
+
+    public  <T> T visitParseTree(ParseTree pst,SQLiteVisitor<T> visitor){
         return visitor.visit(pst);
     }
 }
