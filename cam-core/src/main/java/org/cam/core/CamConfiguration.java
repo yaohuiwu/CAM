@@ -26,17 +26,19 @@ public class CamConfiguration {
 
     public CamConfiguration(String configFile) {
         this.configFile = configFile;
-        load(getClass().getClassLoader().getResourceAsStream(configFile));
+        try(InputStream in = getClass().getClassLoader().getResourceAsStream(configFile)){
+            load(in);
+        }catch (IOException e){
+            LOG.error("{}",e);
+            throw new CamException("Error reading file "+configFile,e.getCause());
+        }
     }
 
-    public void load(InputStream inputStream){
+    public void load(InputStream inputStream) throws IOException{
 
         Properties prop = new Properties();
-        try{
-            prop.load(inputStream);
-        }catch (IOException e){
-            throw new CamException(e.getCause());
-        }
+        prop.load(inputStream);
+
         LOG.debug("camConfiguration:{}",prop);
 
         passWithNoPermission = Boolean.valueOf(prop.getProperty("pass_with_no_permission","false"));

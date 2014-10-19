@@ -52,16 +52,16 @@ public class TableRef{
     }
 
     public void setSecurityView(String securityView) {
-        if(Strings.isNullOrEmpty(securityView)){
+        if(Strings.isNullOrEmpty(securityView) || ParserUtil.isAll(securityView)){
             this.securityView = toOriginalString();
             return ;
 //                throw new IllegalArgumentException("null securityView");
         }
 
-        if(ParserUtil.isAll(securityView)) {
-            this.securityView = toOriginalString();
-            return ;
-        }
+//        if(ParserUtil.isAll(securityView)) {
+//            this.securityView = toOriginalString();
+//            return ;
+//        }
         StringBuilder s = new StringBuilder();
         s.append("(select * from ");
 

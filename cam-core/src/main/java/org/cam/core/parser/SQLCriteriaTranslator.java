@@ -72,7 +72,9 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
         String field = ctx.ID().getText();
 
         String column = getColumnByField(field);
-
+        if(column==null){
+            throw new ParserException("column of field " + field +" not found in current entity mapping "+currentEntityMapping);
+        }
         s.append(column);
         s.append(" in ");
         s.append("(");

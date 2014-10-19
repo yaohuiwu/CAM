@@ -38,19 +38,17 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
     public boolean isSorPrepared() {
 
         Set<String> camTables = Sets.newHashSet("cam_role","cam_permission","cam_authorization");
-        Connection con = null;
-        Statement st = null;
-        ResultSet rs = null;
-        try{
-            con = dataSource.getConnection();
-            //check cam tables exists
-            StringBuilder s = new StringBuilder();
-            s.append("SELECT count(TABLE_NAME) FROM information_schema.`TABLES`  where ");
-            s.append("table_name in (");
-            s.append(ObjectUtils.joinAsSqlIn(camTables));
-            s.append(")");
-            st = con.createStatement();
-            rs = st.executeQuery(s.toString());
+        StringBuilder s = new StringBuilder();
+        s.append("SELECT count(TABLE_NAME) FROM information_schema.`TABLES`  where ");
+        s.append("table_name in (");
+        s.append(ObjectUtils.joinAsSqlIn(camTables));
+        s.append(")");
+
+        try(
+           Connection con = dataSource.getConnection();
+           Statement st = con.createStatement();
+           ResultSet rs = st.executeQuery(s.toString());
+        ){
             rs.next();
             Long camTableCount = rs.getLong(1);
             if(camTableCount.intValue() == camTables.size()){
@@ -58,9 +56,6 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
             }
         }catch (SQLException sqlE){
             throw new RuntimeException("error getting",sqlE.getCause());
-        }
-        finally {
-            DbUtils.closeQuietly(con,st,rs);
         }
         LOG.debug("CAM system table not exists.");
         return false;
