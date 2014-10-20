@@ -389,6 +389,18 @@ public class SQLiteBaseListener implements SQLiteListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterModule_name(@NotNull SQLiteParser.Module_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}

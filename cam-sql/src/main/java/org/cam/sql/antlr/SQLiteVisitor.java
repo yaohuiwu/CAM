@@ -198,6 +198,12 @@ public interface SQLiteVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTable_alias(@NotNull SQLiteParser.Table_aliasContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SQLiteParser#outer_join_type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SQLiteParser#module_name}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

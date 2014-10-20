@@ -319,6 +319,16 @@ public interface SQLiteListener extends ParseTreeListener {
 	 */
 	void exitTable_alias(@NotNull SQLiteParser.Table_aliasContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SQLiteParser#outer_join_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SQLiteParser#outer_join_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SQLiteParser#module_name}.
 	 * @param ctx the parse tree
 	 */

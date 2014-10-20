@@ -235,6 +235,13 @@ public class SQLiteBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitOuter_join_type(@NotNull SQLiteParser.Outer_join_typeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitModule_name(@NotNull SQLiteParser.Module_nameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
