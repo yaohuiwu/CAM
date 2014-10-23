@@ -416,7 +416,14 @@ join_clause
 
 join_operator
  : ','
- | K_NATURAL? ( K_LEFT K_OUTER? | K_INNER | K_CROSS )? K_JOIN
+ | K_NATURAL? ( outer_join_type K_OUTER? | K_INNER | K_CROSS )? K_JOIN
+ ;
+
+// Add right full outer join support
+outer_join_type
+ : K_LEFT
+ | K_RIGHT
+ | K_FULL
  ;
 
 join_constraint
