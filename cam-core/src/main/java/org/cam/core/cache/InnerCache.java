@@ -23,5 +23,10 @@ public enum InnerCache {
     /**
      * current user
      */
-    cam_current_user
+    cam_current_user,
+
+    /**
+     * query list cache.
+     */
+    cam_query_list
 }

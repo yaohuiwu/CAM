@@ -1,5 +1,6 @@
 package org.cam.core.cache;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -14,14 +15,15 @@ import static org.junit.Assert.*;
 /**
  * Created by wuyaohui on 14-9-30.
  */
-@Ignore
+//@Ignore
 public class EhcacheHelperTest {
 
     Ehcache ehcache;
 
     @Before
     public void setUp() throws Exception {
-        ehcache = CacheManager.getInstance().getEhcache(InnerCache.permission.toString());
+        CacheManager cacheManager = Caches.getCacheManager();
+        ehcache = cacheManager.getEhcache(InnerCache.permission.toString());
         ehcache.removeAll();
     }
 
@@ -35,5 +37,23 @@ public class EhcacheHelperTest {
         Permission gtPerm = Caches.get("p1", Permission.class, ehcache);
         assertNotNull(gtPerm);
         assertEquals(p,gtPerm);
+    }
+
+    @Test
+    public void testCreateCacheManager() throws Exception {
+        CacheManager cacheManager = Caches.getCacheManager();
+        assertNotNull(cacheManager);
+
+        Cache user_role = cacheManager.getCache(InnerCache.user_role.toString());
+        assertNotNull(user_role);
+
+        Cache perm = cacheManager.getCache(InnerCache.permission.toString());
+        assertNotNull(perm);
+
+        Cache auth = cacheManager.getCache(InnerCache.authorization.toString());
+        assertNotNull(auth);
+
+        Cache aa = cacheManager.getCache(InnerCache.cam_current_user.toString());
+        assertNotNull(aa);
     }
 }

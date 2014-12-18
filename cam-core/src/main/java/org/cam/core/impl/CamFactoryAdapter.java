@@ -4,6 +4,7 @@ import org.cam.core.CamConfiguration;
 import org.cam.core.CamFactory;
 import org.cam.core.CamService;
 import org.cam.core.FlowHandler;
+import org.cam.core.dao.CamDao;
 import org.cam.core.dao.PersistentDao;
 import org.cam.core.domain.User;
 import org.cam.core.mapping.EntityTableMapping;
@@ -45,6 +46,11 @@ public class CamFactoryAdapter implements CamFactory{
 
     @Override
     public CamConfiguration getConfiguration() {
+        return null;
+    }
+
+    @Override
+    public CamDao getCamDao() {
         return null;
     }
 }

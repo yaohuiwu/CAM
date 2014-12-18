@@ -4,6 +4,7 @@ import org.cam.core.domain.Permission;
 import org.cam.core.domain.Role;
 import org.cam.core.domain.User;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -81,5 +82,13 @@ public interface CamDao {
      * @return
      */
     public List<Permission> getPermissionsOfRoles(Set<String> roleIdSet,String action,String objectType);
+
+    /**
+     * Fetch single column list from sor.
+     *
+     * @param queryString
+     * @return if multiple columns found. just return the first column.
+     */
+    public Collection<String> singleColumnListQuery(String queryString);
 
 }

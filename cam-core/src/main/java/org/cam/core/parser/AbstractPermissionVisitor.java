@@ -1,7 +1,10 @@
 package org.cam.core.parser;
 
+import com.google.common.collect.Sets;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.cam.core.FactoryHelper;
+import org.cam.core.dao.CamDao;
+import org.cam.core.dao.PersistentDao;
 import org.cam.core.util.ObjectUtils;
 import org.cam.core.exception.ParserException;
 import org.cam.core.mapping.EntityMapping;
@@ -10,6 +13,8 @@ import org.cam.core.parser.antlr.PermissionBaseVisitor;
 import org.cam.core.parser.antlr.PermissionParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
 
 /**
  * Created by wuyaohui on 14-9-27.
@@ -50,6 +55,10 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
      */
     protected String getColumnByField(String fieldName){
         return currentEntityMapping.getFieldColumnMap().get(fieldName);
+    }
+
+    protected String getCurrentEntityFieldType(String fieldName){
+        return currentEntityMapping.getFieldType(fieldName);
     }
 
     public String getId(PermissionParser.IdAliasContext idAliasCtx){
@@ -148,5 +157,10 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
             throw new ParserException("Can't find mapping info for objectType: "+objectType);
         }
         return super.visitObjectType(ctx);
+    }
+
+    protected Collection<String> evaluateQueryList(String literalQueryString){
+        CamDao camDao = FactoryHelper.factory().getCamDao();
+        return camDao.singleColumnListQuery(literalQueryString);
     }
 }

@@ -13,7 +13,7 @@
        default-lazy-init="true">
 
     <!--CAM system configuration-->
-    <bean id="persistentDao" class="org.cam.core.dao.JdbcPersistentDaoImpl" init-method="initializeSor">
+    <bean id="persistentDao" class="org.cam.core.dao.JdbcPersistentDaoImpl">
         <constructor-arg ref="dataSource"/>
     </bean>
 
@@ -61,5 +61,11 @@
     <bean id="userContextProvider" class="org.cam.core.impl.UserContextProviderImpl" />
 
     <bean id="camHbnInterceptor" class="org.cam.proxy.hibernate.CamHbnInterceptor" />
+
+    <bean id="entityTableMapping" class="org.cam.proxy.hibernate.HibernateEntityTableMappingImpl">
+        <constructor-arg>
+            <bean class="org.hibernate.cfg.Configuration" factory-bean="camFactory" factory-method="getHibernateConfiguration"/>
+        </constructor-arg>
+    </bean>
 
 </beans>

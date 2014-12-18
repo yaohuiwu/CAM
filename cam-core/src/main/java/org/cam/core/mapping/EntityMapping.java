@@ -4,7 +4,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,9 +13,11 @@ public class EntityMapping {
 
     private String name;
     private BiMap<String,String> fieldColumnMap;
+    private Map<String,EntityField> fieldMap;
 
     public EntityMapping() {
         fieldColumnMap = HashBiMap.create();
+        fieldMap = Maps.newConcurrentMap();
     }
 
 //    public EntityMapping(String name, Map<String, String> fieldColumnMap) {
@@ -47,4 +48,21 @@ public class EntityMapping {
     public String columnToField(String columnName){
         return fieldColumnMap.inverse().get(columnName);
     }
+
+    public void setFieldColumnMap(BiMap<String, String> fieldColumnMap) {
+        this.fieldColumnMap = fieldColumnMap;
+    }
+
+    public Map<String, EntityField> getFieldMap() {
+        return fieldMap;
+    }
+
+    public String getFieldType(String fieldName){
+        EntityField field = this.fieldMap.get(fieldName);
+        if(field!=null){
+            return field.getType();
+        }
+        return null;
+    }
+
 }

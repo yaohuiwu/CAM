@@ -1,6 +1,7 @@
 package org.cam.proxy.hibernate;
 
 import org.cam.core.mapping.AbstractEntityTableMappings;
+import org.cam.core.mapping.EntityField;
 import org.cam.core.mapping.EntityMapping;
 import org.cam.core.util.ObjectUtils;
 import org.hibernate.cfg.Configuration;
@@ -27,7 +28,13 @@ public class HibernateEntityTableMappingImpl extends AbstractEntityTableMappings
     private Configuration configuration;
 
     public HibernateEntityTableMappingImpl(Configuration configuration) {
+        if(configuration==null){
+            throw new IllegalArgumentException("Null hibernate configuration");
+        }
+        LOG.debug("Found hibernate configuration.");
+
         this.configuration = configuration;
+        HibernateHelper.registerConfiguration(configuration);
 
         //init entityTableMap
         Iterator<PersistentClass> it = configuration.getClassMappings();
@@ -52,11 +59,16 @@ public class HibernateEntityTableMappingImpl extends AbstractEntityTableMappings
                 Selectable selectable = colIt.next();
                 if(selectable instanceof Column){
                     Column col = (Column)selectable;
-                    entityMapping.getFieldColumnMap().put(ObjectUtils.getterField(member.getName()), col.getName());
+                    String fieldName = ObjectUtils.getterField(member.getName());
+                    entityMapping.getFieldColumnMap().put(fieldName, col.getName());
+
+                    EntityField entityField = new EntityField(fieldName,getter.getReturnType().getName());
+                    entityMapping.getFieldMap().put(fieldName,entityField);
                 }
             }
             entityTableMap.put(entityMapping.getName(), pClass.getTable().getName());
             entityMappingMap.put(entityMapping.getName(),entityMapping);
+
         }
 
         LOG.debug("{} entities detected",entityMappingMap.size());

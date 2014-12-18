@@ -1,9 +1,12 @@
 package org.cam.core.parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.apache.commons.lang3.StringUtils;
 import org.cam.core.exception.ParserException;
 import org.cam.core.parser.antlr.PermissionParser;
+import org.cam.core.util.ObjectUtils;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -111,7 +114,8 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
         s.append(" ");
 
         PermissionParser.IdAliasContext attrCtx = ctx.idAlias();
-        String columnName = getColumnByField(attrCtx.ID(0).getText());
+        final String fieldName = attrCtx.ID(0).getText();
+        String columnName = getColumnByField(fieldName);
         s.append(columnName);
         if(attrCtx.ID(1)!=null){
             s.append(" as ");
@@ -125,8 +129,22 @@ public class SQLCriteriaTranslator extends AbstractPermissionVisitor<String> {
             s.append(" where ");
             s.append(visit(ctx.condition()));
         }
+
+        //convert listQueryString to literalListString
+        final String listQueryString = s.toString();
+
+        Collection<String> literalSet = evaluateQueryList(listQueryString);
+        String fieldType = getCurrentEntityFieldType(fieldName);
+
+        String literalListString = null;
+        if(String.class.getName().equals(fieldType)){
+            literalListString = ObjectUtils.joinAsSqlIn(literalSet);
+        }else{
+            literalListString = StringUtils.join(literalSet,",");
+        }
+
         switchBack();
-        return s.toString();
+        return literalListString;
     }
 
     @Override

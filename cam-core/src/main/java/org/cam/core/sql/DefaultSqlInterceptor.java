@@ -9,6 +9,7 @@ import org.cam.core.exception.ActionNotAllowedException;
 import org.cam.core.mapping.EntityTableMapping;
 import org.cam.core.parser.DefaultPermissionEvaluator;
 import org.cam.core.parser.PermissionEvaluator;
+import org.cam.core.util.SqlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,8 +84,9 @@ public class DefaultSqlInterceptor implements SqlInterceptor{
             }
             sqlBuilder.append(sqlSegment);
         }
-        LOG.debug("{}",sqlBuilder);
-        return sqlBuilder.toString();
+        String interceptedSql = sqlBuilder.toString();
+        LOG.debug("{}", SqlUtils.sqlForShort(interceptedSql));
+        return interceptedSql;
 
     }
 

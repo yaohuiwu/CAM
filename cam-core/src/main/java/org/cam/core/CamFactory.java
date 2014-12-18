@@ -24,4 +24,6 @@ public interface CamFactory {
     public SqlInterceptor getSqlInterceptor();
 
     public CamConfiguration getConfiguration();
+
+    public CamDao getCamDao();
 }

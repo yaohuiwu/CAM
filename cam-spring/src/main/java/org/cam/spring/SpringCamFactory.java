@@ -10,6 +10,7 @@ import org.cam.core.mapping.EntityTableMapping;
 import org.cam.core.sql.SqlInterceptor;
 import org.cam.proxy.hibernate.HibernateEntityTableMappingImpl;
 import org.cam.proxy.hibernate.HibernateHelper;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -26,9 +27,9 @@ public class SpringCamFactory extends CamFactoryAdapter implements ApplicationCo
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringCamFactory.class);
 
-    private ApplicationContext context;
+    private static ApplicationContext context;
 
-    private EntityTableMapping entityTableMapping;
+//    private EntityTableMapping entityTableMapping;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -49,12 +50,11 @@ public class SpringCamFactory extends CamFactoryAdapter implements ApplicationCo
 
         FactoryHelper.register(this);
 
-
-        LocalSessionFactoryBean configBean = (LocalSessionFactoryBean) (context.getBean("&sessionFactory"));
-        HibernateHelper.registerConfiguration(configBean.getConfiguration());
+//        LocalSessionFactoryBean configBean = (LocalSessionFactoryBean) (context.getBean("&sessionFactory"));
+//        HibernateHelper.registerConfiguration(configBean.getConfiguration());
 
         //初始化 EntityTableMapping
-        entityTableMapping = new HibernateEntityTableMappingImpl(configBean.getConfiguration());
+//        entityTableMapping = new HibernateEntityTableMappingImpl(configBean.getConfiguration());
     }
 
     @Override
@@ -93,7 +93,7 @@ public class SpringCamFactory extends CamFactoryAdapter implements ApplicationCo
 
     @Override
     public EntityTableMapping getEntityTableMapping() {
-        return entityTableMapping;
+        return getBean("entityTableMapping",EntityTableMapping.class);
     }
 
     @Override
@@ -104,5 +104,24 @@ public class SpringCamFactory extends CamFactoryAdapter implements ApplicationCo
     @Override
     public CamConfiguration getConfiguration() {
         return getBean("camConfiguration",CamConfiguration.class);
+    }
+
+    public Configuration getHibernateConfiguration(){
+        Configuration configuration = null ;
+        synchronized (this){
+            if(context!=null){
+                LocalSessionFactoryBean configBean = (LocalSessionFactoryBean) (context.getBean("&sessionFactory"));
+                configuration = configBean.getConfiguration();
+            }
+        }
+        if(configuration!=null){
+            return configuration;
+        }
+        throw new IllegalStateException("SpringCamFactory is not initialized properly . context is null");
+    }
+
+    @Override
+    public CamDao getCamDao() {
+        return getBean("camDao",CamDao.class);
     }
 }

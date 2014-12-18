@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.apache.commons.dbutils.DbUtils;
+import org.cam.core.CamException;
 import org.cam.core.util.ObjectUtils;
 import org.cam.core.util.ScriptRunner;
 import org.cam.core.domain.Authorization;
@@ -20,6 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -208,5 +210,33 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
     @Override
     public PermissionSet getPermissionOfRole(String roleId) {
         return null;
+    }
+
+    @Override
+    public Collection<String> singleColumnListQuery(String queryString) {
+        return singleColumnListQuery(queryString,1);
+    }
+
+    @Override
+    public Set<String> singleColumnListQuery(String queryString, int columnIndex) {
+        if(columnIndex<1){
+            throw new CamException("columnIndex must be great or equal 1.");
+        }
+        Set<String> results = Sets.newHashSet();
+        try(
+                Connection con = dataSource.getConnection();
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(queryString);
+        ){
+            while(rs.next()){
+                String valueOfColN = rs.getString(columnIndex);
+                if(valueOfColN!=null){
+                    results.add(valueOfColN);
+                }
+            }
+        }catch (SQLException sqlE){
+            throw new RuntimeException("error getting",sqlE.getCause());
+        }
+        return results;
     }
 }

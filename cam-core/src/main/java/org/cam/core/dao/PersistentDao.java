@@ -5,10 +5,7 @@ import org.cam.core.domain.Permission;
 import org.cam.core.domain.PermissionSet;
 import org.cam.core.domain.Role;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 public interface PersistentDao {
 
@@ -53,5 +50,22 @@ public interface PersistentDao {
      * @return
      */
     public PermissionSet getPermissionOfRole(String roleId);
+
+    /**
+     * Fetch single column list from sor.
+     *
+     * @param queryString
+     * @return if multiple columns found. just return the first column.
+     */
+    public Collection<String> singleColumnListQuery(String queryString);
+
+    /**
+     * Fetch single column list from sor.
+     *
+     * @param queryString
+     * @param columnIndex start from 1.
+     * @return
+     */
+    public Set<String> singleColumnListQuery(String queryString,int columnIndex);
 
 }

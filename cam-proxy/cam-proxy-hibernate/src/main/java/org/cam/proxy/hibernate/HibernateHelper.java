@@ -1,5 +1,6 @@
 package org.cam.proxy.hibernate;
 
+import org.cam.core.FactoryHelper;
 import org.cam.proxy.hibernate.exception.ConfigurationNotRegisterException;
 import org.cam.proxy.hibernate.handler.SessionInvocationHandler;
 import org.hibernate.Session;
@@ -67,5 +68,6 @@ public class HibernateHelper {
         }
         return _configuration;
     }
+
 
 }
