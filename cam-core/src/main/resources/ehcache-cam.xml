@@ -1,7 +1,7 @@
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false">
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false" name="camEhcacheManger">
 
     <!--
-    The ehcache-failsafe.xml is a default configuration for ehcache, if an ehcache.xml is not configured.
+    The ehcache-failsafe.xml is a default configuration for ehcache, if an ehcache-cam.xml is not configured.
 
     The diskStore element is optional. It must be configured if you have overflowToDisk or diskPersistent enabled
     for any cache. If it is not configured, a warning will be issues and java.io.tmpdir will be used.
@@ -124,6 +124,20 @@
 
     <!--当前登录用户缓存-->
     <cache name="cam_current_user"
+           maxElementsInMemory="1000"
+           overflowToDisk="false"
+           eternal="false"
+           timeToLiveSeconds="3600"
+           timeToIdleSeconds="3600"
+           copyOnRead="false"
+           copyOnWrite="true"
+           memoryStoreEvictionPolicy="LRU">
+        <copyStrategy class="org.cam.core.cache.CloneCopyStrategy"/>
+        <persistence strategy="none"/>
+    </cache>
+
+    <!-- queryList 缓存-->
+    <cache name="cam_query_list"
            maxElementsInMemory="1000"
            overflowToDisk="false"
            eternal="false"

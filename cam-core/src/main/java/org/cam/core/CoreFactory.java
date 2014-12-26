@@ -18,40 +18,33 @@ import javax.sql.DataSource;
  */
 public class CoreFactory extends CamFactoryAdapter{
 
-    private  UserContextProvider _userContextProvider;
-    private  FlowHandler _flowHandler;
+    private  UserContextProvider userContextProvider;
+    private  FlowHandler flowHandler;
 
     public CoreFactory(){
         DataSource ds = null;
         CamDao camDao = new CamDaoImpl(new JdbcPersistentDaoImpl(ds));
-//        UserManagerProvider userManagerProvider = null;
         CamService service = new CamServiceImpl(new DefaultPermissionEvaluator(),camDao);
-        _flowHandler = new CoreFlowHandler(service,null);
+        flowHandler = new CoreFlowHandler(service,null);
         FactoryHelper.register(this);
     }
 
     public  UserContextProvider getUserContextProvider(){
-        if(_userContextProvider==null){
+        if(userContextProvider ==null){
             throw new CamException("UserContextProvider not initialized.");
         }
-        return _userContextProvider;
+        return userContextProvider;
     }
     public FlowHandler getFlowHandler(){
-        if(_flowHandler==null){
+        if(flowHandler ==null){
             throw new CamException("FlowHandler not initialized.");
         }
-        return _flowHandler;
+        return flowHandler;
     }
 
     public User getCurrentUser(){
         return getUserContextProvider().getCurrentUser();
     }
-
-//    @Override
-//    public CoreDAO getCoreDao() {
-//        return null;
-//    }
-
 
     @Override
     public CamService getService() {

@@ -1,7 +1,6 @@
 package org.cam.core.util;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.slf4j.Logger;
@@ -9,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,23 +17,26 @@ import java.util.regex.Pattern;
  */
 public class ObjectUtils {
 
-    public static final Object[] EMPTY_OBJECTS =  new Object[0];
-
-//    static Perl5Compiler compiler = new Perl5Compiler();
-//    static PatternMatcher pm = new Perl5Matcher();
-
     private static final Logger LOG = LoggerFactory.getLogger(ObjectUtils.class);
+
+    private static final int LEG_GET = 3;
+    private static final int TOKEN_TWO = 2;
+
+    private ObjectUtils() {
+    }
 
     public static Field getField(Object obj,String attrName){
         Class clazz = obj.getClass();
         Field f = null;
         try {
             f = clazz.getDeclaredField(attrName);
-        }catch (NoSuchFieldException e){}
+        }catch (NoSuchFieldException e){
+            LOG.error("No such field.",e);
+        }
         return f;
     }
 
-    public static Class<?> getFieldType(Object obj,String attrName){
+    public static Class getFieldType(Object obj,String attrName){
         Field f = getField(obj,attrName);
         return f.getType();
     }
@@ -46,7 +47,7 @@ public class ObjectUtils {
         try{
             value = f.get(obj);
         }catch (Exception e){
-            e.printStackTrace();
+            LOG.error("Exception",e);
         }
         return value;
     }
@@ -77,14 +78,14 @@ public class ObjectUtils {
         try{
             property = MethodUtils.invokeExactMethod(object,s.toString());
         }catch (Exception e){
+            LOG.trace("Error getter", e);
             //try with isXXX
             StringBuilder s2 = new StringBuilder("is");
             s2.append(StringUtils.capitalize(fieldName));
             try{
                 property = MethodUtils.invokeExactMethod(object,s2.toString());
             }catch (Exception ee){
-//                ee.printStackTrace();
-                throw new RuntimeException(ee.getCause());
+                LOG.error("Exception",ee);
             }
         }
         return property;
@@ -92,7 +93,7 @@ public class ObjectUtils {
 
     public static String getterField(String getter){
         if(getter.startsWith("get")){
-            return StringUtils.uncapitalize(getter.substring(3));
+            return StringUtils.uncapitalize(getter.substring(LEG_GET));
         }else{
             return getter;
         }
@@ -108,9 +109,8 @@ public class ObjectUtils {
     public static boolean likeMatches(String str,String likePattern){
 
         Preconditions.checkArgument(likePattern!=null && !likePattern.isEmpty(),"null likePattern");
-        boolean r = false;
-
-        Pattern sqlLikePt = Pattern.compile("'%?.*%?'");//need more strict check
+        //need more strict check
+        Pattern sqlLikePt = Pattern.compile("'%?.*%?'");
         Matcher sqlLikeM = sqlLikePt.matcher(likePattern);
         if(!sqlLikeM.matches()){
             throw new IllegalArgumentException("Bad sql like string :"+likePattern);
@@ -156,7 +156,7 @@ public class ObjectUtils {
         }
         String tmp = StringUtils.trim(s);
         String[] splits = StringUtils.split(tmp);
-        if(splits.length != 2){
+        if(splits.length != TOKEN_TWO){
             throw new IllegalArgumentException("string must contain whitespace like 'abc def'");
         }
         return StringUtils.substring(tmp,splits[0].length(),tmp.indexOf(splits[1]));

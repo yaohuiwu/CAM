@@ -8,12 +8,13 @@ import org.cam.core.domain.Permission;
  */
 public class ParserUtil {
 
-    public static final String ALL = "*";
+    public static final String CHAR_ASTERISK = "*";
 
-    public static final String EMPTY = "";
+    private ParserUtil() {
+    }
 
     public static boolean isAll(String expression){
-        return ALL.equals(expression);
+        return CHAR_ASTERISK.equals(expression);
     }
 
     public static boolean typeMatch(String action,String objectType,Permission perm){
@@ -32,7 +33,8 @@ public class ParserUtil {
         boolean isActionEquals = action.equals(cmpAction);
         boolean isObjectTypeEquals = objectType.equals(cmpObjectType);
         if(isActionEquals && isObjectTypeEquals){
-            return true ;//both equals
+            //both equals
+            return true ;
         }
         boolean isActionAll = isAll(cmpAction);
         if(isActionAll && isObjectTypeEquals){

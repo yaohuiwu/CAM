@@ -1,7 +1,6 @@
 package org.cam.core.mapping;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by wuyaohui on 14-10-2.
@@ -82,5 +81,19 @@ public interface EntityTableMapping {
      * @return
      */
     public String[] convertToColumn(String entityName,String[] fields);
+
+    /**
+     * Get String fields.
+     * @param entityName
+     * @return
+     */
+    public String[] getStringFields(String entityName);
+
+    /**
+     * Get char columns.
+     * @param entityName
+     * @return
+     */
+    public String[] getStringColumns(String entityName);
 
 }

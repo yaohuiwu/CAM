@@ -10,10 +10,6 @@ public class UserImpl implements User{
     private String id;
     private String name;
 
-//    public UserImpl(String id) {
-//        this.id = id;
-//    }
-
     public UserImpl(String id, String name) {
         this.id = id;
         this.name = name;
@@ -52,13 +48,21 @@ public class UserImpl implements User{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         UserImpl user = (UserImpl) o;
 
-        if (!id.equals(user.id)) return false;
-        if (!name.equals(user.name)) return false;
+        if (!id.equals(user.id)) {
+            return false;
+        }
+        if (!name.equals(user.name)) {
+            return false;
+        }
 
         return true;
     }

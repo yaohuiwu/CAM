@@ -16,8 +16,6 @@ import java.util.regex.Pattern;
 public class SqlTableRefRecognizer {
 
     private static final Logger LOG = LoggerFactory.getLogger(SqlTableRefRecognizer.class);
-//    private static final String FROM_PATTERN_STRING = "from(\\s+\\w+(\\s+\\w+)?(\\s*,\\s*\\w+(\\s+\\w+)?)*)";
-//    public static final String FROM_REGEX = "([Ff][Rr][Oo][Mm]\\s+)(\\w+((\\s+[Aa][Ss])?\\s+\\w+)?(\\s*,\\s*\\w+((\\s+[Aa][Ss])?\\s+\\w+)?)*)";
     public static final String FROM_REGEX = "(([Ff][Rr][Oo][Mm]\\s+)|([Jj][Oo][Ii][Nn])\\s+)(\\w+((\\s+[Aa][Ss])?\\s+\\w+)?(\\s*,\\s*\\w+((\\s+[Aa][Ss])?\\s+\\w+)?)*)";
 
     /**

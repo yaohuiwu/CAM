@@ -1,12 +1,16 @@
 package org.cam.web;
 
-import org.cam.core.impl.ThreadLocalUserContext;
 import org.cam.core.domain.User;
-import org.cam.core.domain.UserImpl;
+import org.cam.core.impl.ThreadLocalUserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
@@ -21,8 +25,6 @@ public abstract class WebUserContextProvider extends ThreadLocalUserContext impl
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-//        HttpServletResponse resp = (HttpServletResponse) response;
-//        ServletContext servletContext = req.getSession().getServletContext();
         User user = getUser(req);
         setThreadUser(user);
 

@@ -9,12 +9,21 @@ import net.sf.ehcache.Element;
 import org.cam.core.CamException;
 import org.cam.core.cache.Caches;
 import org.cam.core.cache.InnerCache;
-import org.cam.core.domain.*;
+import org.cam.core.domain.Permission;
+import org.cam.core.domain.PermissionSet;
+import org.cam.core.domain.Role;
+import org.cam.core.domain.RoleSet;
+import org.cam.core.domain.StringSet;
+import org.cam.core.domain.User;
 import org.cam.core.parser.ParserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A {@link org.cam.core.dao.CamDao} implementation using ehcache as cache layer and RDBMS as SOR.
@@ -83,7 +92,8 @@ public class CamDaoImpl implements CamDao{
         while(iterator.hasNext()){
             Map.Entry<String,PermissionSet> entry = iterator.next();
             PermissionSet permSet = entry.getValue();
-            if(permSet!=null){//ignore empty value.
+            //ignore empty value.
+            if(permSet!=null){
                 mp.put(entry.getKey(), PermissionSet.safeGet(entry.getValue()));
             }
         }
@@ -114,9 +124,6 @@ public class CamDaoImpl implements CamDao{
                 if(ParserUtil.typeMatch(action,objectType,perm)){
                     permList.add(perm);
                 }
-//                    if(action.equals(perm.getAction()) && objectType.equals(perm.getObjectType())){
-//                        permList.add(perm);
-//                    }
             }
         }
         return permList;

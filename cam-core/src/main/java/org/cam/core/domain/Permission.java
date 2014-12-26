@@ -68,14 +68,24 @@ public class Permission implements Serializable,Copyable{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Permission that = (Permission) o;
 
-        if (action != null ? !action.equals(that.action) : that.action != null) return false;
-        if (criteria != null ? !criteria.equals(that.criteria) : that.criteria != null) return false;
-        if (objectType != null ? !objectType.equals(that.objectType) : that.objectType != null) return false;
+        if (action != null ? !action.equals(that.action) : that.action != null) {
+            return false;
+        }
+        if (criteria != null ? !criteria.equals(that.criteria) : that.criteria != null) {
+            return false;
+        }
+        if (objectType != null ? !objectType.equals(that.objectType) : that.objectType != null) {
+            return false;
+        }
 
         return true;
     }

@@ -1,12 +1,8 @@
 package org.cam.core.cache;
 
 import net.sf.ehcache.CacheEntry;
-import net.sf.ehcache.CacheException;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.writer.AbstractCacheWriter;
-import net.sf.ehcache.writer.writebehind.operations.SingleOperationType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
@@ -16,45 +12,24 @@ import java.util.Collection;
  */
 public class CamCacheWriter extends AbstractCacheWriter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CamCacheWriter.class);
-
-//    @Override
-//    public CacheWriter clone(Ehcache cache) throws CloneNotSupportedException {
-//        return null;
-//    }
-
-//    @Override
-//    public void init() {
-//
-//    }
-
-//    @Override
-//    public void dispose() throws CacheException {
-//
-//    }
-
     @Override
-    public void write(Element element) throws CacheException {
-        LOG.debug("write {} to SOR",element);
+    public void write(Element element){
+        // Write an element to SOR.
     }
 
     @Override
-    public void writeAll(Collection<Element> elements) throws CacheException {
-        LOG.debug("write all {} to SOR",elements);
+    public void writeAll(Collection<Element> elements){
+        //Write given elements to SOR.
     }
 
     @Override
-    public void delete(CacheEntry entry) throws CacheException {
-        LOG.debug("delete {} from SOR",entry);
+    public void delete(CacheEntry entry){
+        //Delete entry from cache.
     }
 
     @Override
-    public void deleteAll(Collection<CacheEntry> entries) throws CacheException {
-        LOG.debug("write all {} to SOR",entries);
+    public void deleteAll(Collection<CacheEntry> entries){
+        //Delete given entries from cache.
     }
 
-    @Override
-    public void throwAway(Element element, SingleOperationType operationType, RuntimeException e) {
-
-    }
 }

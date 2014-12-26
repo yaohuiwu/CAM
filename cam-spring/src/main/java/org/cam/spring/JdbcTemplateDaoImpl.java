@@ -23,7 +23,7 @@ public class JdbcTemplateDaoImpl{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private RowMapper<Permission> PERMISSION_MAPPER = new ParameterizedRowMapper<Permission>() {
+    private RowMapper<Permission> permissionRowMapper = new ParameterizedRowMapper<Permission>() {
         @Override
         public Permission mapRow(ResultSet rs, int rowNum) throws SQLException {
             Permission p = new Permission();
@@ -51,12 +51,12 @@ public class JdbcTemplateDaoImpl{
     }
 
     public List<Permission> getAllPermission() {
-        return jdbcTemplate.query("select * from cbam_permission",PERMISSION_MAPPER);
+        return jdbcTemplate.query("select * from cbam_permission", permissionRowMapper);
     }
 
     public List<Permission> getPermissionsOf(Role role) {
         String query = "select p.* from cbam_authorization a, cbam_permission p where a.permission_id = p.id and  a.role_id = ? ";
-        return jdbcTemplate.query(query,PERMISSION_MAPPER,role.getId());
+        return jdbcTemplate.query(query, permissionRowMapper,role.getId());
     }
 
     public List<Role> getAllRole() {

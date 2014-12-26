@@ -8,14 +8,15 @@ import net.sf.ehcache.util.ClassLoaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 
 /**
  * Created by wuyaohui on 14-9-30.
  */
 public class Caches {
+
+    private Caches() {
+    }
 
     private static CacheManager cacheManager = null;
 

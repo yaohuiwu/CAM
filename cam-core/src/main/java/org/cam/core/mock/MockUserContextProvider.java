@@ -11,15 +11,11 @@ public class MockUserContextProvider implements UserContextProvider{
 
     @Override
     public User getCurrentUser() {
-//        List<Permission> permList = Lists.newArrayList();
-//
-//        Permission per = new Permission(action,objectType,"country = 'USA'");
-//        permList.add(per);
         return new UserImpl("mock_user","mock_user");
     }
 
     @Override
     public void setCurrentUser(User user) {
-
+        //do nothing.
     }
 }

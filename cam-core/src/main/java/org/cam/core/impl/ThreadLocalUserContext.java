@@ -6,7 +6,7 @@ import org.cam.core.domain.UserImpl;
 
 public abstract class ThreadLocalUserContext implements UserContextProvider {
 
-    private static final ThreadLocal<User> threadUser = new ThreadLocal<>();
+    private static final ThreadLocal<User> USER_THREAD_LOCAL = new ThreadLocal<>();
 
     @Override
     public final User getCurrentUser() {
@@ -20,14 +20,14 @@ public abstract class ThreadLocalUserContext implements UserContextProvider {
      * @param user
      */
     protected static void setThreadUser(User user){
-        threadUser.set(user);
+        USER_THREAD_LOCAL.set(user);
     }
 
     /**
      * 移除线程绑定用户
      */
     protected static void removeThreadUser(){
-        threadUser.remove();
+        USER_THREAD_LOCAL.remove();
     }
 
     /**
@@ -35,6 +35,8 @@ public abstract class ThreadLocalUserContext implements UserContextProvider {
      *
      * @return
      */
-    protected static User getThreadUser(){ return threadUser.get(); }
+    protected static User getThreadUser(){
+        return USER_THREAD_LOCAL.get();
+    }
 
 }

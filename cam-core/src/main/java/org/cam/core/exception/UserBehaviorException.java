@@ -18,6 +18,11 @@ public class UserBehaviorException extends CamException {
         this.userBehavior = userBehavior;
     }
 
+    public UserBehaviorException(UserBehavior userBehavior, Throwable cause) {
+        super(userBehavior.toString(), cause);
+        this.userBehavior = userBehavior;
+    }
+
     public UserBehavior getUserBehavior() {
         return userBehavior;
     }

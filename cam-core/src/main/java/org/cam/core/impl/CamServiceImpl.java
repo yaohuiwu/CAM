@@ -12,7 +12,6 @@ import org.cam.core.parser.PermissionEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -26,18 +25,16 @@ public class CamServiceImpl implements CamService {
 
     private PermissionEvaluator evaluator;
     private CamDao camDao;
-//    private UserManagerProvider userManagerProvider;
 
     public CamServiceImpl(PermissionEvaluator evaluator, CamDao dao){
         this.evaluator = evaluator;
         this.camDao = dao;
-//        this.userManagerProvider = userManagerProvider;
     }
 
     @Override
     public boolean isAllowed(UserBehavior entity) {
         boolean isAllowed = false;
-        //TODO Roles of user should be calculated in memory.
+        // Roles of user should be calculated in memory.
 
         List<Permission> permissions = getPermissionOfUser(FactoryHelper.currentUser(),entity.getExecutableName(),null);
         if(evaluator.isAnyPermit(entity.getExecutable(),permissions)){

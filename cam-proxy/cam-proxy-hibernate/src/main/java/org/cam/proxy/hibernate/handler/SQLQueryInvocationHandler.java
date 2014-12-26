@@ -1,6 +1,5 @@
 package org.cam.proxy.hibernate.handler;
 
-import org.cam.core.util.Logs;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -36,19 +35,19 @@ public class SQLQueryInvocationHandler implements InvocationHandler{
         this.proxiedSQLQuery = sqlQuery;
         //取得代理对象
         return Proxy.newProxyInstance(proxiedSQLQuery.getClass().getClassLoader(),
-                proxiedSQLQuery.getClass().getInterfaces(), this);   //要绑定接口(这是一个缺陷，cglib弥补了这一缺陷)
+                proxiedSQLQuery.getClass().getInterfaces(), this);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-        Object result=null;
-        Logs.traceIfEnabled(LOG,"SQLQuery {} start", method.getName());
+        Object result;
+        LOG.trace("SQLQuery {} start", method.getName());
 
         //执行方法
         result=method.invoke(proxiedSQLQuery, args);
 
-        Logs.traceIfEnabled(LOG,"SQLQuery {} end", method.getName());
+        LOG.trace("SQLQuery {} end", method.getName());
         return result;
     }
 }

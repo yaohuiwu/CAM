@@ -2,7 +2,6 @@ package org.cam.core.cache;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import net.sf.ehcache.CacheException;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Status;
 import net.sf.ehcache.loader.CacheLoader;
@@ -23,6 +22,8 @@ public class CamCacheLoader implements CacheLoader{
 
     private static final Logger LOG = LoggerFactory.getLogger(CamCacheLoader.class);
 
+    private static final String MSG_OBJECT_LOADED = "{} loaded from sor into '{}' cache";
+
     private PersistentDao persistentDao;
 
     public CamCacheLoader(PersistentDao persistentDao) {
@@ -30,7 +31,7 @@ public class CamCacheLoader implements CacheLoader{
     }
 
     @Override
-    public Object load(Object key) throws CacheException {
+    public Object load(Object key){
         LOG.debug("load {}",key);
 
         Permission p = new Permission(ExecutableType.CREATE.toString(),"User","org_id=1");
@@ -56,14 +57,14 @@ public class CamCacheLoader implements CacheLoader{
                 PermissionSet permSet = persistentDao.getPermissionOfRole((String)key);
                 loadedObject = permSet;
                 if(LOG.isTraceEnabled()){
-                    LOG.trace("{} loaded from sor into '{}' cache",permSet,InnerCache.authorization.toString());
+                    LOG.trace(MSG_OBJECT_LOADED, permSet,InnerCache.authorization.toString());
                 }
                 break;
             case permission:
                 //key is permission id
                 loadedObject = persistentDao.getSinglePermission((String)key);
                 if(LOG.isTraceEnabled()){
-                    LOG.trace("{} loaded from sor into '{}' cache",loadedObject,InnerCache.permission.toString());
+                    LOG.trace(MSG_OBJECT_LOADED, loadedObject,InnerCache.permission.toString());
                 }
                 break;
             default:
@@ -116,12 +117,12 @@ public class CamCacheLoader implements CacheLoader{
 
     @Override
     public void init() {
-
+        //Nothing to init.
     }
 
     @Override
-    public void dispose() throws CacheException {
-
+    public void dispose(){
+        //Nothing to dispose.
     }
 
     @Override

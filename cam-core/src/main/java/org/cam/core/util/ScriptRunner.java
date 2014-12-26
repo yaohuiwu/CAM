@@ -114,7 +114,7 @@ public class ScriptRunner {
     public void closeConnection() {
         try {
             connection.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             // ignore
         }
     }
@@ -124,7 +124,7 @@ public class ScriptRunner {
             if (autoCommit != connection.getAutoCommit()) {
                 connection.setAutoCommit(autoCommit);
             }
-        } catch (Throwable t) {
+        } catch (SQLException t) {
             throw new RuntimeException("Could not set AutoCommit to " + autoCommit + ". Cause: " + t, t);
         }
     }
@@ -134,7 +134,7 @@ public class ScriptRunner {
             if (!connection.getAutoCommit()) {
                 connection.commit();
             }
-        } catch (Throwable t) {
+        } catch (SQLException t) {
             throw new RuntimeException("Could not commit transaction. Cause: " + t, t);
         }
     }
@@ -144,7 +144,7 @@ public class ScriptRunner {
             if (!connection.getAutoCommit()) {
                 connection.rollback();
             }
-        } catch (Throwable t) {
+        } catch (SQLException t) {
             // ignore
         }
     }

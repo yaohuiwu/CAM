@@ -20,18 +20,9 @@ public class EntityMapping {
         fieldMap = Maps.newConcurrentMap();
     }
 
-//    public EntityMapping(String name, Map<String, String> fieldColumnMap) {
-//        this.name = name;
-//        this.fieldColumnMap = fieldColumnMap;
-//    }
-
     public void setName(String name) {
         this.name = name;
     }
-
-//    public void setFieldColumnMap(Map<String, String> fieldColumnMap) {
-//        this.fieldColumnMap = fieldColumnMap;
-//    }
 
     public String getName() {
         return name;

@@ -4,7 +4,7 @@ import org.cam.core.UserBehavior;
 
 public class ActionNotAllowedException extends UserBehaviorException {
 
-    private UserBehavior userBehavior;
+    private final UserBehavior userBehavior;
 
     public ActionNotAllowedException(String message){
         this(message,null);

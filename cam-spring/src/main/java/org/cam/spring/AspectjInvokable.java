@@ -16,7 +16,7 @@ public class AspectjInvokable implements Invokable{
     }
 
     @Override
-    public Object invoke() throws Throwable {
+    public Object invoke() throws Throwable{
         return proJoinPoint.proceed();
     }
 

@@ -1,6 +1,10 @@
 package org.cam.core.impl;
 
-import org.cam.core.*;
+import org.cam.core.CamService;
+import org.cam.core.FactoryHelper;
+import org.cam.core.FlowHandler;
+import org.cam.core.UserBehavior;
+import org.cam.core.UserContextProvider;
 import org.cam.core.action.Invokable;
 import org.cam.core.exception.UserBehaviorException;
 import org.slf4j.Logger;
@@ -20,7 +24,7 @@ public class CoreFlowHandler implements FlowHandler {
     }
 
     @Override
-    public Object handleFlow(Invokable invokable) {
+    public Object handleFlow(Invokable invokable) throws Throwable{
         //UserBehavior userBehavior
         Object value = null;
         //translate proxy method name to standard name.
@@ -36,17 +40,12 @@ public class CoreFlowHandler implements FlowHandler {
             if(LOG.isWarnEnabled()){
                 LOG.warn("User behavior {} is not allowed.",e.getUserBehavior());
             }
-            throw new UserBehaviorException(e.getMessage(),e.getUserBehavior());
+            throw new UserBehaviorException(e.getUserBehavior(),e);
         }
-        try{
-            value = invokable.invoke();
-        }catch (Throwable throwable){
-            //Convert to a RuntimeException
-            throwable.printStackTrace();
-            throw new RuntimeException(throwable.getCause());
-        }
+
+        value = invokable.invoke();
+
         LOG.trace("After {} .. return {}",userBehavior,value);
-//        LOG.debug("After {} ",userBehavior);
         return after(userBehavior,value);
     }
 
@@ -56,10 +55,7 @@ public class CoreFlowHandler implements FlowHandler {
      * @param userBehavior
      */
     public void before(UserBehavior userBehavior){
-//        if(cbamService.isNotAllowed(userBehavior)){
-//            throw new ActionNotAllowedException("",userBehavior);
-//        }
-
+        //before
     }
 
     /**
@@ -69,8 +65,6 @@ public class CoreFlowHandler implements FlowHandler {
      * @return
      */
     public Object after(UserBehavior userBehavior,Object returnValue){
-
-
         return returnValue;
     }
 

@@ -3,7 +3,6 @@ package org.cam.core;
 import org.cam.core.action.Action;
 import org.cam.core.action.Invokable;
 import org.cam.core.domain.User;
-import org.cam.core.domain.UserImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,17 +13,20 @@ public class FactoryHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(FactoryHelper.class);
 
-    public volatile static CamFactory _factory;
+    private  static volatile CamFactory camFactory;
+
+    private FactoryHelper() {
+    }
 
     public static void register(CamFactory factory){
-        _factory = factory;
-        if(_factory!=null){
+        camFactory = factory;
+        if(camFactory !=null){
             LOG.info("CamFactory {} has been registered.",factory);
         }
     }
 
     public static CamFactory factory(){
-        return _factory;
+        return camFactory;
     }
 
     public static User currentUser(){

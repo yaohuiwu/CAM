@@ -1,6 +1,8 @@
 package org.cam.core.impl;
 
 import org.cam.core.action.Invokable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,6 +11,8 @@ import java.lang.reflect.Method;
  * Created by wuyaohui on 14-9-25.
  */
 public class JdkProxyInvokable implements Invokable{
+
+    private static final Logger LOG = LoggerFactory.getLogger(JdkProxyInvokable.class);
 
     private Method method;
     private Object target;
@@ -26,10 +30,10 @@ public class JdkProxyInvokable implements Invokable{
         try{
             value = method.invoke(target,arguments);
         }catch (IllegalAccessException e0) {
-            e0.printStackTrace();
+            LOG.error("Illegal Access", e0);
             return value;
         }catch (InvocationTargetException e1){
-            e1.printStackTrace();
+            LOG.error("InvocationTargetException", e1);
             return value;
         }
         return value;

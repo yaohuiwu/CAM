@@ -33,20 +33,10 @@ public class QueryWrapper implements Query{
         return getQuery().getQueryString();
     }
 
-//    @Override
-//    public Integer getMaxResults() {
-//        return getQuery().getMaxResults();
-//    }
-
     @Override
     public Query setMaxResults(int maxResults) {
         return getQuery().setMaxResults(maxResults);
     }
-
-//    @Override
-//    public Integer getFirstResult() {
-//        return getQuery().getFirstResult();
-//    }
 
     @Override
     public Query setFirstResult(int firstResult) {
@@ -103,20 +93,10 @@ public class QueryWrapper implements Query{
         return getQuery().setLockMode(alias,lockMode);
     }
 
-//    @Override
-//    public String getComment() {
-//        return getQuery().getComment();
-//    }
-
     @Override
     public Query setComment(String comment) {
         return getQuery().setComment(comment);
     }
-
-//    @Override
-//    public Query addQueryHint(String hint) {
-//        return getQuery().addQueryHint(hint);
-//    }
 
     @Override
     public String[] getReturnAliases() {
@@ -427,36 +407,6 @@ public class QueryWrapper implements Query{
     public Query setResultTransformer(ResultTransformer transformer) {
         return getQuery().setResultTransformer(transformer);
     }
-
-//    @Override
-//    public FlushMode getFlushMode() {
-//        return getQuery().getFlushMode();
-//    }
-
-//    @Override
-//    public CacheMode getCacheMode() {
-//        return getQuery().getCacheMode();
-//    }
-
-//    @Override
-//    public boolean isCacheable() {
-//        return getQuery().isCacheable();
-//    }
-
-//    @Override
-//    public String getCacheRegion() {
-//        return getQuery().getCacheRegion();
-//    }
-
-//    @Override
-//    public Integer getTimeout() {
-//        return getQuery().getTimeout();
-//    }
-
-//    @Override
-//    public Integer getFetchSize() {
-//        return getQuery().getFetchSize();
-//    }
 
     @Override
     public boolean isReadOnly() {

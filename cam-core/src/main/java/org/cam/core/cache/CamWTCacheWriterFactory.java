@@ -13,7 +13,6 @@ public class CamWTCacheWriterFactory extends CacheWriterFactory{
 
     @Override
     public CacheWriter createCacheWriter(Ehcache cache, Properties properties) {
-        CacheWriter writer = new CamCacheWriter();
-        return writer;
+        return new CamCacheWriter();
     }
 }

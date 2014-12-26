@@ -1,6 +1,5 @@
 package org.cam.proxy.hibernate;
 
-import org.cam.core.FactoryHelper;
 import org.cam.proxy.hibernate.exception.ConfigurationNotRegisterException;
 import org.cam.proxy.hibernate.handler.SessionInvocationHandler;
 import org.hibernate.Session;
@@ -20,7 +19,10 @@ public class HibernateHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(HibernateHelper.class);
 
-    private volatile static Configuration _configuration ;
+    private volatile static Configuration innerConfiguration;
+
+    private HibernateHelper() {
+    }
 
     /**
      * Create normal session.
@@ -56,17 +58,17 @@ public class HibernateHelper {
     }
 
     public static void registerConfiguration(Configuration configuration){
-        _configuration = configuration;
-        if(_configuration!=null){
+        innerConfiguration = configuration;
+        if(innerConfiguration !=null){
             LOG.debug("Hibernate Configuration has been registered.");
         }
     }
 
     public static Configuration getConfiguration(){
-        if(_configuration==null){
+        if(innerConfiguration ==null){
             throw new ConfigurationNotRegisterException();
         }
-        return _configuration;
+        return innerConfiguration;
     }
 
 

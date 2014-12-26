@@ -43,9 +43,6 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
     @Override
     public Boolean visitPermission(@NotNull PermissionParser.PermissionContext ctx) {
         LOG.trace("action :{} , objectType : {}",ctx.action().getText(),ctx.objectType().getText());
-//        visit(ctx.action());
-//        visit(ctx.objectType());
-
         return visit(ctx.criteria());
     }
 
@@ -87,33 +84,17 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
                     //暂时不支持
                 }else if(isScalarVar(valCtx)){
                     //从变量注册中心得到变量值
-
                 }
                 if(valueIn){
                     break;
                 }
             }
-        }else{//queryList
-            PermissionParser.QueryListContext queryListCtx = listCtx.queryList();
-
-
-            //对表达式进行求值
-            //visit(queryListCtx.condition());
-
-            //todo 对表达式进行求值
+        }else{
+            //queryList
+            //对表达式进行求值.
         }
 
         return valueIn;
-    }
-
-    @Override
-    public Boolean visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) {
-        return super.visitLiteralList(ctx);
-    }
-
-    @Override
-    public Boolean visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
-        return super.visitQueryList(ctx);
     }
 
     @Override
@@ -219,19 +200,8 @@ public class DefaultPermissionVisitor extends AbstractPermissionVisitor<Boolean>
         return left || right;
     }
 
-    @Override
-    public Boolean visitAction(@NotNull PermissionParser.ActionContext ctx) {
-        return super.visitAction(ctx);
-    }
-
-    @Override
-    public Boolean visitObjectType(@NotNull PermissionParser.ObjectTypeContext ctx) {
-        return super.visitObjectType(ctx);
-    }
-
     protected Object getFromObject(String attrName){
         // Maybe we can get field value from anywhere.
-//        return ObjectUtils.getFieldValue(object,attrName);
         return ObjectUtils.getter(object,attrName);
     }
 }

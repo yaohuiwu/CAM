@@ -27,11 +27,9 @@ public class SessionInvocationHandler implements InvocationHandler{
     private Session session;
 
     private QueryFilter queryFilter;
-//    private QueryFilter sqlQueryFilter;
 
     public SessionInvocationHandler(){
         queryFilter = new QueryFilterImpl();
-//        sqlQueryFilter = new SQLQueryFilterImpl();
     }
 
     /**
@@ -49,20 +47,11 @@ public class SessionInvocationHandler implements InvocationHandler{
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-        Object result= null;
+        Object result;
 
         Invokable invokable = new JdkProxyInvokable(method,session,args);
-        //main action flow
-//        if(notInvokingFramework(invokable)){
-//            try{
-//                result = FactoryHelper.flow().handleFlow(invokable);
-//            }catch (UserBehaviorException e){
-//                LOG.warn("{} not allowed.",FactoryHelper.currentBehavior(invokable));
-//                return result;
-//            }
-//        }else{
+
         result = invokable.invoke();
-//        }
 
         //query flow
         try{
@@ -87,14 +76,12 @@ public class SessionInvocationHandler implements InvocationHandler{
                 if(args.length < 1){
                     throw new IllegalStateException("Bad argument length of createQuery -- must be one. ");
                 }
-//                Query proxiedQuery = session.createQuery(queryFilter.filterQueryString(session,(String)args[0]));
                 Query proxiedQuery = session.createQuery((String)args[0]);
                 QueryWrapper wrapper = new QueryWrapper(proxiedQuery);
                 QueryWrapperInvocationHandler queryProxy = new QueryWrapperInvocationHandler(session,(Query)result);
                 return queryProxy.bind(wrapper);
             }
             else if("createSQLQuery".equals(method.getName())){
-//                SQLQuery newSqlQuery = session.createSQLQuery(sqlQueryFilter.filterQueryString(session,(String)args[0]));
                 SQLQuery newSqlQuery = session.createSQLQuery((String)args[0]);
                 SQLQueryInvocationHandler queryProxy = new SQLQueryInvocationHandler(session,(SQLQuery)result);
                 return queryProxy.bind(newSqlQuery);
@@ -108,14 +95,5 @@ public class SessionInvocationHandler implements InvocationHandler{
 
         return result;
     }
-
-    private boolean notInvokingFramework(Invokable invokable){
-        Object target = invokable.getTarget();
-        if(target instanceof Session || target instanceof Query || target instanceof Criteria){
-            return false;
-        }
-        return true;
-    }
-
 
 }

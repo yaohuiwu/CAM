@@ -23,10 +23,6 @@ public class UserBehavior {
         this.executable = executable;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-
     public String getUserId(){
         return user.getId();
     }

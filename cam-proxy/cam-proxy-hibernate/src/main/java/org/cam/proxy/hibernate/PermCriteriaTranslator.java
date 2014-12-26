@@ -94,21 +94,6 @@ public class PermCriteriaTranslator extends AbstractPermissionEvaluator{
         }
 
         @Override
-        public Criterion visitLiteralList(@NotNull PermissionParser.LiteralListContext ctx) {
-            return super.visitLiteralList(ctx);
-        }
-
-        @Override
-        public Criterion visitQueryList(@NotNull PermissionParser.QueryListContext ctx) {
-            return super.visitQueryList(ctx);
-        }
-
-        @Override
-        public Criterion visitObjectType(@NotNull PermissionParser.ObjectTypeContext ctx) {
-            return super.visitObjectType(ctx);
-        }
-
-        @Override
         public Criterion visitParentExpr(@NotNull PermissionParser.ParentExprContext ctx) {
             Criterion criterion = visit(ctx.condition());
             return Restrictions.and(criterion);

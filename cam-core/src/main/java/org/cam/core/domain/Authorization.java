@@ -69,13 +69,21 @@ public class Authorization implements Serializable,Copyable{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Authorization that = (Authorization) o;
 
-        if (permissionId != null ? !permissionId.equals(that.permissionId) : that.permissionId != null) return false;
-        if (roleId != null ? !roleId.equals(that.roleId) : that.roleId != null) return false;
+        if (permissionId != null ? !permissionId.equals(that.permissionId) : that.permissionId != null) {
+            return false;
+        }
+        if (roleId != null ? !roleId.equals(that.roleId) : that.roleId != null) {
+            return false;
+        }
 
         return true;
     }

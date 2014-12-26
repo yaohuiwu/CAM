@@ -77,7 +77,6 @@ public class DefaultSqlInterceptor implements SqlInterceptor{
                         if(sqlCriteria==null){
                             throw new CamException("security criteria view can't be null");
                         }
-//                        String sqlCriteria = getSqlCriteria(entityName);
                         ref.setSecurityView(sqlCriteria);
                     }
                 }
@@ -90,16 +89,4 @@ public class DefaultSqlInterceptor implements SqlInterceptor{
 
     }
 
-    private String getSqlCriteria(String entity){
-        List<Permission> permissions = camService.getPermissionOfUser(
-                FactoryHelper.currentUser(), ExecutableType.VIEW.toString(), entity);
-        if(permissions.isEmpty()){
-            throw new ActionNotAllowedException("");
-        }
-        String sqlCriteria = evaluator.toSqlCriteria(permissions);
-        if(sqlCriteria==null){
-            throw new CamException("security criteria view can't be null");
-        }
-        return sqlCriteria ;
-    }
 }

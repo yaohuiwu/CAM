@@ -1,6 +1,5 @@
 package org.cam.proxy.hibernate.handler;
 
-import org.cam.core.util.Logs;
 import org.cam.proxy.hibernate.QueryWrapper;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -42,12 +41,12 @@ public class QueryWrapperInvocationHandler implements InvocationHandler{
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-        Object result=null;
-        Logs.traceIfEnabled(LOG,"Query {} start", method.getName());
+        Object result;
+        LOG.trace("Query {} start", method.getName());
         //执行方法
         result=method.invoke(query, args);
 
-        Logs.traceIfEnabled(LOG,"Query {} end", method.getName());
+        LOG.trace("Query {} end", method.getName());
         return result;
     }
 }

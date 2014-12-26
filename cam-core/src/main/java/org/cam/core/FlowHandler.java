@@ -8,5 +8,5 @@ import org.cam.core.action.Invokable;
  */
 public interface FlowHandler {
 
-    public Object handleFlow(Invokable invokable);
+    public Object handleFlow(Invokable invokable) throws Throwable;
 }

@@ -29,8 +29,6 @@ public class SpringCamFactory extends CamFactoryAdapter implements ApplicationCo
 
     private static ApplicationContext context;
 
-//    private EntityTableMapping entityTableMapping;
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         context = applicationContext;
@@ -49,12 +47,6 @@ public class SpringCamFactory extends CamFactoryAdapter implements ApplicationCo
         LOG.debug("{}", context.getBean("camProperties"));
 
         FactoryHelper.register(this);
-
-//        LocalSessionFactoryBean configBean = (LocalSessionFactoryBean) (context.getBean("&sessionFactory"));
-//        HibernateHelper.registerConfiguration(configBean.getConfiguration());
-
-        //初始化 EntityTableMapping
-//        entityTableMapping = new HibernateEntityTableMappingImpl(configBean.getConfiguration());
     }
 
     @Override

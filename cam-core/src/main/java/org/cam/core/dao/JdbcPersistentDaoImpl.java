@@ -57,7 +57,7 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
                 return true;
             }
         }catch (SQLException sqlE){
-            throw new RuntimeException("error getting",sqlE.getCause());
+            throw new DataException("Error isSorPrepared",sqlE);
         }
         LOG.debug("CAM system table not exists.");
         return false;
@@ -76,7 +76,7 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
             ScriptRunner scriptRunner = new ScriptRunner(con);
             scriptRunner.runScript(getClass().getClassLoader().getResourceAsStream("cam_schema.sql"));
         }catch (SQLException sqlE){
-            LOG.error("",sqlE);
+            LOG.error("Error initializing Sor", sqlE);
         }finally {
             DbUtils.closeQuietly(con);
         }
@@ -101,10 +101,8 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
                 roles.add(role);
             }
         }catch (SQLException sqlE){
-            LOG.error("error getting all roles",sqlE);
-            throw new DataException("error getting all roles",sqlE.getCause());
-        }
-        finally {
+            throw new DataException("error getting all roles",sqlE);
+        }finally {
             DbUtils.closeQuietly(con,st,rs);
         }
         return roles;
@@ -143,9 +141,8 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
                 aSet.add(a);
             }
         }catch (SQLException sqlE){
-            throw new RuntimeException("error getting authorization by roles",sqlE.getCause());
-        }
-        finally {
+            throw new DataException("error getting authorization by roles",sqlE);
+        }finally {
             DbUtils.closeQuietly(con,st,rs);
         }
         return results;
@@ -171,9 +168,8 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
                 perms.add(p);
             }
         }catch (SQLException sqlE){
-            throw new RuntimeException("error getting",sqlE.getCause());
-        }
-        finally {
+            throw new DataException("error getting permissions",sqlE);
+        }finally {
             DbUtils.closeQuietly(con,st,rs);
         }
 
@@ -199,9 +195,8 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
                 perm.setId(rs.getString("id"));
             }
         }catch (SQLException sqlE){
-            throw new RuntimeException("error getting",sqlE.getCause());
-        }
-        finally {
+            throw new DataException("error getting single permission",sqlE);
+        }finally {
             DbUtils.closeQuietly(con,st,rs);
         }
         return perm;
@@ -235,7 +230,7 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
                 }
             }
         }catch (SQLException sqlE){
-            throw new RuntimeException("error getting",sqlE.getCause());
+            throw new DataException("error getting single column list",sqlE);
         }
         return results;
     }

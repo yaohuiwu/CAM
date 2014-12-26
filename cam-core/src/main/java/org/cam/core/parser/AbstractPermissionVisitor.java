@@ -1,16 +1,14 @@
 package org.cam.core.parser;
 
-import com.google.common.collect.Sets;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.cam.core.FactoryHelper;
 import org.cam.core.dao.CamDao;
-import org.cam.core.dao.PersistentDao;
-import org.cam.core.util.ObjectUtils;
 import org.cam.core.exception.ParserException;
 import org.cam.core.mapping.EntityMapping;
 import org.cam.core.mapping.EntityTableMapping;
 import org.cam.core.parser.antlr.PermissionBaseVisitor;
 import org.cam.core.parser.antlr.PermissionParser;
+import org.cam.core.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +26,6 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
     protected String objectType = null;
 
     protected EntityMapping currentEntityMapping;
-//    protected EntityTableMapping entityTableMapping;
 
     protected void switchCurrentEntity(String entityName){
         EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
@@ -91,20 +88,15 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
         String text = ctx.getText();
         if(isInt(ctx)){
             return Integer.valueOf(text);
-        }
-        else if(isFloat(ctx)){
+        }else if(isFloat(ctx)){
             return Double.valueOf(text);
-        }
-        else if(isBoolean(ctx)){
+        }else if(isBoolean(ctx)){
             return Boolean.valueOf(text);
-        }
-        else if(isString(ctx)) {
+        }else if(isString(ctx)) {
             return ObjectUtils.trimWith(text,"'");
-        }
-        else if(isScalarVar(ctx)){
+        }else if(isScalarVar(ctx)){
             return getScalarValue(ctx.scalarVariable());
-        }
-        else{
+        }else{
             return text;
         }
     }
@@ -150,10 +142,9 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
     public T visitObjectType(@NotNull PermissionParser.ObjectTypeContext ctx) {
         objectType = ctx.getText();
         EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
-        currentEntityMapping = entityTableMapping.getEntity(ctx.getText());
-        if(currentEntityMapping==null){
-            String objectType = ctx.getText() ;
-            LOG.error("Can't find mapping info for objectType: {}",objectType);
+        currentEntityMapping = entityTableMapping.getEntity(objectType);
+        if(currentEntityMapping == null){
+            LOG.error("Can't find mapping info for objectType: {}", objectType);
             throw new ParserException("Can't find mapping info for objectType: "+objectType);
         }
         return super.visitObjectType(ctx);
