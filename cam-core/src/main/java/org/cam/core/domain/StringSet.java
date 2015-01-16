@@ -3,6 +3,8 @@ package org.cam.core.domain;
 import com.google.common.collect.Sets;
 import org.cam.core.cache.Copyable;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,7 +27,10 @@ public class StringSet implements Copyable{
 
     @Override
     public Copyable copy() {
-        Set<String> setCpy = Sets.newHashSet();
+        if(idSet.isEmpty()){
+            return new StringSet(Collections.EMPTY_SET);
+        }
+        Set<String> setCpy = new HashSet<>(idSet.size());
         setCpy.addAll(idSet);
         return new StringSet(setCpy);
     }

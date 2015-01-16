@@ -78,7 +78,6 @@ public class ObjectUtils {
         try{
             property = MethodUtils.invokeExactMethod(object,s.toString());
         }catch (Exception e){
-            LOG.trace("Error getter", e);
             //try with isXXX
             StringBuilder s2 = new StringBuilder("is");
             s2.append(StringUtils.capitalize(fieldName));

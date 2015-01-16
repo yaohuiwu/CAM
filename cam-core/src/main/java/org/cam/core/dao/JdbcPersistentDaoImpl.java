@@ -21,10 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class JdbcPersistentDaoImpl implements PersistentDao{
 
@@ -144,6 +141,13 @@ public class JdbcPersistentDaoImpl implements PersistentDao{
             throw new DataException("error getting authorization by roles",sqlE);
         }finally {
             DbUtils.closeQuietly(con,st,rs);
+        }
+
+        //Set empty value for those role having no permissions.
+        for(String roleId : roleIdSet){
+            if(results.containsKey(roleId)){
+                results.put(roleId, Collections.EMPTY_SET);
+            }
         }
         return results;
     }
