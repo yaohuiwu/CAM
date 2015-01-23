@@ -35,7 +35,7 @@ public class CamConfiguration {
         }
     }
 
-    public void load(InputStream inputStream) throws IOException{
+    private void load(InputStream inputStream) throws IOException{
 
         Properties prop = new Properties();
         prop.load(inputStream);
