@@ -7,6 +7,7 @@ import org.cam.core.UserBehavior;
 import org.cam.core.UserContextProvider;
 import org.cam.core.action.Invokable;
 import org.cam.core.exception.UserBehaviorException;
+import org.cam.core.util.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ public class CoreFlowHandler implements FlowHandler {
     }
 
     @Override
-    public Object handleFlow(Invokable invokable) throws Throwable{
+    public Object handleFlow(Invokable invokable){
         //UserBehavior userBehavior
         Object value = null;
         //translate proxy method name to standard name.
@@ -42,9 +43,13 @@ public class CoreFlowHandler implements FlowHandler {
             }
             throw new UserBehaviorException(e.getUserBehavior(),e);
         }
-
-        value = invokable.invoke();
-
+        try{
+            value = invokable.invoke();
+        }catch (Throwable throwable){
+            //Convert to a RuntimeException
+//            throw new RuntimeException(throwable.getCause());
+            throw ExceptionUtils.launderThrowable(throwable);
+        }
         LOG.trace("After {} .. return {}",userBehavior,value);
         return after(userBehavior,value);
     }

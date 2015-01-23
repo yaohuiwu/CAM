@@ -3,6 +3,7 @@ package org.cam.core.parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.cam.core.FactoryHelper;
 import org.cam.core.dao.CamDao;
+import org.cam.core.exception.EntityNotFoundException;
 import org.cam.core.exception.ParserException;
 import org.cam.core.mapping.EntityMapping;
 import org.cam.core.mapping.EntityTableMapping;
@@ -31,6 +32,9 @@ public abstract class AbstractPermissionVisitor<T>  extends PermissionBaseVisito
         EntityTableMapping entityTableMapping = FactoryHelper.factory().getEntityTableMapping();
         LOG.trace("Switch current entity to {}",entityName);
         currentEntityMapping = entityTableMapping.getEntity(entityName);
+        if(currentEntityMapping == null){
+            throw new EntityNotFoundException(entityName);
+        }
     }
 
     protected void switchBack(){

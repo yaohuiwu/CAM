@@ -17,7 +17,7 @@ public class ServiceAroundAspect {
         this.flowHandler = flowHandler;
     }
 
-    public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable{
+    public Object invoke(ProceedingJoinPoint joinPoint){
         Object result = null;
         Invokable invokable = new AspectjInvokable(joinPoint);
 
