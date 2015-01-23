@@ -1,8 +1,12 @@
 package org.cam.core.cache;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
+import net.sf.ehcache.config.CopyStrategyConfiguration;
+import net.sf.ehcache.config.PersistenceConfiguration;
 import net.sf.ehcache.loader.CacheLoader;
 import net.sf.ehcache.util.ClassLoaderUtil;
 import org.slf4j.Logger;
@@ -81,5 +85,28 @@ public class Caches {
         }
 
         return CacheManager.newInstance(url);
+    }
+
+    public static Cache createMemCache(String name , long maxEntriesLocalHeap, long timeToLiveSeconds,
+                                       long timeToIdleSeconds){
+        CacheConfiguration config = new CacheConfiguration();
+        config.setName(name);
+        config.setEternal(false);
+        config.setMaxEntriesLocalHeap(maxEntriesLocalHeap);
+        config.setTimeToLiveSeconds(timeToLiveSeconds);
+        config.setTimeToIdleSeconds(timeToIdleSeconds);
+        config.setCopyOnRead(false);
+        config.setCopyOnWrite(true);
+        config.setMemoryStoreEvictionPolicy("LRU");
+
+        CopyStrategyConfiguration copyConfig = new CopyStrategyConfiguration();
+        copyConfig.setClass("org.cam.core.cache.CloneCopyStrategy");
+        config.addCopyStrategy(copyConfig);
+
+        PersistenceConfiguration persistConfig = new PersistenceConfiguration();
+        persistConfig.setStrategy("NONE");
+        config.addPersistence(persistConfig);
+
+        return new Cache(config);
     }
 }

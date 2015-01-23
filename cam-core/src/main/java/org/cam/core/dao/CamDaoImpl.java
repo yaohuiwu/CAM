@@ -7,6 +7,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import org.cam.core.CamException;
+import org.cam.core.FactoryHelper;
 import org.cam.core.cache.Caches;
 import org.cam.core.cache.InnerCache;
 import org.cam.core.domain.Permission;
@@ -38,6 +39,7 @@ public class CamDaoImpl implements CamDao{
     private Ehcache authCache;
     private Ehcache permCache;
     private Ehcache queryListCache;
+    private boolean queryCacheEnabled;
 
 
     private PersistentDao persistentDao;
@@ -53,7 +55,16 @@ public class CamDaoImpl implements CamDao{
         usrRoleCache = cacheMgr.getCache(InnerCache.user_role.toString());
         authCache = cacheMgr.getCache(InnerCache.authorization.toString());
         permCache = cacheMgr.getCache(InnerCache.permission.toString());
-        queryListCache = cacheMgr.getCache(InnerCache.cam_query_list.toString());
+
+        queryCacheEnabled = FactoryHelper.configuration().isEnableQueryListCache();
+        if(queryCacheEnabled){
+            queryListCache = Caches.createMemCache(InnerCache.cam_query_list.toString(),
+                    1000, // max entries in local heap.
+                    3600, //time to live.
+                    3600 //time to idle.
+                    );
+            cacheMgr.addCache(queryListCache);
+        }
     }
 
     @Override
@@ -131,24 +142,24 @@ public class CamDaoImpl implements CamDao{
 
     @Override
     public Collection<String> singleColumnListQuery(String queryString) {
-        final boolean debugEnabled = LOG.isDebugEnabled();
-
-        Element ele = queryListCache.get(queryString);
-        if(ele!=null){
-            StringSet listValues = Caches.extractValue(ele,StringSet.class);
-            if(debugEnabled){
-                LOG.debug("query list cache hit for query:{}",queryString);
+        if(queryCacheEnabled){
+            final boolean debugEnabled = LOG.isDebugEnabled();
+            Element ele = queryListCache.get(queryString);
+            if(ele!=null){
+                StringSet listValues = Caches.extractValue(ele,StringSet.class);
+                if(debugEnabled){
+                    LOG.debug("query list cache hit for query:{}",queryString);
+                }
+                return listValues.getIdSet();
             }
-            return listValues.getIdSet();
-        }
-        if(debugEnabled){
-            LOG.debug("query list cache miss hit for query:{}",queryString);
+            if(debugEnabled){
+                LOG.debug("query list cache miss hit for query:{}",queryString);
+            }
         }
         Set<String> valuesFromDb = persistentDao.singleColumnListQuery(queryString,1);
-        StringSet valueCached = new StringSet(valuesFromDb);
-
-        queryListCache.put(Caches.element(queryString,valueCached));
-
-        return valueCached.getIdSet();
+        if(queryCacheEnabled){
+            queryListCache.put(Caches.element(queryString,new StringSet(valuesFromDb)));
+        }
+        return valuesFromDb;
     }
 }

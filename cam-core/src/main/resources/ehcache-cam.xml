@@ -137,6 +137,7 @@
     </cache>
 
     <!-- queryList 缓存-->
+    <!--
     <cache name="cam_query_list"
            maxElementsInMemory="1000"
            overflowToDisk="false"
@@ -149,6 +150,6 @@
         <copyStrategy class="org.cam.core.cache.CloneCopyStrategy"/>
         <persistence strategy="none"/>
     </cache>
-
+    -->
 
 </ehcache>

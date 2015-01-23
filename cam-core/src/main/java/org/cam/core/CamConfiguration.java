@@ -19,6 +19,7 @@ public class CamConfiguration {
     private String configFile ;
     private boolean passWithNoPermission ;
     private boolean allowNoEntityOfTable ;
+    private boolean enableQueryListCache ;
 
     public CamConfiguration() {
         this(CFG_FILE);
@@ -43,6 +44,7 @@ public class CamConfiguration {
 
         passWithNoPermission = Boolean.valueOf(prop.getProperty("pass_with_no_permission","false"));
         allowNoEntityOfTable = Boolean.valueOf(prop.getProperty("allow_no_entity_of_table","false"));
+        enableQueryListCache = Boolean.valueOf(prop.getProperty("enable_query_list_cache","false"));
     }
 
     public boolean isPassWithNoPermission() {
@@ -51,5 +53,9 @@ public class CamConfiguration {
 
     public boolean isAllowNoEntityOfTable() {
         return allowNoEntityOfTable;
+    }
+
+    public boolean isEnableQueryListCache() {
+        return enableQueryListCache;
     }
 }
